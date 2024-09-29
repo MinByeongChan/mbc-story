@@ -1,0 +1,2 @@
+# mbc-story
+mono repo
