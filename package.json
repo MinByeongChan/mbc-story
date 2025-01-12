@@ -3,6 +3,7 @@
   "private": true,
   "workspaces": [
     "infinite-scroll",
-    "workspace-b"
+    "workspace-b",
+    "mbc-eslint"
   ]
 }
