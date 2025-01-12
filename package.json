@@ -1,5 +1,8 @@
 {
   "packageManager": "yarn@4.6.0",
   "private": true,
-  "workspaces": ["infiniteScroll", "workspace-b"]
+  "workspaces": [
+    "infinite-scroll",
+    "workspace-b"
+  ]
 }
