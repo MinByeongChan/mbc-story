@@ -1,0 +1,22 @@
+{
+    "editor.defaultFormatter": null,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": true,
+    "i18n-ally.localesPaths": [
+      "language",
+      "src/i18n",
+      "src/locales",
+    ],
+    "i18n-ally.enabledFrameworks": ["react-i18next"],
+    "i18n-ally.namespace": true,
+    "i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.displayLanguage": "ko",
+    "i18n-ally.keysInUse": [
+      "description.part2_whatever"
+    ],
+    "i18n-ally.defaultNamespace": "lang"
+  }
