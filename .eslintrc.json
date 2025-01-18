@@ -1,0 +1,37 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": true,
+        "useTabs": false,
+        "tabWidth": 2,
+        "trailingComma": "all",
+        "printWidth": 100,
+        "arrowParens": "always",
+        "orderedImports": true,
+        "bracketSpacing": true,
+        "bracketSameLine": true,
+        "jsxBracketSameLine": false,
+        "endOfLine": "auto"
+      }
+    ],
+    "react-hooks/exhaustive-deps": 0
+  },
+  "overrides": [{
+    // ts/tsx 파일에만 적용 될 typescript rules
+    "files": "*.{ts,tsx}",
+    "parser": "@typescript-eslint/parser"
+  }]
+}
