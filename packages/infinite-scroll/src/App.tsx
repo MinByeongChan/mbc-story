@@ -1,21 +1,23 @@
-import './App.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { IntersectionObserverTest } from './components/IntersectionObserverTest'
-import { LazyLoad } from './components/LazyLoad'
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { IntersectionObserverTest } from "./components/IntersectionObserverTest";
+import { LazyLoad } from "./components/LazyLoad";
 
 function App() {
   return (
-      <RouterProvider router={createBrowserRouter([
+    <RouterProvider
+      router={createBrowserRouter([
         {
-          path: '/',
-          element: <IntersectionObserverTest />
+          path: "/",
+          element: <IntersectionObserverTest />,
         },
         {
-          path: '/lazy-load',
-          element: <LazyLoad />
-        }
-      ])} />
-  )
+          path: "/lazy-load",
+          element: <LazyLoad />,
+        },
+      ])}
+    />
+  );
 }
 
-export default App
+export default App;
