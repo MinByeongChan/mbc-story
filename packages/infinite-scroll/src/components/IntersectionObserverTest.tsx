@@ -4,26 +4,23 @@ import axios from "axios";
 export const IntersectionObserverTest = () => {
   const endRef = useRef<HTMLLIElement | null>(null);
 
-  const [photoList, setPhotoList] = useState<any[]>([]);
+  const [recipeList, setRecipeList] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
 
-  const SIZE = 30;
+  const SIZE = 10;
   const currentData = useMemo(() => {
-    if (!photoList || photoList.length === 0) return [];
-    return photoList.filter((_, i) => {
+    if (!recipeList || recipeList.length === 0) return [];
+    return recipeList.filter((_, i) => {
       return i < SIZE * page;
     });
-  }, [photoList, page]);
+  }, [recipeList, page]);
 
   const fetchPhotos = async () => {
-    const { data } = await axios(
-      "https://jsonplaceholder.typicode.com/photos",
-      {
-        method: "get",
-      }
-    );
+    const { data } = await axios("https://dummyjson.com/recipes", {
+      method: "get",
+    });
 
-    setPhotoList(data);
+    setRecipeList(data.recipes);
   };
 
   useEffect(() => {
@@ -49,21 +46,42 @@ export const IntersectionObserverTest = () => {
   }, [endRef.current]);
 
   return (
-    <ul>
-      {currentData?.map((data, id) => (
-        <li
-          key={id}
-          style={{ display: "flex", gap: "8px", marginBottom: "8px" }}
-        >
-          <img src={data.url} width="30px" height="30px" />
-          <span>{data?.title ?? ""}</span>
-        </li>
-      ))}
-      {currentData.length !== 0 && (
-        <li ref={endRef} className="endList">
-          Loading...
-        </li>
-      )}
-    </ul>
+    <div style={{ maxWidth: 600, margin: "0 auto" }}>
+      <h1>Lazy Load Test</h1>
+      <ul>
+        {currentData?.map((data, id) => (
+          <li
+            key={id}
+            style={{
+              textAlign: "start",
+              marginBottom: "8px",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <img src={data.image} width="50px" height="50px" />
+              <p>{data.name}</p>
+            </div>
+            <div>
+              <ul>
+                {data.instructions.map((instruction: any) => (
+                  <li key={instruction} style={{ textAlign: "start" }}>
+                    {instruction}
+                  </li>
+                ))}
+              </ul>
+
+              <p></p>
+            </div>
+
+            <span>{data?.name ?? ""}</span>
+          </li>
+        ))}
+        {currentData.length !== 0 && (
+          <li ref={endRef} className="endList">
+            Loading...
+          </li>
+        )}
+      </ul>
+    </div>
   );
 };
