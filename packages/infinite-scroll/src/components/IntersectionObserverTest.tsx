@@ -16,15 +16,17 @@ export const IntersectionObserverTest = () => {
   }, [recipeList, page]);
 
   const fetchPhotos = async () => {
-    const { data } = await axios("https://dummyjson.com/recipes", {
+    const response = await axios("https://dummyjson.com/recipes", {
       method: "get",
     });
-
-    setRecipeList(data.recipes);
+    return response;
   };
 
   useEffect(() => {
-    fetchPhotos();
+    (async () => {
+      const response = await fetchPhotos();
+      setRecipeList(response.data.recipes);
+    })();
   }, []);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { IntersectionObserverTest } from "./components/IntersectionObserverTest";
 import { LazyLoad } from "./components/LazyLoad";
+import { MovieList } from "./components/MovieList";
 
 function App() {
   return (
@@ -14,6 +15,10 @@ function App() {
         {
           path: "/lazy-load",
           element: <LazyLoad />,
+        },
+        {
+          path: "/movie",
+          element: <MovieList />,
         },
       ])}
     />
