@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src"],
+  "compilerOptions": {
+    "types": ["vitest", "@testing-library/jest-dom"],
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["/*"],
+      "@/ui/*": ["ui/*"],
+      "@/assets/*": ["assets/*"],
+      "@/lib/*": ["lib/*"]
+    }
+  }
+}
