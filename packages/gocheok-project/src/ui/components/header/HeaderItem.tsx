@@ -1,5 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { TypographyProps } from "../typography/Typography";
+import "./header.css";
 
 export const HeaderItem = ({ children }: TypographyProps) => {
   return (

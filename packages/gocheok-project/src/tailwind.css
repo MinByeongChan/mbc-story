@@ -177,22 +177,3 @@ menu {
     }
   }
 }
-
-.headerItem::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 2px;
-  border-radius: 1px;
-  opacity: 0;
-  background-color: #2f4f4f;
-  background: linear-gradient(to right, #ff6600, #ff983f, #ffffa1);
-  transition: 0.3s ease-in-out;
-}
-
-.headerItem:hover::after {
-  opacity: 1;
-  width: 100%;
-}
