@@ -1,11 +1,17 @@
 import { HeaderItem } from "./HeaderItem";
 
-type Props = {};
-
-export const Header = (props: Props) => {
+export const Header = () => {
   return (
-    <nav className="w-full h-16 flex place-content-end px-8">
-      <ul className="flex h-full gap-4 items-center">
+    <nav className="w-full h-16 flex place-content-between px-8">
+      <figure className="flex h-full items-center">
+        <figcaption>
+          <a className="text-xl font-bold text-(--color-neutral-200)">
+            B.C Min
+          </a>
+        </figcaption>
+      </figure>
+
+      <ul className="flex h-full gap-16 items-center justify-center">
         <HeaderItem>About Me</HeaderItem>
         <HeaderItem>Skill</HeaderItem>
         <HeaderItem>Carrer</HeaderItem>
