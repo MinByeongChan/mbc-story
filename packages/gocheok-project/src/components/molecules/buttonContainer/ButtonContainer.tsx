@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { Button } from "./Button";
+import { Button } from "../../atom/button/Button";
 
 export const ButtonContainer = () => {
   useGSAP(() => {

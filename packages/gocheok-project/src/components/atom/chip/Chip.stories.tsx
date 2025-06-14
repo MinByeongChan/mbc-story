@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Typography } from "./Typography";
+import { Chip } from "./Chip";
 
-type Story = StoryObj<typeof Typography>;
+type Story = StoryObj<typeof Chip>;
 
-const meta: Meta<typeof Typography> = {
-  title: "UI/Typography/Primary",
-  component: Typography,
+const meta: Meta<typeof Chip> = {
+  title: "Atom/Chip/Default",
+  component: Chip,
   decorators: [
     (Story) => (
       <div className="w-full h-[calc(100vh)] bg-(--color-bg-100)">
@@ -18,8 +18,8 @@ const meta: Meta<typeof Typography> = {
 
 export default meta;
 
-export const Primary: Story = {
+export const Default: Story = {
   args: {
-    children: "Typography",
+    children: "hello",
   },
 };

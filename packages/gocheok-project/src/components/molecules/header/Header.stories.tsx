@@ -5,7 +5,7 @@ import { Header } from "./Header";
 type Story = StoryObj<typeof Header>;
 
 const meta: Meta<typeof Header> = {
-  title: "UI/Header",
+  title: "Molecules/Header/Default",
   component: Header,
   decorators: [
     (Story) => (

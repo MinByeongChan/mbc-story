@@ -1,12 +1,10 @@
-import { PropsWithChildren } from "react";
 import { twMerge } from "tailwind-merge";
-import { Typography } from "../typography/Typography";
+import { Typography } from "../../atom/typography/Typography";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 
-type ProfileProps = PropsWithChildren;
-export const Profile = ({ ...props }: ProfileProps) => {
+export const Profile = () => {
   gsap.registerPlugin(SplitText);
 
   useGSAP(() => {

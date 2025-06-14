@@ -5,7 +5,7 @@ import { Profile } from "./Profile";
 type Story = StoryObj<typeof Profile>;
 
 const meta: Meta<typeof Profile> = {
-  title: "UI/Profile/Default",
+  title: "Molecules/Profile/Default",
   component: Profile,
   decorators: [
     (Story) => (

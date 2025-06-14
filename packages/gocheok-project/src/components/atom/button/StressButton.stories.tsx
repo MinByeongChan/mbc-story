@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StressButton } from "./StressButton";
 
 const meta: Meta<typeof StressButton> = {
-  title: "UI/Button/StressButton",
+  title: "Atom/Button/StressButton",
   component: StressButton,
   decorators: [
     (Story) => (

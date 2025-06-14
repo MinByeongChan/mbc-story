@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Anchor } from "./Anchor";
 
 const meta: Meta<typeof Anchor> = {
-  title: "UI/Anchor/Default",
+  title: "Atom/Anchor/Default",
   component: Anchor,
   decorators: [
     (Story) => (

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { Typography } from "../typography/Typography";
+import { Typography } from "../../../components/atom/typography/Typography";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
@@ -35,7 +35,7 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
     gsap.to(typoRef.current, {
       duration: 0.5,
       yPercent: -100,
-      opacity: 0.8,
+      ease: "circ.inOut",
     });
     gsap.from(typo2Ref.current, {
       duration: 0.5,
@@ -44,7 +44,7 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
     gsap.to(typo2Ref.current, {
       duration: 0.5,
       yPercent: 0,
-      opacity: 0.8,
+      ease: "circ.inOut",
     });
   };
 
@@ -62,7 +62,7 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
     >
       <Typography
         ref={typoRef}
-        className="w-full text-inherit cursor-none h-full left-[0] top-[0] -translate-y-[-100%] inline-block"
+        className="w-full text-inherit cursor-none h-full left-[0] top-[0] inline-block"
       >
         {children}
       </Typography>
