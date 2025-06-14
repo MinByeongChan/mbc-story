@@ -5,14 +5,17 @@ import { Typography } from "../typography/Typography";
 import { SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  PropsWithChildren;
+export type StressButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  PropsWithChildren & {
+    noneRadius?: boolean;
+  };
 export const StressButton = ({
   children,
   className,
   color,
+  noneRadius,
   ...restProps
-}: ButtonProps) => {
+}: StressButtonProps) => {
   const ref = useRef(null);
   const typoRef = useRef(null);
   const typo2Ref = useRef(null);
@@ -62,6 +65,7 @@ export const StressButton = ({
         "group",
         "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70 bg-(--color-bg-100) text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
         "relative w-[10rem] h-[1.7rem]",
+        noneRadius && "border-none",
         className
       )}
       {...restProps}

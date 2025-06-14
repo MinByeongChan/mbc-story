@@ -28,6 +28,6 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     children: "Secondary Button",
-    className: "w-[10rem] border-none",
+    noneRadius: true,
   },
 };

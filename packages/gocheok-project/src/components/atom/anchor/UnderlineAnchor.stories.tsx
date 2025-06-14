@@ -31,3 +31,23 @@ export const LongTextAnchor: Story = {
       "Long Text Underline AnchorLong Text Underline AnchorLong Text Underline AnchorLong Text Underline AnchorLong Text Underline Anchor",
   },
 };
+
+export const SmSizeAnchor: Story = {
+  args: {
+    children: "SM Size Anchor",
+    className: "text-sm h-[1.0rem]",
+  },
+};
+
+export const XlSizeAnchor: Story = {
+  args: {
+    children: "XL Size Anchor",
+    className: "text-2xl h-[2rem]",
+  },
+};
+export const OtherFontColorAnchor: Story = {
+  args: {
+    children: "Other Font Color Anchor",
+    className: "text-(--color-primary)",
+  },
+};

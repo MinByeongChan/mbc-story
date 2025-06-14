@@ -1,4 +1,4 @@
-import { HeaderItem } from "./HeaderItem";
+import { StressButton } from "components/atom/button/StressButton";
 
 export const Header = () => {
   return (
@@ -11,11 +11,13 @@ export const Header = () => {
         </figcaption>
       </figure>
 
-      <ul className="flex h-full gap-16 items-center justify-center">
-        <HeaderItem>About Me</HeaderItem>
-        <HeaderItem>Skill</HeaderItem>
-        <HeaderItem>Carrer</HeaderItem>
-        <HeaderItem>Education</HeaderItem>
+      <ul className="flex h-full gap-2 items-center justify-center">
+        <StressButton noneRadius className="w-[5rem] h-[1.5rem] font-bold">
+          Work
+        </StressButton>
+        <StressButton noneRadius className="w-[5rem] h-[1.5rem] font-bold">
+          About
+        </StressButton>
       </ul>
     </nav>
   );

@@ -68,7 +68,7 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
       </Typography>
       <Typography
         ref={typo2Ref}
-        className="absolute z-3 w-full h-full left-[0] -translate-y-0 inline-block"
+        className="absolute text-inherit z-3 w-full h-full left-[0] -translate-y-0 inline-block"
       >
         {children}
       </Typography>
