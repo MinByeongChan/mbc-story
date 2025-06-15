@@ -17,7 +17,7 @@ export const Typography = forwardRef<HTMLSpanElement, TypographyProps>(
         {children}
       </span>
     );
-  }
+  },
 );
 
 Typography.displayName = "Typography";

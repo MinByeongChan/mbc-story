@@ -52,7 +52,7 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
     <a
       className={twMerge(
         "group relative inline-block h-[1.5rem] text-white font-light cursor-pointer",
-        className
+        className,
       )}
       onMouseEnter={handleMouseEnterButton}
       style={{
@@ -62,13 +62,20 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
     >
       <Typography
         ref={typoRef}
-        className="w-full text-inherit cursor-none h-full left-[0] top-[0] inline-block"
+        className="w-full text-white cursor-pointer h-full inline-block"
+        style={{
+          cursor: "pointer",
+        }}
       >
         {children}
       </Typography>
       <Typography
         ref={typo2Ref}
-        className="absolute text-inherit z-3 w-full h-full left-[0] -translate-y-0 inline-block"
+        className="absolute text-white z-3 w-full h-full cursor-pointer -translate-y-0 inline-block"
+        style={{
+          left: 0,
+          cursor: "pointer",
+        }}
       >
         {children}
       </Typography>

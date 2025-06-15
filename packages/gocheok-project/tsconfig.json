@@ -2,13 +2,17 @@
   "extends": "../../tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
-    "types": ["vitest", "@testing-library/jest-dom"],
+    "types": ["vitest", "@testing-library/jest-dom", "@types/react"],
     "baseUrl": "./src",
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "paths": {
       "@/*": ["/*"],
       "@/ui/*": ["ui/*"],
       "@/assets/*": ["assets/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["lib/*"],
+      "components/*": ["components/*"]
     }
   }
 }

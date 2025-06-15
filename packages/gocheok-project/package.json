@@ -1,11 +1,10 @@
 {
   "name": "gocheok-project",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
@@ -40,7 +39,8 @@
     "eslint-plugin-storybook": "9.0.2",
     "globals": "^15.9.0",
     "jsdom": "^26.1.0",
-    "prettier-plugin-tailwindcss": "^0.6.11",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.12",
     "sass": "^1.89.1",
     "storybook": "^9.0.2",
     "vite": "^5.4.1",
