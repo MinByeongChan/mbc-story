@@ -1,61 +1,61 @@
 {
-  "hash": "713b1e97",
+  "hash": "f8a58fa1",
   "configHash": "fd979ef8",
-  "lockfileHash": "7e764a75",
-  "browserHash": "ce5578b2",
+  "lockfileHash": "b3ea89f9",
+  "browserHash": "9a67497c",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "fd7317a2",
+      "fileHash": "76d16c50",
       "needsInterop": true
     },
     "react-dom": {
       "src": "../../node_modules/react-dom/index.js",
       "file": "react-dom.js",
-      "fileHash": "38e1ea5b",
+      "fileHash": "8c901b91",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "2d0e3700",
+      "fileHash": "62bd0cc1",
       "needsInterop": true
     },
     "react/jsx-runtime": {
       "src": "../../node_modules/react/jsx-runtime.js",
       "file": "react_jsx-runtime.js",
-      "fileHash": "d999ba66",
+      "fileHash": "937d9d88",
       "needsInterop": true
     },
     "@gsap/react": {
       "src": "../../../../packages/gocheok-project/node_modules/@gsap/react/src/index.js",
       "file": "@gsap_react.js",
-      "fileHash": "9e492bd5",
+      "fileHash": "f3929402",
       "needsInterop": false
     },
     "gsap": {
       "src": "../../../../node_modules/gsap/index.js",
       "file": "gsap.js",
-      "fileHash": "7018f73d",
+      "fileHash": "effcd7c3",
       "needsInterop": false
     },
     "gsap/all": {
       "src": "../../../../node_modules/gsap/all.js",
       "file": "gsap_all.js",
-      "fileHash": "a0c36d1d",
+      "fileHash": "51a15ff9",
       "needsInterop": false
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "7766353f",
+      "fileHash": "65d42548",
       "needsInterop": true
     },
     "tailwind-merge": {
       "src": "../../../../node_modules/tailwind-merge/dist/bundle-mjs.mjs",
       "file": "tailwind-merge.js",
-      "fileHash": "8610ff4b",
+      "fileHash": "d54b079f",
       "needsInterop": false
     }
   },
