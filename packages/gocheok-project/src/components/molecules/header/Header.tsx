@@ -1,4 +1,4 @@
-import { StressButton } from "components/atom/button/StressButton";
+import { StressButton } from "../../../components/atom/button/StressButton";
 
 export const Header = () => {
   return (

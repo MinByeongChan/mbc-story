@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalogs:
+  react19:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  tailwindcss:
+    tailwindcss: "^4.1.8"
+    tw-animate-css: "^1.3.0"
+    tailwind-merge: "^3.3.0"

@@ -1,4 +1,4 @@
-import { Anchor } from "components/atom/anchor/Anchor";
+import { Anchor } from "../../../components/atom/anchor/Anchor";
 import { PropsWithChildren } from "react";
 
 interface HeaderItemProps extends PropsWithChildren {}

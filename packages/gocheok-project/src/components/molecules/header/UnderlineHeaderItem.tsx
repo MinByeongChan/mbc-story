@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { UnderlineAnchor } from "components/atom/anchor/UnderlineAnchor";
+import { UnderlineAnchor } from "../../../components/atom/anchor/UnderlineAnchor";
 
 interface UnderlineAnchorProps extends PropsWithChildren {}
 
