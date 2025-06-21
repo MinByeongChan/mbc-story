@@ -13,12 +13,7 @@ import { twMerge } from "tailwind-merge";
  */
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren;
-export const Button = ({
-  children,
-  className,
-  color,
-  ...restProps
-}: ButtonProps) => {
+export const Button = ({ children, className, ...restProps }: ButtonProps) => {
   const ref = useRef(null);
   return (
     <button
