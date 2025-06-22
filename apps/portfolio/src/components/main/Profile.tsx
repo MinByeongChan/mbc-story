@@ -28,28 +28,43 @@ export const Profile = () => {
         return split;
       },
     });
+    gsap.from(".profile-img", {
+      duration: 1,
+      opacity: 0,
+      scale: 0.8,
+      ease: "expo.out",
+    });
   });
 
   return (
     <section
       className={twMerge(
         "flex w-full gap-16 items-center justify-center text-(--color-neutral-100)",
-        "md:text-md",
-        "sm:p-6"
+        "text-md flex-col-reverse p-6",
+        "sm:text-md sm:p-0 sm:flex-row"
       )}
     >
       <article>
         <div>
-          <Typography className="split text-6xl font-bold">
+          <Typography
+            className={twMerge("split text-2xl font-bold", "sm:text-6xl")}
+          >
             안녕하세요.
           </Typography>
           <div className="mt-2">
-            <Typography className="split text-8xl font-bold">
+            <Typography
+              className={twMerge("split text-4xl font-bold", "sm:text-8xl")}
+            >
               민병찬 입니다.
             </Typography>
           </div>
           <div className="mt-4">
-            <Typography className="split text-6xl font-semibold text-(--color-primary)">
+            <Typography
+              className={twMerge(
+                "split text-4xl font-semibold text-(--color-primary)",
+                "sm:text-8xl"
+              )}
+            >
               Frontend Developer
             </Typography>
           </div>
@@ -82,13 +97,21 @@ export const Profile = () => {
       </article>
 
       <figure>
-        <div className="relative w-[400px] h-[450px] rounded-[2rem] bg-white">
+        <div
+          className={twMerge(
+            "profile-img relative w-[200px] h-[250px] rounded-[1rem] bg-white inset-shadow-[1px_1px_8px_rgba(0,0,0,0.8)]",
+            "sm:w-[400px] sm:h-[450px] sm:rounded-[2rem] sm:inset-shadow-[1px_1px_15px_rgba(0,0,0,0.8)]"
+          )}
+        >
           <Image
             src="/main_profile.png"
             alt="main_profile"
             width={300}
             height={300}
-            className="absolute bottom-0 left-[50%] translate-x-[-50%]"
+            className={twMerge(
+              "profile-img absolute w-[170px] bottom-0 left-[50%] translate-x-[-50%]",
+              "sm:w-[300px]"
+            )}
           />
         </div>
       </figure>

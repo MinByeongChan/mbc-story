@@ -15,7 +15,7 @@ export const Navigation = () => {
         </div>
       </div>
       <div className="w-1/2 h-full flex items-center justify-end">
-        <StressButton className="w-20 h-7" noneBorder>
+        <StressButton className="w-20 h-7 text-bold" noneBorder>
           <a className="text-lg" href="/about">
             About
           </a>
