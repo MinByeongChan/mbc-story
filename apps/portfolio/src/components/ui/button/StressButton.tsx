@@ -64,7 +64,7 @@ export const StressButton = ({
       ref={ref}
       className={twMerge(
         "group",
-        "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70 bg-(--color-bg-100) text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
+        "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70  text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
         "relative w-[10rem] h-[1.7rem]",
         noneBorder && "border-none",
         noneRadius && "rounded-none",
