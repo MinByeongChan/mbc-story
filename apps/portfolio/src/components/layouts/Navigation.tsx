@@ -2,11 +2,37 @@
 
 import React from "react";
 import { StressButton } from "../ui/button";
-import { Anchor } from "../ui/anchor";
+import { Anchor } from "@/components/ui/anchor";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { Observer } from "gsap/all";
 
 export const Navigation = () => {
+  gsap.registerPlugin(Observer);
+
+  useGSAP(() => {
+    Observer.create({
+      target: window,
+      type: "wheel,touch,pointer",
+      wheelSpeed: 2,
+      onUp: () => {
+        gsap.from(".nav-container", {
+          transitionDuration: 0.3,
+          yPercent: 0,
+          ease: "power2",
+        });
+      },
+      onDown: () => {
+        gsap.from(".nav-container", {
+          transitionDuration: 0.3,
+          yPercent: -100,
+          ease: "power2",
+        });
+      },
+    });
+  });
   return (
-    <nav className="w-full h-16 flex items-center justify-between px-8">
+    <nav className="nav-container w-full z-1000 h-16 flex items-center justify-between px-8 fixed">
       <div className="w-full h-full flex items-center justify-between">
         <div className="w-1/2 h-full flex items-center justify-start">
           <Anchor className="w-24 h-8 text-lg font-bold" href="/">
@@ -15,14 +41,14 @@ export const Navigation = () => {
         </div>
       </div>
       <div className="w-1/2 h-full flex items-center justify-end">
-        <StressButton className="w-20 h-7" noneBorder>
+        <StressButton className="w-20 h-7 text-bold" noneBorder>
           <a className="text-lg" href="/about">
             About
           </a>
         </StressButton>
         <StressButton className="w-20 h-7" noneBorder>
-          <a className="text-lg" href="/career">
-            Career
+          <a className="text-lg" href="/work">
+            Work
           </a>
         </StressButton>
       </div>
