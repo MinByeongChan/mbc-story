@@ -28,7 +28,7 @@ export const WorkCard = ({
         )}
       </figure>
 
-      <figcaption className="p-6 bg-black flex flex-col gap-1 justify-start items-start">
+      <figcaption className="bg-black flex flex-col gap-1 justify-start items-start mt-4">
         <Typography className="text-xl font-bold text-white">
           {title}
         </Typography>
