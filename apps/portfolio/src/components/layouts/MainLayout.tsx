@@ -7,7 +7,13 @@ export const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <main className="flex flex-col min-h-lvh font-[family-name:var(--font-geist-sans)] bg-black">
       <Navigation />
-      <div className={twMerge("text-md p-6", "sm:p-18 sm:text-md")}>
+      <div
+        className={twMerge(
+          "text-md p-6",
+          "lg:p-18 sm:text-md",
+          "sm:p-12 sm:text-md"
+        )}
+      >
         {children}
       </div>
     </main>
