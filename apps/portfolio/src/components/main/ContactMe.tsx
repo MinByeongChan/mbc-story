@@ -15,8 +15,6 @@ export const ContactMe = () => {
         trigger: ".load",
         start: "top 100%",
         end: "+=200",
-        scrub: true,
-        markers: true,
       },
       opacity: 1,
       duration: 0.5,

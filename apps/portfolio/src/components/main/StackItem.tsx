@@ -30,8 +30,6 @@ export const StackItem = ({
         trigger: itemRef.current,
         start: `${index * 10}px 90%`,
         end: `+=300`,
-        scrub: true,
-        markers: true,
       },
       opacity: 1,
       duration: 0.5,
