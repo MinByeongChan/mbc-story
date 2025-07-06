@@ -31,6 +31,7 @@ export const Navigation = () => {
       },
     });
   });
+
   return (
     <nav className="nav-container w-full z-1000 h-16 flex items-center justify-between px-8 fixed">
       <div className="w-full h-full flex items-center justify-between">
@@ -41,14 +42,14 @@ export const Navigation = () => {
         </div>
       </div>
       <div className="w-1/2 h-full flex items-center justify-end">
-        <StressButton className="w-20 h-7 text-bold" noneBorder>
-          <a className="text-lg" href="/about">
-            About
-          </a>
-        </StressButton>
         <StressButton className="w-20 h-7" noneBorder>
           <a className="text-lg" href="/work">
             Work
+          </a>
+        </StressButton>
+        <StressButton className="w-25 h-7" noneBorder>
+          <a className="text-lg" href="/portfolio/Resume.pdf" download>
+            Resume
           </a>
         </StressButton>
       </div>
