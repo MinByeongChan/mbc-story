@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { Typography } from "../typography";
 
 export interface WorkCardProps {
+  className?: string;
   imgSrc?: string;
   imgAlt?: string;
   title?: string;
@@ -12,6 +13,7 @@ export interface WorkCardProps {
 }
 
 export const WorkCard = ({
+  className = "",
   imgSrc = "",
   imgAlt = "",
   title = "",
@@ -19,7 +21,7 @@ export const WorkCard = ({
   skills = [],
 }: WorkCardProps) => {
   return (
-    <div className={twMerge("group w-full h-full cursor-pointer")}>
+    <div className={twMerge("group w-full h-full cursor-pointer", className)}>
       <figure>
         {imgSrc.length > 0 && imgAlt.length > 0 && (
           <div>
@@ -28,7 +30,7 @@ export const WorkCard = ({
               alt={imgAlt}
               className={twMerge(
                 "w-full transition-all duration-300 ",
-                "hover:rounded-lg group-hover:scale-103"
+                "group-hover:scale-103"
               )}
             />
           </div>
