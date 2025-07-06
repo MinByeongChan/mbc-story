@@ -1,20 +1,24 @@
 "use client";
 
-import { Profile } from "@/components/main/Profile";
-import { ContactMe } from "@/components/main/ContactMe";
+import { ContactMe, Profile, Stack } from "@/components/main";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { Dividor } from "@/components/ui/divider/Dividor";
+import { twMerge } from "tailwind-merge";
 
 export default function Main() {
   return (
     <MainLayout>
-      <div className="w-full h-full flex items-center grow-1 mt-30">
-        <Profile />
-      </div>
+      <section className={twMerge("mx-0", "sm:mx-16", "md:mx-16", "lg:mx-32")}>
+        <div className="w-full h-full flex items-center grow-1 mt-30">
+          <Profile />
+        </div>
 
-      <Dividor />
+        <Stack />
 
-      <ContactMe />
+        <Dividor />
+
+        <ContactMe />
+      </section>
     </MainLayout>
   );
 }
