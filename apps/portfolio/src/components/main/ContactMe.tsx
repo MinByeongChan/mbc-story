@@ -1,32 +1,37 @@
-import React from "react";
+import React, { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { Typography } from "@/components/ui/typography";
 import { Anchor } from "../ui/anchor";
-import { useGSAP } from "@gsap/react";
 import gsap, { ScrollTrigger } from "gsap/all";
+import { useEffect } from "react";
 
 export const ContactMe = () => {
+  const contactMeRef = useRef<HTMLDivElement>(null);
   gsap.registerPlugin(ScrollTrigger);
 
-  useGSAP(() => {
-    gsap.set(".load", { opacity: 0, yPercent: 100 });
-    gsap.to(".load", {
+  useEffect(() => {
+    if (!contactMeRef.current) return;
+
+    gsap.set(contactMeRef.current, { opacity: 0, yPercent: 100 });
+    gsap.to(contactMeRef.current, {
       scrollTrigger: {
-        trigger: ".load",
+        trigger: contactMeRef.current,
         start: "top 100%",
         end: "+=200",
+        scrub: true,
       },
       opacity: 1,
       duration: 0.5,
       yPercent: 0,
       ease: "power2",
     });
-  });
+  }, [contactMeRef]);
 
   return (
     <div
+      ref={contactMeRef}
       className={twMerge(
-        "load w-full gap-16 items-center justify-center text-(--color-neutral-100) my-50",
+        "w-full gap-16 items-center justify-center text-(--color-neutral-100) my-50",
         "text-md p-6",
         "sm:text-md sm:px-20 sm:flex-row"
       )}

@@ -24,18 +24,20 @@ export const StackItem = ({
   gsap.registerPlugin(ScrollTrigger);
 
   useGSAP(() => {
+    if (!itemRef.current) return;
     gsap.set(itemRef.current, { opacity: 0 });
     gsap.to(itemRef.current, {
       scrollTrigger: {
         trigger: itemRef.current,
         start: `${index * 10}px 90%`,
         end: `+=300`,
+        scrub: true,
       },
       opacity: 1,
       duration: 0.5,
       ease: "power2",
     });
-  });
+  }, [itemRef, index]);
 
   return (
     <div className="stack-item" ref={itemRef}>
