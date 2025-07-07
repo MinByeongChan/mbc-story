@@ -39,7 +39,7 @@ export const Profile = () => {
   return (
     <section
       className={twMerge(
-        "flex w-full gap-16 items-center justify-center text-(--color-neutral-100)",
+        "flex w-full gap-16 items-center justify-between text-(--color-neutral-100)",
         "text-md flex-col-reverse p-6",
         "sm:text-md sm:p-0 sm:flex-row"
       )}

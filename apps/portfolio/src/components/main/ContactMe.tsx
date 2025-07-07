@@ -1,80 +1,62 @@
-import React from "react";
+import React, { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { Typography } from "@/components/ui/typography";
 import { Anchor } from "../ui/anchor";
-import { SplitText } from "gsap/all";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import gsap, { ScrollTrigger } from "gsap/all";
+import { useEffect } from "react";
 
 export const ContactMe = () => {
-  gsap.registerPlugin(SplitText);
+  const contactMeRef = useRef<HTMLDivElement>(null);
+  gsap.registerPlugin(ScrollTrigger);
 
-  useGSAP(() => {
-    let load;
-    const intersectionObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].intersectionRatio <= 0) return;
-        SplitText.create(".load", {
-          type: "words,lines",
-          linesClass: "line",
-          autoSplit: true,
-          mask: "lines",
-          onSplit: (self) => {
-            load = gsap.from(self.lines, {
-              duration: 1,
-              yPercent: 100,
-              opacity: 0,
-              stagger: 0.3,
-              ease: "expo.out",
-            });
-            return load;
-          },
-        });
+  useEffect(() => {
+    if (!contactMeRef.current) return;
+
+    gsap.set(contactMeRef.current, { opacity: 0, yPercent: 100 });
+    gsap.to(contactMeRef.current, {
+      scrollTrigger: {
+        trigger: contactMeRef.current,
+        start: "top 100%",
+        end: "+=200",
+        scrub: true,
       },
-      {
-        root: null,
-        threshold: 1,
-      }
-    );
-
-    intersectionObserver.observe(document.querySelector(".load") as Element);
-  });
+      opacity: 1,
+      duration: 0.5,
+      yPercent: 0,
+      ease: "power2",
+    });
+  }, [contactMeRef]);
 
   return (
     <div
+      ref={contactMeRef}
       className={twMerge(
-        "w-full gap-16 items-center justify-center text-(--color-neutral-100) my-20",
+        "w-full gap-16 items-center justify-center text-(--color-neutral-100) my-50",
         "text-md p-6",
         "sm:text-md sm:px-20 sm:flex-row"
       )}
     >
       <div className="flex flex-col justify-center items-center">
-        <Typography className="load text-4xl font-bold sx:text-8xl">
+        <Typography className="text-6xl font-bold sm:text-8xl">
           Contact Me
         </Typography>
         <div className="mt-10">
           <p>
-            <Typography className="load text-md">
+            <Typography className="text-md sm:text-lg">
               저에 대한 관심이 있거나 연락을 원하시면,
             </Typography>
           </p>
           <p>
-            <Typography className="load text-md">
+            <Typography className="text-md sm:text-lg">
               아래 이메일 및 SNS로 언제든 연락주세요!
             </Typography>
           </p>
         </div>
 
-        <div className="flex flex-row items-center gap-8 mt-10">
-          <Anchor className="load" href="mailto:mbc0481@naver.com">
-            EMAIL
-          </Anchor>
-          <Anchor className="load" href="https://www.instagram.com/byongchan">
-            INSTAGRAM
-          </Anchor>
-          <Anchor className="load" href="https://www.github.com/minbyeongchan">
-            GITHUB
-          </Anchor>
+        <div className="flex flex-row items-center gap-8 mt-10 sm:text-xl">
+          <Anchor href="mailto:mbc0481@naver.com">EMAIL</Anchor>
+          <Anchor href="https://www.instagram.com/byongchan">INSTAGRAM</Anchor>
+          <Anchor href="https://www.github.com/minbyeongchan">GITHUB</Anchor>
         </div>
       </div>
     </div>
