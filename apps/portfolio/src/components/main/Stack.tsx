@@ -19,7 +19,6 @@ export const Stack = () => {
         start: start,
         end: end,
         scrub: true,
-        markers: true,
       },
       opacity: 1,
       duration: 0.5,
