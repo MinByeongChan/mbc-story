@@ -24,12 +24,12 @@ export const WorkCard = ({
     <div className={twMerge("group w-full h-full cursor-pointer", className)}>
       <figure>
         {imgSrc.length > 0 && imgAlt.length > 0 && (
-          <div>
+          <div className="flex justify-center items-center h-[230px] bg-white">
             <img
               src={imgSrc}
               alt={imgAlt}
               className={twMerge(
-                "w-full transition-all duration-300 ",
+                "max-h-full max-w-full object-cover mx-auto transition-all duration-300",
                 "group-hover:scale-103"
               )}
             />
