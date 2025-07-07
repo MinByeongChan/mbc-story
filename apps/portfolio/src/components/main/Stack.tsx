@@ -1,30 +1,37 @@
 import React from "react";
 import { Typography } from "../ui/typography";
 import { useGSAP } from "@gsap/react";
-import gsap, { Observer } from "gsap/all";
+import gsap, { ScrollTrigger } from "gsap/all";
 import { StackItem } from "./StackItem";
 
 export const Stack = () => {
-  gsap.registerPlugin(Observer);
+  gsap.registerPlugin(ScrollTrigger);
+
+  const setGsapScrollTrigger = (
+    className: string,
+    start: string,
+    end: string
+  ) => {
+    gsap.set(className, { opacity: 0 });
+    gsap.to(className, {
+      scrollTrigger: {
+        trigger: className,
+        start: start,
+        end: end,
+        scrub: true,
+        markers: true,
+      },
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2",
+    });
+  };
 
   useGSAP(() => {
-    Observer.create({
-      target: ".observable",
-      onUp: () => {
-        gsap.from(".observable", {
-          transitionDuration: 0.3,
-          yPercent: 0,
-          ease: "power2",
-        });
-      },
-      onDown: () => {
-        gsap.from(".observable", {
-          transitionDuration: 0.3,
-          yPercent: -100,
-          ease: "power2",
-        });
-      },
-    });
+    setGsapScrollTrigger(".scroll-trigger-my-stack", "top 90%", "+=200");
+    setGsapScrollTrigger(".scroll-trigger-frontend", "top 90%", "+=200");
+    setGsapScrollTrigger(".scroll-trigger-collaboration", "top 90%", "+=200");
+    setGsapScrollTrigger(".scroll-trigger-devops", "top 90%", "+=200");
   });
 
   const frontendStackItems = [
@@ -116,15 +123,15 @@ export const Stack = () => {
   ];
 
   return (
-    <div className="my-20 flex flex-col gap-16">
+    <div className="my-50 flex flex-col gap-16">
       <div>
-        <Typography className="observable text-4xl font-bold text-(--color-neutral-100)">
+        <Typography className="scroll-trigger-my-stack text-4xl font-bold text-(--color-neutral-100)">
           My Stack
         </Typography>
       </div>
 
       <article>
-        <Typography className="observable text-2xl font-bold text-(--color-neutral-100)">
+        <Typography className="scroll-trigger-frontend text-2xl font-bold text-(--color-neutral-100)">
           Frontend
         </Typography>
         <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
@@ -135,7 +142,7 @@ export const Stack = () => {
       </article>
 
       <article>
-        <Typography className="observable text-2xl font-bold text-(--color-neutral-100)">
+        <Typography className="scroll-trigger-collaboration text-2xl font-bold text-(--color-neutral-100)">
           Collaboration Tools
         </Typography>
         <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
@@ -146,7 +153,7 @@ export const Stack = () => {
       </article>
 
       <article>
-        <Typography className="observable text-2xl font-bold text-(--color-neutral-100)">
+        <Typography className="scroll-trigger-devops text-2xl font-bold text-(--color-neutral-100)">
           DevOps
         </Typography>
         <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">

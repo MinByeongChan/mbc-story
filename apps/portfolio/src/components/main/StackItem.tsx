@@ -30,7 +30,7 @@ export const StackItem = ({
       scrollTrigger: {
         trigger: itemRef.current,
         start: `${index * 10}px 90%`,
-        end: `+=300`,
+        end: `+=400`,
         scrub: true,
       },
       opacity: 1,
