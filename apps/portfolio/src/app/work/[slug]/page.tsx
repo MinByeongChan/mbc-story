@@ -4,7 +4,7 @@ import React from "react";
 export default async function WorkSlug({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
   console.log("slug", slug);
