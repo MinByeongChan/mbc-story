@@ -25,7 +25,9 @@ export const WorkCardList = ({ list }: WorkCardListProps) => {
       )}
     >
       {list.map((workCard) => (
-        <WorkCard key={workCard.title} {...workCard} className="split" />
+        <a href={`/work/${workCard.slug}`} key={workCard.title}>
+          <WorkCard {...workCard} className="split" />
+        </a>
       ))}
     </div>
   );

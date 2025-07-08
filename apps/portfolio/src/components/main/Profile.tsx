@@ -101,7 +101,9 @@ export const Profile = () => {
             className="w-48 h-10 text-xl text-bold border-[2px]"
             noneRadius
           >
-            VIEW MY WORK
+            <a className="text-lg" href="/work">
+              VIEW MY WORK
+            </a>
           </StressButton>
         </div>
       </article>

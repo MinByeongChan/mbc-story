@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "gocheok-project/src/tailwind.css";
+import "@/app/globals.css";
+import { AsideLink } from "@/components/layouts/AsideLink";
+import { Navigation } from "@/components/layouts/Navigation";
+import { twMerge } from "tailwind-merge";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +31,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main className="flex flex-col min-h-lvh font-[family-name:var(--font-geist-sans)] bg-black">
+          <Navigation />
+          <AsideLink />
+          <div
+            className={twMerge(
+              "text-md p-6",
+              "lg:p-18 sm:text-md",
+              "sm:p-12 sm:text-md"
+            )}
+          >
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );

@@ -10,6 +10,7 @@ export interface WorkCardProps {
   title?: string;
   description?: string;
   skills?: string[];
+  slug: string;
 }
 
 export const WorkCard = ({

@@ -5,5 +5,4 @@ module.exports = {
     "./*.html",
     "./storybook/**/*.{js,ts,jsx,tsx}",
   ],
-  plugins: [],
 };

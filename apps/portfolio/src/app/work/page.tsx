@@ -1,4 +1,3 @@
-import { MainLayout } from "@/components/layouts/MainLayout";
 import { WorkCardList } from "@/components/work/WorkCardList";
 import { WorkIntroduce } from "@/components/work/WorkIntroduce";
 import React from "react";
@@ -24,6 +23,7 @@ export default function Work() {
         "Vite",
         "AWS EC2",
       ],
+      slug: "abcAdmin",
     },
     {
       imgSrc: "/portfolio/work/통합회원_서비스이용관리.png",
@@ -42,6 +42,7 @@ export default function Work() {
         "Storybook",
         "Cypress",
       ],
+      slug: "accountService",
     },
     {
       imgSrc: "/portfolio/work/코디매칭_메인.png",
@@ -58,6 +59,7 @@ export default function Work() {
         "Cypress",
         "AWS (S3, CloudFront)",
       ],
+      slug: "codyMatching",
     },
     {
       imgSrc: "/portfolio/work/통합회원_로그인.png",
@@ -73,6 +75,7 @@ export default function Work() {
         "Vite",
         "AWS (S3, CloudFront)",
       ],
+      slug: "accountAdmin",
     },
     {
       imgSrc: "/portfolio/work/포트폴리오2025_메인.png",
@@ -88,6 +91,7 @@ export default function Work() {
         "Next.js",
         "Vercel",
       ],
+      slug: "portfolio2025",
     },
     {
       imgSrc: "/portfolio/work/블로그_메인.png",
@@ -96,6 +100,7 @@ export default function Work() {
       description:
         "개발 관련정보나 기록하고싶은 기술을 포스팅하는데 사용하고있는 기술블로그입니다.",
       skills: ["React", "Typescript", "Mui", "Vite", "Vercel"],
+      slug: "techBlog",
     },
 
     {
@@ -104,23 +109,22 @@ export default function Work() {
       title: "포트폴리오 2024",
       description: "2024년 포트폴리오 입니다.",
       skills: ["React", "Typescript", "Mui", "Vite", "Vercel"],
+      slug: "portfolio2024",
     },
   ];
 
   return (
-    <MainLayout>
-      <div
-        className={twMerge(
-          "my-24",
-          "xl:mx-36 xl:grid-cols-3",
-          "lg:mx-24 lg:grid-cols-2",
-          "md:mx-24 md:grid-cols-2",
-          "sm:mx-0 sm:grid-cols-2"
-        )}
-      >
-        <WorkIntroduce />
-        <WorkCardList list={list} />
-      </div>
-    </MainLayout>
+    <div
+      className={twMerge(
+        "my-24",
+        "xl:mx-36 xl:grid-cols-3",
+        "lg:mx-24 lg:grid-cols-2",
+        "md:mx-24 md:grid-cols-2",
+        "sm:mx-0 sm:grid-cols-2"
+      )}
+    >
+      <WorkIntroduce />
+      <WorkCardList list={list} />
+    </div>
   );
 }
