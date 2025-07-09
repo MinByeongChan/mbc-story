@@ -3,17 +3,12 @@
 import React from "react";
 import { WorkCard, WorkCardProps } from "../ui/card/WorkCard";
 import { twMerge } from "tailwind-merge";
-import { useGsapSplit } from "@/hooks";
 
 interface WorkCardListProps {
   list: WorkCardProps[];
 }
 
 export const WorkCardList = ({ list }: WorkCardListProps) => {
-  useGsapSplit({
-    stagger: 0.3,
-    duration: 1,
-  });
   return (
     <div
       className={twMerge(
@@ -25,9 +20,7 @@ export const WorkCardList = ({ list }: WorkCardListProps) => {
       )}
     >
       {list.map((workCard) => (
-        <a href={`/work/${workCard.slug}`} key={workCard.title}>
-          <WorkCard {...workCard} className="split" />
-        </a>
+        <WorkCard {...workCard} className="split" key={workCard.title} />
       ))}
     </div>
   );
