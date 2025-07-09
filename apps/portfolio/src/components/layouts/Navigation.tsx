@@ -6,6 +6,7 @@ import { Anchor } from "@/components/ui/anchor";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
+import Link from "next/link";
 
 export const Navigation = () => {
   gsap.registerPlugin(Observer);
@@ -43,14 +44,14 @@ export const Navigation = () => {
       </div>
       <div className="w-1/2 h-full flex items-center justify-end">
         <StressButton className="w-20 h-7" noneBorder>
-          <a className="text-lg" href="/work">
+          <Link className="text-lg" href="/work">
             Work
-          </a>
+          </Link>
         </StressButton>
         <StressButton className="w-25 h-7" noneBorder>
-          <a className="text-lg" href="/portfolio/Resume.pdf" download>
+          <Link className="text-lg" href="/portfolio/Resume.pdf" download>
             Resume
-          </a>
+          </Link>
         </StressButton>
       </div>
     </nav>

@@ -1,5 +1,7 @@
 import { marked } from "marked";
 import React from "react";
+import { promises as fs } from "fs";
+import path from "path";
 
 export default async function WorkSlug({
   params,
@@ -7,14 +9,22 @@ export default async function WorkSlug({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  console.log("slug", slug);
-  const response = await fetch(
-    `http://localhost:3000/portfolio/work/${slug}/${slug}Details.md`
+  const filePath = path.join(
+    process.cwd(),
+    `apps/portfolio/public/portfolio/work/${slug}`,
+    `${slug}Details.md`
   );
-  const markdownContent = await response.text();
+  console.log("filePath", filePath);
 
-  // 마크다운을 HTML로 변환
-  const htmlContent = await marked(markdownContent);
+  let htmlContent = "";
+
+  try {
+    const markdownContent = await fs.readFile(filePath, "utf-8");
+    htmlContent = await marked(markdownContent);
+  } catch (error) {
+    console.error("Markdown file not found:", error);
+    return <div>Content not found.</div>;
+  }
 
   return (
     <div>

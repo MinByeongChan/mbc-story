@@ -1,3 +1,5 @@
+"use client";
+
 import { WorkCardList } from "@/components/work/WorkCardList";
 import { WorkIntroduce } from "@/components/work/WorkIntroduce";
 import React from "react";
