@@ -1,4 +1,5 @@
-import { MainLayout } from "@/components/layouts/MainLayout";
+"use client";
+
 import { WorkCardList } from "@/components/work/WorkCardList";
 import { WorkIntroduce } from "@/components/work/WorkIntroduce";
 import React from "react";
@@ -7,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 export default function Work() {
   const list = [
     {
-      imgSrc: "/portfolio/work/abc_admin_홈화면.png",
+      imgSrc: "/portfolio/work/abcAdmin/abc_admin_홈화면.png",
       imgAlt: "ABC_ADMIN_COVER",
       title: "ABC Admin",
       description:
@@ -24,9 +25,10 @@ export default function Work() {
         "Vite",
         "AWS EC2",
       ],
+      slug: "abcAdmin",
     },
     {
-      imgSrc: "/portfolio/work/통합회원_서비스이용관리.png",
+      imgSrc: "/portfolio/work/accountService/통합회원_서비스이용관리.png",
       imgAlt: "통합회원_커버",
       title: "통합회원",
       description:
@@ -42,9 +44,10 @@ export default function Work() {
         "Storybook",
         "Cypress",
       ],
+      slug: "accountService",
     },
     {
-      imgSrc: "/portfolio/work/코디매칭_메인.png",
+      imgSrc: "/portfolio/work/codyMatching/코디매칭_메인_mobile.png",
       imgAlt: "코디매칭_메인",
       title: "실시간 코디매칭 서비스",
       description:
@@ -58,9 +61,10 @@ export default function Work() {
         "Cypress",
         "AWS (S3, CloudFront)",
       ],
+      slug: "codyMatching",
     },
     {
-      imgSrc: "/portfolio/work/통합회원_로그인.png",
+      imgSrc: "/portfolio/work/accountAdmin/통합회원_로그인.png",
       imgAlt: "통합회원_어드민커버",
       title: "통합회원 어드민",
       description:
@@ -73,9 +77,10 @@ export default function Work() {
         "Vite",
         "AWS (S3, CloudFront)",
       ],
+      slug: "accountAdmin",
     },
     {
-      imgSrc: "/portfolio/work/포트폴리오2025_메인.png",
+      imgSrc: "/portfolio/work/portfolio2025/포트폴리오2025_메인.png",
       imgAlt: "개인 포트폴리오",
       title: "포트폴리오 2025",
       description:
@@ -88,39 +93,40 @@ export default function Work() {
         "Next.js",
         "Vercel",
       ],
+      slug: "portfolio2025",
     },
     {
-      imgSrc: "/portfolio/work/블로그_메인.png",
+      imgSrc: "/portfolio/work/techBlog/블로그_메인.png",
       imgAlt: "블로그_메인_커버",
       title: "기술/개인 블로그",
       description:
         "개발 관련정보나 기록하고싶은 기술을 포스팅하는데 사용하고있는 기술블로그입니다.",
       skills: ["React", "Typescript", "Mui", "Vite", "Vercel"],
+      slug: "techBlog",
     },
 
     {
-      imgSrc: "/portfolio/work/포트폴리오2024_메인.png",
+      imgSrc: "/portfolio/work/portfolio2024/포트폴리오2024_메인.png",
       imgAlt: "포트폴리오2024_커버",
       title: "포트폴리오 2024",
       description: "2024년 포트폴리오 입니다.",
       skills: ["React", "Typescript", "Mui", "Vite", "Vercel"],
+      slug: "portfolio2024",
     },
   ];
 
   return (
-    <MainLayout>
-      <div
-        className={twMerge(
-          "my-24",
-          "xl:mx-36 xl:grid-cols-3",
-          "lg:mx-24 lg:grid-cols-2",
-          "md:mx-24 md:grid-cols-2",
-          "sm:mx-0 sm:grid-cols-2"
-        )}
-      >
-        <WorkIntroduce />
-        <WorkCardList list={list} />
-      </div>
-    </MainLayout>
+    <div
+      className={twMerge(
+        "my-24",
+        "xl:mx-36 xl:grid-cols-3",
+        "lg:mx-24 lg:grid-cols-2",
+        "md:mx-24 md:grid-cols-2",
+        "sm:mx-0 sm:grid-cols-2"
+      )}
+    >
+      <WorkIntroduce />
+      <WorkCardList list={list} />
+    </div>
   );
 }
