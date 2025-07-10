@@ -64,11 +64,3 @@ CI/CD를 도입하여 쉽고 안전한 배포 방식을 적용하였고, 수동 
 
 1. 프로젝트 내 중복되는 코드양을 상당수준으로 줄일 수 있었음. 템플릿 및 레이아웃과 같은 공통된 데이터 컴포넌트를 생성함으로써 코드 재사용률이 높아졌고, React.memo, 컴포넌트 내부에서 useMemo, useCallback을 처리하여 중복되는 로직일 경우 리렌더링되는 이슈를 최소화함.
 2. 브라우저 탭 전환 및 포커싱을 잃을 경우 브라우저 현재시간을 계속 불러오게 하여 이전보다 정확한 시간으로 매칭을 판단하도록 함. 매칭 시간을 BE에서 전담하는 정책으로 변경하므로 매칭 탈취율이 높아질 경우, BE에서 DB 업데이트 만으로 매칭 시간을 제어할 수 있도록 함. 비정기 배포하는 경우를 줄어들게 함.
-
-## 이미지
-
-<div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap;">
-   <img src="./assets/images/portfolio/IMG_7879.PNG" alt="마이크로사이트" width="300" />
-   <img src="./assets/images/portfolio/IMG_7880.PNG" alt="마이크로사이트" width="300" />
-   <img src="./assets/images/portfolio/IMG_7881.PNG" alt="마이크로사이트" width="300" />
-</div>

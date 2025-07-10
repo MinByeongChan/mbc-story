@@ -75,12 +75,3 @@ QA에서 발견된 이슈를 스크립트로 구성하여 테스트하고, 오�
 
 1. Vue3 코드 리팩터링으로 인한 이슈들은 해결되었고, 발생했던 이슈들에 대해서 테스크 코드에 케이스별로 갖고 있게됨. 이러한 코드 히스토리를 이용하여 이후 발생하는 QA이슈들에 대해 이전 버전과 비교하여 보다 확실하게 처리할 수 있었음.
 2. QA에 들어가기 이전 BE, FE 개발이 완료된 이후 각 개발자들은 해당 테스트환경에서 피처 개발 건 확인 후 반영하게 되어 운영 검증면에서 안정성을 높임.
-
-## 이미지
-
-<div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap;">
-   <img src="./assets/images/portfolio/계정 검색.png" alt="계정 검색" width="100%" />
-   <img src="./assets/images/portfolio/로그인.png" alt="로그인" width="100%" />
-   <img src="./assets/images/portfolio/비밀번호 찾기.png" alt="비밀번호 찾기" width="100%" />
-   <img src="./assets/images/portfolio/서비스이용관리.png" alt="서비스이용관리" width="100%" />
-</div>

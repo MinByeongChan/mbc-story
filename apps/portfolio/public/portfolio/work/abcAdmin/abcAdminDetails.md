@@ -92,17 +92,3 @@ Sentry를 통해 스테이징 환경에서 발생하는 타입 에러 및 비정
 **Result**
 
 1. 얕은복사를 이용한 설계로 성능이슈를 해결하였고, 재귀함수사용 및 커스텀 훅으로 변환하여 비즈니스 로직 파악을 보다 쉽게 설계함. 테스트 코드를 작성함에 있어서도 이전보다 수월하게만듬.
-
-## 이미지
-
-<div style="display: flex; align-items: center; justify-content: space-around; gap: 16px; flex-wrap: wrap;">
-   <img src="./홈화면.png" alt="홈화면" width="100%" />
-   <img src="./게시판.png" alt="게시판" width="100%" />
-   <img src="./시스템_접근제어.png" alt="시스템_접근제어" width="100%" />
-   <img src="./작업_배정현황.png" alt="작업_배정현황" width="100%" />
-   <img src="./작업현황.png" alt="작업현황" width="100%" />
-   <img src="./주문목록.png" alt="주문목록" width="100%" />
-   <img src="./주문지표.png" alt="주문지표" width="100%" />
-   <img src="./주문현황.png" alt="주문현황" width="100%" />
-   <img src="./창고이동.png" alt="창고이동" width="100%" />
-</div>
