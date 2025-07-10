@@ -47,7 +47,7 @@ export default function Work() {
       slug: "accountService",
     },
     {
-      imgSrc: "/portfolio/work/codyMatching/코디매칭_메인.png",
+      imgSrc: "/portfolio/work/codyMatching/코디매칭_메인_mobile.png",
       imgAlt: "코디매칭_메인",
       title: "실시간 코디매칭 서비스",
       description:

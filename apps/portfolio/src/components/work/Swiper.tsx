@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Pagination, Navigation, Scrollbar } from "swiper/modules";
+import { Scrollbar } from "swiper/modules";
 import { Swiper as ReactSwiper, SwiperSlide } from "swiper/react";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
+import { SwiperPagination } from "./SwiperNavigation";
 
 interface SwiperProps {
   images: string[];
@@ -14,9 +15,9 @@ export const Swiper = ({ images }: SwiperProps) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   return (
-    <div className="w-[800px] py-16">
+    <div className="max-h-[700px] my-16 relative">
       <ReactSwiper
-        modules={[Navigation, Pagination, Scrollbar]}
+        modules={[Scrollbar]}
         slidesPerView={1}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
@@ -30,13 +31,13 @@ export const Swiper = ({ images }: SwiperProps) => {
               className={twMerge(
                 "flex justify-center items-center",
                 "transition-all duration-300 ease-in-out",
-                "relative w-full h-full transform overflow-hidden rounded-xl",
+                "relative w-full h-full transform overflow-hidden",
                 "transform-style-3d",
                 activeIndex !== index && "scale-90"
               )}
             >
               <Image
-                className="object-cover"
+                className="object-cover rounded-xl"
                 src={image}
                 alt={`work image ${index + 1}`}
                 width={image.includes("mobile") ? 300 : 800}
@@ -50,6 +51,11 @@ export const Swiper = ({ images }: SwiperProps) => {
             </div>
           </SwiperSlide>
         ))}
+        <SwiperPagination
+          className="pointer-events-auto"
+          totalSlides={images.length}
+          currentSlide={activeIndex}
+        />
       </ReactSwiper>
     </div>
   );
