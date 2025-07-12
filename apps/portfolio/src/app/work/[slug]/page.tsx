@@ -49,7 +49,8 @@ export default async function WorkSlug({
   prose-h6:font-bold prose-h6:text-lg"
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
-      <Swiper images={images} />
+
+      {images.length > 0 && <Swiper images={images} />}
     </div>
   );
 }

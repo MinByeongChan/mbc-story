@@ -13,6 +13,7 @@ export interface WorkCardProps {
   title?: string;
   description?: string;
   skills?: string[];
+  projectType?: string;
   slug: string;
 }
 
@@ -23,6 +24,7 @@ export const WorkCard = ({
   title = "",
   description = "",
   skills = [],
+  projectType = "",
   slug,
 }: WorkCardProps) => {
   // 완성되지 않은 코드를 삭제하고, 카드 전체를 Link로 감쌉니다.
@@ -45,14 +47,19 @@ export const WorkCard = ({
           </div>
         )}
         <figcaption className="bg-black flex flex-col gap-1 justify-start items-start mt-4">
-          <Typography
-            className={twMerge(
-              "text-xl font-bold text-white transition-all duration-300",
-              "group-hover:text-primary"
-            )}
-          >
-            {title}
-          </Typography>
+          <div className="flex gap-2">
+            <Typography
+              className={twMerge(
+                "text-xl font-bold text-white transition-all duration-300",
+                "group-hover:text-primary"
+              )}
+            >
+              {title}
+            </Typography>
+            <Typography className="text-sm/loose text-(--color-accent-200)">
+              {projectType}
+            </Typography>
+          </div>
           <Typography className="text-sm text-(--color-accent-200)">
             {skills.join(", ")}
           </Typography>
