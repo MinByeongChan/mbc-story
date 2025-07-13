@@ -122,12 +122,38 @@ export const metadata: Metadata = {
   ],
   assets: ["https://portfolio.minbyeongchan.com"],
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+    ],
+    apple: [
+      {
+        url: "/apple-touch-icon-180x180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+      {
+        url: "/apple-touch-icon-152x152.png",
+        sizes: "152x152",
+        type: "image/png",
+      },
+      {
+        url: "/apple-touch-icon-120x120.png",
+        sizes: "120x120",
+        type: "image/png",
+      },
+    ],
+    shortcut: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
   other: {
-    "theme-color": "#000000",
-    "msapplication-TileColor": "#000000",
+    "theme-color": "#4ECDC4",
+    "msapplication-TileColor": "#4ECDC4",
     "msapplication-config": "/browserconfig.xml",
     "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
     "apple-mobile-web-app-title": "민병찬 Portfolio",
     "mobile-web-app-capable": "yes",
   },
