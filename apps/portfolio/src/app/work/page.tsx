@@ -1,9 +1,46 @@
-"use client";
-
 import { WorkCardList } from "@/components/work/WorkCardList";
 import { WorkIntroduce } from "@/components/work/WorkIntroduce";
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "B.C Min | Work",
+  description:
+    "민병찬이 개발한 프론트엔드 프로젝트들을 소개합니다. 코웨이에서 진행한 ABC Admin, 통합회원 서비스, 실시간 코디매칭 서비스 등과 개인 프로젝트들을 확인하실 수 있습니다.",
+  keywords: [
+    "B.C Min",
+    "민병찬 프로젝트",
+    "프론트엔드 프로젝트",
+    "React 프로젝트",
+    "TypeScript 프로젝트",
+    "코웨이 프로젝트",
+    "ABC Admin",
+    "통합회원",
+    "코디매칭",
+    "포트폴리오 프로젝트",
+    "웹 개발 프로젝트",
+  ],
+  openGraph: {
+    title: "작업 프로젝트 | 민병찬 포트폴리오",
+    description:
+      "민병찬이 개발한 프론트엔드 프로젝트들을 소개합니다. 코웨이에서 진행한 프로젝트들과 개인 프로젝트들을 확인하실 수 있습니다.",
+    url: "https://portfolio.minbyeongchan.com/work",
+    images: [
+      {
+        url: "/portfolio/work/abcAdmin/abc_admin_홈화면.png",
+        width: 1200,
+        height: 630,
+        alt: "민병찬 프론트엔드 개발 프로젝트",
+      },
+    ],
+  },
+  twitter: {
+    title: "작업 프로젝트 | 민병찬 포트폴리오",
+    description: "민병찬이 개발한 프론트엔드 프로젝트들을 소개합니다.",
+    images: ["/portfolio/work/abcAdmin/abc_admin_홈화면.png"],
+  },
+};
 
 export default function Work() {
   const list = [
