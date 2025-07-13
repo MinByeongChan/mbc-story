@@ -1,0 +1,77 @@
+{
+  "name": "민병찬 포트폴리오 | 프론트엔드 개발자",
+  "short_name": "민병찬 Portfolio",
+  "description": "React, TypeScript, Next.js 전문 프론트엔드 개발자 민병찬의 포트폴리오",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ko-KR",
+  "dir": "ltr",
+  "categories": ["portfolio", "developer", "frontend"],
+  "icons": [
+    {
+      "src": "/main_profile.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/main_profile.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/main_profile.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/main_profile.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/main_profile.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/main_profile.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/main_profile.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "민병찬 프론트엔드 개발자 포트폴리오"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "작업 프로젝트",
+      "short_name": "Projects",
+      "description": "민병찬의 개발 프로젝트들을 확인해보세요",
+      "url": "/work",
+      "icons": [
+        {
+          "src": "/main_profile.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}
