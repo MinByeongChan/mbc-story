@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "민병찬 | 프론트엔드 개발자",
     description:
       "안녕하세요. 민병찬입니다. React, TypeScript, Next.js 전문 프론트엔드 개발자입니다. 코웨이에서 대내외 서비스 개발 및 운영 경험을 보유하고 있습니다.",
-    url: "https://portfolio.minbyeongchan.com",
+    url: "https://mbc-story-portfolio.vercel.app/",
     images: [
       {
         url: "/main_profile.png",
