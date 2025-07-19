@@ -219,12 +219,16 @@ export default async function WorkSlug({
           `text-white
           prose-a:text-blue-600
  prose-p:text-white
+ prose-strong:text-white
+ prose-code:text-white
   prose-h1:text-white
   prose-h2:text-white
   prose-h3:text-white
   prose-h4:text-white
   prose-h5:text-white
-  prose-h6:text-white`
+  prose-h6:text-white
+  prose-li:text-white prose-li:marker:text-white`,
+          "prose-ul:!list-disc prose-ol:!list-decimal prose-li:!list-inside"
         )}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
