@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "작업 프로젝트 | 민병찬 포트폴리오",
     description:
       "민병찬이 개발한 프론트엔드 프로젝트들을 소개합니다. 코웨이에서 진행한 프로젝트들과 개인 프로젝트들을 확인하실 수 있습니다.",
-    url: "https://portfolio.minbyeongchan.com/work",
+    url: "https://mbc-story-portfolio.vercel.app//work",
     images: [
       {
         url: "/portfolio/work/abcAdmin/abc_admin_홈화면.png",

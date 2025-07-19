@@ -8,6 +8,7 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import { Swiper } from "@/components/work/Swiper";
 import { Metadata } from "next";
+import { twMerge } from "tailwind-merge";
 
 // 프로젝트 정보 매핑
 const projectInfo: Record<
@@ -120,7 +121,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = "https://portfolio.minbyeongchan.com";
+  const baseUrl = "https://mbc-story-portfolio.vercel.app/";
   const projectImageUrl = `/portfolio/work/${slug}/${
     slug === "abcAdmin"
       ? "abc_admin_홈화면.png"
@@ -206,14 +207,25 @@ export default async function WorkSlug({
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="prose w-full dark:prose-invert
+        className={twMerge(
+          `prose w-full dark:prose-invert
   prose-h1:font-bold prose-h1:text-6xl
-  prose-a:text-blue-600 prose-p:text-justify prose-img:rounded-xl
+  prose-p:text-justify prose-img:rounded-xl
   prose-h2:font-bold prose-h2:text-4xl
   prose-h3:font-bold prose-h3:text-3xl
   prose-h4:font-bold prose-h4:text-2xl
   prose-h5:font-bold prose-h5:text-xl
-  prose-h6:font-bold prose-h6:text-lg"
+  prose-h6:font-bold prose-h6:text-lg`,
+          `text-white
+          prose-a:text-blue-600
+ prose-p:text-white
+  prose-h1:text-white
+  prose-h2:text-white
+  prose-h3:text-white
+  prose-h4:text-white
+  prose-h5:text-white
+  prose-h6:text-white`
+        )}
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
 
