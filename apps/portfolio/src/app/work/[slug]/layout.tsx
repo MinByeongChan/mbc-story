@@ -18,8 +18,8 @@ export default function WorkSlugLayout({
           "xl:mx-48 xl:mt-8",
           "lg:mx-24 lg:mt-8",
           "md:mx-16 md:mt-8",
-          "sm:mx-8 sm:mt-8",
-          "mx-4 mt-16"
+          "sm:mt-8",
+          "mt-16"
         )}
       >
         <Link href="/work">
