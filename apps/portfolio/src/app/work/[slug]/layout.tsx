@@ -12,7 +12,16 @@ export default function WorkSlugLayout({
 }) {
   return (
     <article>
-      <div className={twMerge("h-full", "xl:mx-48")}>
+      <div
+        className={twMerge(
+          "h-full",
+          "xl:mx-48 xl:mt-8",
+          "lg:mx-24 lg:mt-8",
+          "md:mx-16 md:mt-8",
+          "sm:mx-8 sm:mt-8",
+          "mx-4 mt-16"
+        )}
+      >
         <Link href="/work">
           <span className="text-md flex items-center gap-2 text-neutral-200">
             <Image src="/left-arrow.png" alt="Back" width={24} height={24} />
