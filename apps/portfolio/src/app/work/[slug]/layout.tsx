@@ -19,7 +19,11 @@ export default function WorkSlugLayout({
             Back
           </span>
         </Link>
-        <article className={twMerge("mt-16", "xl:mx-32")}>{children}</article>
+        <article className={twMerge("mt-16", "xl:mx-32")}>
+          <div className="flex flex-col gap-4 max-w-[700px] mx-auto">
+            {children}
+          </div>
+        </article>
       </div>
     </article>
   );
