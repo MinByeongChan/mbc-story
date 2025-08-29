@@ -3,51 +3,20 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { twMerge } from "tailwind-merge";
-
-// 스타일 타입 정의
-interface HeadingStyles {
-  h1?: string;
-  h2?: string;
-  h3?: string;
-  h4?: string;
-  h5?: string;
-  h6?: string;
-}
-
-interface TextStyles {
-  p?: string;
-  strong?: string;
-  em?: string;
-}
-
-interface LinkStyles {
-  className?: string;
-  hoverClassName?: string;
-}
-
-interface CodeStyles {
-  inline?: string;
-  block?: string;
-}
-
-interface ListStyles {
-  ul?: string;
-  ol?: string;
-  li?: string;
-}
-
-interface BlockquoteStyles {
-  className?: string;
-}
-
-interface ImageStyles {
-  className?: string;
-}
+import {
+  HeadingStyles,
+  TextStyles,
+  LinkStyles,
+  CodeStyles,
+  ListStyles,
+  BlockquoteStyles,
+  ImageStyles,
+} from "./type";
+import { defaultStyles } from "./constant";
 
 interface MarkdownRendererProps {
   content: string;
   className?: string;
-  // 각 요소별 스타일 객체
   headings?: HeadingStyles;
   text?: TextStyles;
   link?: LinkStyles;
@@ -56,43 +25,6 @@ interface MarkdownRendererProps {
   blockquote?: BlockquoteStyles;
   image?: ImageStyles;
 }
-
-// 기본 스타일 정의
-const defaultStyles = {
-  headings: {
-    h1: "font-bold text-6xl text-white",
-    h2: "font-bold text-4xl text-white",
-    h3: "font-bold text-3xl text-white",
-    h4: "font-bold text-2xl text-white",
-    h5: "font-bold text-xl text-white",
-    h6: "font-bold text-lg text-white",
-  },
-  text: {
-    p: "text-justify text-white",
-    strong: "text-white",
-    em: "italic text-white",
-  },
-  link: {
-    className: "text-blue-600 underline",
-    hoverClassName: "hover:text-blue-800",
-  },
-  code: {
-    inline: "bg-gray-800 text-white px-1 py-0.5 rounded text-sm",
-    block:
-      "block bg-gray-800 text-white p-4 rounded-lg overflow-x-auto text-sm",
-  },
-  list: {
-    ul: "list-disc list-inside",
-    ol: "list-decimal list-inside",
-    li: "text-white marker:text-white",
-  },
-  blockquote: {
-    className: "border-l-4 border-gray-300 pl-4 italic text-gray-600",
-  },
-  image: {
-    className: "rounded-xl max-w-full h-auto",
-  },
-};
 
 export const MarkdownRenderer = ({
   content,
