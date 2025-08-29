@@ -107,8 +107,6 @@ export default function Work() {
       slug: "codyMatching",
     },
     {
-      imgSrc: "/portfolio/work/accountAdmin/통합회원_로그인.png",
-      imgAlt: "통합회원_어드민커버",
       title: "통합회원 어드민",
       projectType: "Coway",
       projectLogo: "/portfolio/work/coway_logo.png",
