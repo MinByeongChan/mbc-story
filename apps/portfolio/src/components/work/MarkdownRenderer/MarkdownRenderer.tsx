@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { twMerge } from "tailwind-merge";
 
 // 스타일 타입 정의
 interface HeadingStyles {
@@ -104,17 +105,6 @@ export const MarkdownRenderer = ({
   blockquote = {},
   image = {},
 }: MarkdownRendererProps) => {
-  // 기본 스타일과 전달받은 스타일 병합
-  const mergedStyles = {
-    headings: { ...defaultStyles.headings, ...headings },
-    text: { ...defaultStyles.text, ...text },
-    link: { ...defaultStyles.link, ...link },
-    code: { ...defaultStyles.code, ...code },
-    list: { ...defaultStyles.list, ...list },
-    blockquote: { ...defaultStyles.blockquote, ...blockquote },
-    image: { ...defaultStyles.image, ...image },
-  };
-
   return (
     <div className={className}>
       <ReactMarkdown
@@ -122,48 +112,69 @@ export const MarkdownRenderer = ({
         components={{
           // 제목 스타일링
           h1: ({ children, ...props }) => (
-            <h1 {...props} className={mergedStyles.headings.h1}>
+            <h1
+              {...props}
+              className={twMerge(defaultStyles.headings.h1, headings.h1)}
+            >
               {children}
             </h1>
           ),
           h2: ({ children, ...props }) => (
-            <h2 {...props} className={mergedStyles.headings.h2}>
+            <h2
+              {...props}
+              className={twMerge(defaultStyles.headings.h2, headings.h2)}
+            >
               {children}
             </h2>
           ),
           h3: ({ children, ...props }) => (
-            <h3 {...props} className={mergedStyles.headings.h3}>
+            <h3
+              {...props}
+              className={twMerge(defaultStyles.headings.h3, headings.h3)}
+            >
               {children}
             </h3>
           ),
           h4: ({ children, ...props }) => (
-            <h4 {...props} className={mergedStyles.headings.h4}>
+            <h4
+              {...props}
+              className={twMerge(defaultStyles.headings.h4, headings.h4)}
+            >
               {children}
             </h4>
           ),
           h5: ({ children, ...props }) => (
-            <h5 {...props} className={mergedStyles.headings.h5}>
+            <h5
+              {...props}
+              className={twMerge(defaultStyles.headings.h5, headings.h5)}
+            >
               {children}
             </h5>
           ),
           h6: ({ children, ...props }) => (
-            <h6 {...props} className={mergedStyles.headings.h6}>
+            <h6
+              {...props}
+              className={twMerge(defaultStyles.headings.h6, headings.h6)}
+            >
               {children}
             </h6>
           ),
           // 텍스트 스타일링
           p: ({ children, ...props }) => (
-            <p {...props} className={mergedStyles.text.p}>
+            <p {...props} className={twMerge(defaultStyles.text.p, text.p)}>
               {children}
             </p>
           ),
           strong: ({ children, ...props }) => (
-            <strong {...props} className={mergedStyles.text.strong}>
+            <strong
+              {...props}
+              className={twMerge(defaultStyles.text.strong, text.strong)}
+            >
               {children}
             </strong>
           ),
           em: ({ children, ...props }) => (
-            <em {...props} className={mergedStyles.text.em}>
+            <em {...props} className={twMerge(defaultStyles.text.em, text.em)}>
               {children}
             </em>
           ),
@@ -173,7 +184,12 @@ export const MarkdownRenderer = ({
               {...props}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${mergedStyles.link.className} ${mergedStyles.link.hoverClassName}`}
+              className={twMerge(
+                defaultStyles.link.className,
+                defaultStyles.link.hoverClassName,
+                link.className,
+                link.hoverClassName
+              )}
             >
               {children}
             </a>
@@ -185,7 +201,10 @@ export const MarkdownRenderer = ({
               alt={typeof props.alt === "string" ? props.alt : ""}
               width={props.width ? Number(props.width) : 800}
               height={props.height ? Number(props.height) : 400}
-              className={mergedStyles.image.className}
+              className={twMerge(
+                defaultStyles.image.className,
+                image.className
+              )}
               loading="lazy"
             />
           ),
@@ -195,8 +214,8 @@ export const MarkdownRenderer = ({
               {...props}
               className={
                 className === "language-code"
-                  ? mergedStyles?.code?.block
-                  : mergedStyles.code.inline
+                  ? twMerge(defaultStyles.code.block, code.block)
+                  : twMerge(defaultStyles.code.inline, code.inline)
               }
             >
               {children}
@@ -204,17 +223,17 @@ export const MarkdownRenderer = ({
           ),
           // 리스트 스타일링
           ul: ({ children, ...props }) => (
-            <ul {...props} className={mergedStyles.list.ul}>
+            <ul {...props} className={twMerge(defaultStyles.list.ul, list.ul)}>
               {children}
             </ul>
           ),
           ol: ({ children, ...props }) => (
-            <ol {...props} className={mergedStyles.list.ol}>
+            <ol {...props} className={twMerge(defaultStyles.list.ol, list.ol)}>
               {children}
             </ol>
           ),
           li: ({ children, ...props }) => (
-            <li {...props} className={mergedStyles.list.li}>
+            <li {...props} className={twMerge(defaultStyles.list.li, list.li)}>
               {children}
             </li>
           ),
@@ -222,7 +241,10 @@ export const MarkdownRenderer = ({
           blockquote: ({ children, ...props }) => (
             <blockquote
               {...props}
-              className={mergedStyles.blockquote.className}
+              className={twMerge(
+                defaultStyles.blockquote.className,
+                blockquote.className
+              )}
             >
               {children}
             </blockquote>

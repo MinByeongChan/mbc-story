@@ -64,36 +64,40 @@ export default async function WorkSlug({
         content={markdownContent}
         className="prose prose-base prose-neutral dark:prose-invert max-w-none"
         headings={{
-          h1: "font-bold text-6xl text-white",
-          h2: "font-bold text-4xl text-white",
-          h3: "font-bold text-3xl text-white",
-          h4: "font-bold text-2xl text-white",
-          h5: "font-bold text-xl text-white",
-          h6: "font-bold text-lg text-white",
+          h1: "font-bold xl:text-6xl lg:text-6xl md:text-6xl text-white text-4xl",
+          h2: "font-bold xl:text-4xl lg:text-4xl md:text-4xl text-white text-3xl",
+          h3: "font-bold xl:text-3xl lg:text-3xl md:text-3xl text-white text-2xl",
+          h4: "font-bold xl:text-2xl lg:text-2xl md:text-2xl text-white text-xl",
+          h5: "font-bold xl:text-xl lg:text-xl md:text-xl text-white text-lg",
+          h6: "font-bold xl:text-lg lg:text-lg md:text-lg text-white text-md",
         }}
         text={{
-          p: "text-justify text-white",
-          strong: "text-white",
+          p: "text-justify text-white xl:text-base lg:text-base md:text-base text-sm",
+          strong: "text-white xl:text-base lg:text-base md:text-base text-sm",
         }}
         link={{
-          className: "text-blue-600 underline",
-          hoverClassName: "hover:text-blue-800",
+          className:
+            "text-blue-600 underline xl:text-base lg:text-base md:text-base text-sm",
+          hoverClassName:
+            "hover:text-blue-800 xl:text-base lg:text-base md:text-base text-sm",
         }}
         code={{
           block:
-            "block bg-gray-800 text-white p-4 rounded-lg overflow-x-auto text-sm",
-          inline: "bg-gray-800 text-white px-1 py-0.5 rounded text-sm",
+            "block bg-gray-800 text-white p-4 rounded-lg overflow-x-auto xl:text-base text-sm",
+          inline:
+            "bg-gray-800 text-white px-1 py-0.5 rounded xl:text-base text-sm",
         }}
         list={{
           ul: "list-disc list-inside",
           ol: "list-decimal list-inside",
-          li: "text-white marker:text-white",
+          li: "text-white marker:text-white xl:text-base lg:text-base md:text-base text-sm",
         }}
         image={{
           className: "rounded-xl max-w-full h-auto",
         }}
         blockquote={{
-          className: "border-l-4 border-gray-300 pl-4 italic text-gray-600",
+          className:
+            "border-l-4 border-gray-300 pl-4 italic text-gray-600 xl:text-base lg:text-base md:text-base text-sm",
         }}
       />
 
