@@ -27,7 +27,6 @@ export const WorkCard = ({
   projectType = "",
   slug,
 }: WorkCardProps) => {
-  console.log(imgSrc);
   return (
     <Link
       href={`/work/${slug}`}
