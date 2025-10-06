@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { StressButton } from "../ui/button";
-import { Anchor } from "@/components/ui/anchor";
+import { StressButton, Anchor } from "gocheok-project";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
