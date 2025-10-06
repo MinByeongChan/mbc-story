@@ -8,12 +8,13 @@ import { useGSAP } from "@gsap/react";
 export type StressButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren & {
     noneRadius?: boolean;
+    noneBorder?: boolean;
   };
 export const StressButton = ({
   children,
   className,
-  color,
   noneRadius,
+  noneBorder,
   ...restProps
 }: StressButtonProps) => {
   const ref = useRef(null);
@@ -63,9 +64,10 @@ export const StressButton = ({
       ref={ref}
       className={twMerge(
         "group",
-        "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70 bg-(--color-bg-100) text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
+        "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70  text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
         "relative w-[10rem] h-[1.7rem]",
-        noneRadius && "border-none",
+        noneBorder && "border-none",
+        noneRadius && "rounded-none",
         className,
       )}
       {...restProps}
@@ -74,8 +76,9 @@ export const StressButton = ({
       <div
         ref={hoverBackgroundRef}
         className={twMerge(
-          "absolute left-1/2 bottom-0 w-0 h-0 transition-all duration-300 rounded-[80%] ease-in-out scale-0",
+          "absolute transition-all duration-300 rounded-[80%] ease-in-out scale-0",
           "group-hover:rounded-xl group-hover:w-full group-hover:left-0 group-hover:bottom-0 group-hover:h-full group-hover:bg-white group-hover:scale-100",
+          noneRadius && "group-hover:rounded-none",
         )}
       />
       <Typography
