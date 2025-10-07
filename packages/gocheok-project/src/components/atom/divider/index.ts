@@ -1,1 +1,1 @@
-export * from "./Divider.tsx";
+export * from "./Divider";
