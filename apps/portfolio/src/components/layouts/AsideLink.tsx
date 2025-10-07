@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { UnderlineAnchor } from "../ui/anchor";
+import { UnderlineAnchor } from "gocheok-project";
 
 export const AsideLink = () => {
   return (

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { Typography } from "../typography";
+import { Typography } from "gocheok-project";
 import Link from "next/link";
 import Image from "next/image";
 

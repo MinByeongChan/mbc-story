@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography } from "../ui/typography";
+import { Typography } from "gocheok-project";
 
 export const WorkIntroduce = () => {
   return (

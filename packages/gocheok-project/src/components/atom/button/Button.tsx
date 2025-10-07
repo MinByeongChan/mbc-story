@@ -1,3 +1,5 @@
+"use client";
+
 import React, { PropsWithChildren, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -25,7 +27,7 @@ export const Button = ({
       ref={ref}
       className={twMerge(
         "rounded-lg border-transparent-[1px] bg-(--color-primary-100) py-2 px-4 text-sm text-(--color-neutral-100) cursor-pointer transition duration-300 ease-in-out",
-        className
+        className,
       )}
       {...restProps}
     >
