@@ -1,13 +1,13 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { Typography } from "@/components/ui/typography";
+import { Typography } from "gocheok-project";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import Image from "next/image";
-import { StressButton } from "../ui/button";
 import Link from "next/link";
+import { StressButton } from "gocheok-project";
 
 export const Profile = () => {
   gsap.registerPlugin(SplitText);
@@ -100,14 +100,12 @@ export const Profile = () => {
         </div>
 
         <div className="mt-8">
-          <Link className="text-lg" href="/work">
-            <StressButton
-              className="w-48 h-10 text-xl text-bold border-[2px]"
-              noneRadius
-            >
-              VIEW MY WORK
-            </StressButton>
-          </Link>
+          <StressButton
+            className="w-48 h-10 text-xl text-bold border-[2px]"
+            noneRadius
+          >
+            <Link href="/work">VIEW MY WORK</Link>
+          </StressButton>
         </div>
       </article>
 

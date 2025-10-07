@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography } from "../ui/typography";
+import { Typography } from "gocheok-project";
 import { useGSAP } from "@gsap/react";
 import gsap, { ScrollTrigger } from "gsap/all";
 import { StackItem } from "./StackItem";

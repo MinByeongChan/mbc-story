@@ -1,3 +1,5 @@
+"use client";
+
 import gsap from "gsap";
 import React, { PropsWithChildren, useRef } from "react";
 import { twMerge } from "tailwind-merge";

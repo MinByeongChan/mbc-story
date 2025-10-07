@@ -2,8 +2,7 @@
 
 import React, { useRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { Typography } from "@/components/ui/typography";
-import { Anchor } from "../ui/anchor";
+import { Typography, Anchor } from "gocheok-project";
 import gsap, { ScrollTrigger } from "gsap/all";
 import { useEffect } from "react";
 
@@ -56,9 +55,21 @@ export const ContactMe = () => {
         </div>
 
         <div className="flex flex-row items-center gap-8 mt-10 sm:text-xl">
-          <Anchor href="mailto:mbc0481@naver.com">EMAIL</Anchor>
-          <Anchor href="https://www.instagram.com/byongchan">INSTAGRAM</Anchor>
-          <Anchor href="https://www.github.com/minbyeongchan">GITHUB</Anchor>
+          <Anchor className="w-16 h-8 text-lg" href="mailto:mbc0481@naver.com">
+            EMAIL
+          </Anchor>
+          <Anchor
+            className="w-28 h-8 text-lg"
+            href="https://www.instagram.com/byongchan"
+          >
+            INSTAGRAM
+          </Anchor>
+          <Anchor
+            className="w-20 h-8 text-lg"
+            href="https://www.github.com/minbyeongchan"
+          >
+            GITHUB
+          </Anchor>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import React, { useRef } from "react";
-import { Typography } from "../ui/typography";
+import { Typography } from "gocheok-project";
 import { twMerge } from "tailwind-merge";
 import gsap, { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";

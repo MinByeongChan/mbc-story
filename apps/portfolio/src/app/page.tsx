@@ -1,5 +1,5 @@
 import { ContactMe, Profile, Stack } from "@/components/main";
-import { Dividor } from "@/components/ui/divider/Dividor";
+import { Divider } from "gocheok-project";
 import { twMerge } from "tailwind-merge";
 import { Metadata } from "next";
 
@@ -20,7 +20,7 @@ export default function Main() {
 
       <Stack />
 
-      <Dividor />
+      <Divider />
 
       <ContactMe />
     </section>
