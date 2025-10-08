@@ -14,6 +14,9 @@ export const useFetchProductById = (id: string) => {
         ?.find((product) => product.id === Number(id));
       return targetProduct;
     },
+    initialDataUpdatedAt: () => {
+      return queryClient.getQueryState(["product", "list"])?.dataUpdatedAt;
+    },
     staleTime: 0,
   });
 };
