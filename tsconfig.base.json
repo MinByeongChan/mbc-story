@@ -23,9 +23,6 @@
   },
   "references": [
     {
-      "path": "./packages/vite-project"
-    },
-    {
       "path": "./packages/infinite-scroll"
     }
   ],
