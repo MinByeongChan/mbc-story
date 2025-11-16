@@ -5,21 +5,18 @@ import { queryKeys } from "@/shared/queryKeys";
 
 export const useFetchProductById = (id: string) => {
   const queryClient = useQueryClient();
-  const queryKey = queryKeys.product.detail(id);
 
   return useSuspenseQuery({
-    queryKey,
+    queryKey: queryKeys.product.detail(id),
     queryFn: () => fetchProductById(id),
     initialData: () => {
       const targetProduct = queryClient
-        .getQueryData<ProductResponse>(queryKey)
+        .getQueryData<ProductResponse>(queryKeys.product.list())
         ?.find((product) => product.id === Number(id));
       return targetProduct;
     },
     initialDataUpdatedAt: () => {
-      console.log("getQueryState", queryClient.getQueryState(queryKey));
-      return queryClient.getQueryState(queryKey)?.dataUpdatedAt;
+      return queryClient.getQueryState(queryKeys.product.list())?.dataUpdatedAt;
     },
-    staleTime: 1000 * 5,
   });
 };

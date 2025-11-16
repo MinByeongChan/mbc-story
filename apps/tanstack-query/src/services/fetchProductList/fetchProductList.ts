@@ -1,9 +1,10 @@
-import { BASE_URL } from "@/services/utils";
 import { Product } from "@/services/types";
+import { apiGet } from "@/shared/apIClient";
 
-export const fetchProductList = async (): Promise<Product[]> => {
-  const response = await fetch(`${BASE_URL}/products`).then((response) =>
-    response.json()
-  );
-  return response;
+export const fetchProductList = async (category?: string) => {
+  const endPoint =
+    category && category !== "all"
+      ? `/products/category/${category}`
+      : "/products";
+  return apiGet<Product[]>(endPoint);
 };
