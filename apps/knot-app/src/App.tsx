@@ -1,4 +1,4 @@
-import KnotMain from '@/pages/KnotMain';
+import KnotMain from '@pages/KnotMain';
 
 function App() {
   return <KnotMain />;
