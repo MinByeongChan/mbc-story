@@ -1,0 +1,199 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Firebase 설정 및 유틸리티 모듈 구현",
+        "description": "기존 'src/firebase.js' 파일이 Firebase 앱을 올바르게 초기화하고, `firebase/auth` 및 `firebase/firestore` 인스턴스를 내보내는지 확인합니다. 필요한 경우 누락된 구성 정보를 추가하고, 프로젝트 전체에서 쉽게 접근할 수 있도록 유틸리티 모듈로 구성합니다.",
+        "details": "1. `src/firebase.js` 파일에서 `initializeApp`, `getAuth`, `getFirestore`가 올바르게 임포트되었는지 확인합니다.\n2. `firebaseConfig` 객체에 실제 Firebase 프로젝트의 구성 정보가 정확하게 포함되어 있는지 검증합니다.\n3. `app`, `auth`, `db` 인스턴스를 모듈의 외부에서 접근할 수 있도록 `export` 문을 사용하여 내보냅니다.\n\n```javascript\n// src/firebase.js\nimport { initializeApp } from 'firebase/app';\nimport { getAuth } from 'firebase/auth';\nimport { getFirestore } from 'firebase/firestore';\n\nconst firebaseConfig = {\n  apiKey: \"YOUR_API_KEY\",\n  authDomain: \"YOUR_AUTH_DOMAIN\",\n  projectId: \"YOUR_PROJECT_ID\",\n  storageBucket: \"YOUR_STORAGE_BUCKET\",\n  messagingSenderId: \"YOUR_MESSAGING_SENDER_ID\",\n  appId: \"YOUR_APP_ID\"\n};\n\nconst app = initializeApp(firebaseConfig);\nexport const auth = getAuth(app);\nexport const db = getFirestore(app);\n```",
+        "testStrategy": "1. 애플리케이션 시작 시 `console.log(auth, db)`를 통해 Firebase Auth 및 Firestore 인스턴스가 성공적으로 초기화되었는지 확인합니다.\n2. 존재하지 않는 Firebase API 키를 사용하여 초기화 실패 시 적절한 에러가 발생하는지 확인합니다.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "in-progress",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Firebase SDK 임포트 확인 및 업데이트",
+            "description": "`src/firebase.js` 파일에서 `firebase/app`, `firebase/auth`, `firebase/firestore` 모듈에서 필요한 함수(`initializeApp`, `getAuth`, `getFirestore`)가 올바르게 임포트되었는지 확인하고, 누락된 부분이 있다면 추가합니다.",
+            "dependencies": [],
+            "details": "`src/firebase.js` 파일을 열어 `import { initializeApp } from 'firebase/app';`, `import { getAuth } from 'firebase/auth';`, `import { getFirestore } from 'firebase/firestore';` 구문이 정확한지 확인합니다. 제공된 코드와 일치하는지 검토합니다.",
+            "status": "pending",
+            "testStrategy": "해당 임포트 구문들이 올바르게 작성되어 컴파일 오류가 발생하지 않는지 확인합니다."
+          },
+          {
+            "id": 2,
+            "title": "Firebase 프로젝트 설정 정보 정의",
+            "description": "`src/firebase.js` 파일 내 `firebaseConfig` 객체에 실제 Firebase 프로젝트의 API 키, 인증 도메인, 프로젝트 ID 등 필요한 설정 정보들을 환경 변수나 직접 값을 통해 정확하게 정의합니다.",
+            "dependencies": [],
+            "details": "Firebase 콘솔에서 프로젝트 설정을 확인하여 `apiKey`, `authDomain`, `projectId`, `storageBucket`, `messagingSenderId`, `appId` 등의 플레이스홀더를 실제 값으로 교체합니다. 보안을 위해 환경 변수 사용을 권장합니다.",
+            "status": "pending",
+            "testStrategy": "정의된 `firebaseConfig` 객체가 실제 Firebase 프로젝트의 유효한 설정 정보를 포함하는지 육안으로 확인합니다. (이 단계에서는 실행 테스트 없음)"
+          },
+          {
+            "id": 3,
+            "title": "Firebase 애플리케이션 초기화 및 `app` 인스턴스 생성",
+            "description": "`src/firebase.js` 파일에서 `initializeApp` 함수를 사용하여 `firebaseConfig` 객체로 Firebase 애플리케이션을 초기화하고, 생성된 `app` 인스턴스를 상수(`const app`)로 선언합니다.",
+            "dependencies": [
+              2
+            ],
+            "details": "`const app = initializeApp(firebaseConfig);` 코드가 올바르게 작성되었는지 확인하고, 초기화 과정에서 오류가 없는지 확인합니다. 이 `app` 인스턴스는 다른 Firebase 서비스 초기화에 사용됩니다.",
+            "status": "pending",
+            "testStrategy": "애플리케이션을 실행하고 개발자 콘솔에서 `console.log(app)`을 통해 Firebase 앱 인스턴스가 성공적으로 생성되었는지 확인합니다. 존재하지 않는 Firebase API 키를 사용하여 초기화 실패 시 적절한 에러가 발생하는지 확인합니다."
+          },
+          {
+            "id": 4,
+            "title": "Firebase 인증(Auth) 인스턴스 초기화 및 내보내기",
+            "description": "초기화된 `app` 인스턴스를 사용하여 `getAuth` 함수로 Firebase 인증 서비스 인스턴스를 초기화하고, `auth`라는 이름으로 모듈 외부에서 접근할 수 있도록 내보냅니다.",
+            "dependencies": [
+              3
+            ],
+            "details": "`export const auth = getAuth(app);` 코드를 `src/firebase.js` 파일에 추가하거나, 이미 있다면 정확한지 확인합니다. 이는 이후 인증 관련 로직에서 사용될 핵심 인스턴스입니다.",
+            "status": "pending",
+            "testStrategy": "애플리케이션 시작 시 `console.log(auth)`를 통해 Firebase Auth 인스턴스가 성공적으로 초기화되었고 유효한 객체인지 확인합니다. 이 인스턴스가 `null` 또는 `undefined`가 아닌지 검증합니다."
+          },
+          {
+            "id": 5,
+            "title": "Firebase Firestore 인스턴스 초기화 및 내보내기",
+            "description": "초기화된 `app` 인스턴스를 사용하여 `getFirestore` 함수로 Firebase Firestore 데이터베이스 인스턴스를 초기화하고, `db`라는 이름으로 모듈 외부에서 접근할 수 있도록 내보냅니다.",
+            "dependencies": [
+              3
+            ],
+            "details": "`export const db = getFirestore(app);` 코드를 `src/firebase.js` 파일에 추가하거나, 이미 있다면 정확한지 확인합니다. 이는 이후 데이터 저장 및 조회 로직에서 사용될 핵심 인스턴스입니다.",
+            "status": "pending",
+            "testStrategy": "애플리케이션 시작 시 `console.log(db)`를 통해 Firebase Firestore 인스턴스가 성공적으로 초기화되었고 유효한 객체인지 확인합니다. 이 인스턴스가 `null` 또는 `undefined`가 아닌지 검증합니다."
+          }
+        ],
+        "updatedAt": "2025-11-03T22:41:17.775Z"
+      },
+      {
+        "id": 2,
+        "title": "인증 관련 UI 컴포넌트 개발",
+        "description": "사용자 로그인, 회원가입, 로그아웃 기능을 위한 UI 컴포넌트를 개발합니다. 로그인 페이지(`/login`)에 필요한 입력 필드(이메일, 비밀번호)와 버튼을 포함하고, Todo List 페이지에 로그아웃 버튼을 추가합니다.",
+        "details": "1. `src/components/Auth.js` 또는 별도의 파일에 `LoginForm` 및 `RegisterForm` 컴포넌트를 생성합니다.\n2. 각 폼은 이메일과 비밀번호 입력을 위한 `<input type='email'>` 및 `<input type='password'>` 요소를 포함합니다.\n3. 제출을 위한 버튼(`로그인`, `회원가입`)을 추가합니다.\n4. Todo List 페이지 (`src/components/TodoList.js` 또는 `src/App.js`)에 현재 사용자 상태를 표시하고 로그아웃 기능을 트리거할 '로그아웃' 버튼을 추가합니다.\n5. React hook (예: `useState`)을 사용하여 폼 입력 상태를 관리합니다.\n\n```jsx\n// src/components/Auth.js (예시)\nimport React, { useState } from 'react';\n\nfunction AuthPage() {\n  const [email, setEmail] = useState('');\n  const [password, setPassword] = useState('');\n  const [isLogin, setIsLogin] = useState(true); // 로그인/회원가입 토글\n\n  const handleSubmit = (event) => {\n    event.preventDefault();\n    // 이메일, 비밀번호를 사용하여 인증 로직 호출 (다음 태스크에서 구현)\n    console.log(isLogin ? '로그인 시도' : '회원가입 시도', { email, password });\n  };\n\n  return (\n    <div>\n      <h2>{isLogin ? '로그인' : '회원가입'}</h2>\n      <form onSubmit={handleSubmit}>\n        <input type=\"email\" value={email} onChange={(e) => setEmail(e.target.value)} placeholder=\"이메일\" required />\n        <input type=\"password\" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=\"비밀번호\" required />\n        <button type=\"submit\">{isLogin ? '로그인' : '회원가입'}</button>\n      </form>\n      <button onClick={() => setIsLogin(!isLogin)}>\n        {isLogin ? '계정이 없으신가요? 회원가입' : '이미 계정이 있으신가요? 로그인'}\n      </button>\n    </div>\n  );\n}\nexport default AuthPage;\n```",
+        "testStrategy": "1. 로그인/회원가입 페이지에 접근하여 이메일 및 비밀번호 입력 필드와 버튼이 올바르게 렌더링되는지 확인합니다.\n2. 로그인/회원가입 폼 제출 시 콘솔에 올바른 입력값이 출력되는지 확인합니다.\n3. 로그아웃 버튼이 Todo List 페이지에 표시되는지 확인합니다.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Firebase Authentication 로직 구현 및 상태 관리",
+        "description": "Firebase Authentication SDK를 사용하여 이메일과 비밀번호 기반의 회원가입, 로그인, 로그아웃 기능을 구현하고, 사용자 인증 상태를 React Context API 또는 React Hook을 통해 전역적으로 관리합니다. 인증 상태 변화를 감지하여 애플리케이션 전반에 공유되도록 합니다.",
+        "details": "1. `src/firebase.js`에서 내보낸 `auth` 객체를 사용하여 `createUserWithEmailAndPassword`, `signInWithEmailAndPassword`, `signOut` 함수를 호출하는 로직을 구현합니다.\n2. 사용자 인증 상태를 관리하기 위한 React Context (예: `AuthContext`)를 생성하고, `onAuthStateChanged` 리스너를 사용하여 로그인 상태 변화를 감지하고 Context의 상태를 업데이트합니다.\n3. `AuthContext`는 현재 로그인한 사용자 정보 (`user` 객체)와 로딩 상태 (`loading`)를 제공해야 합니다.\n4. `AuthPage` 컴포넌트에서 로그인 및 회원가입 폼 제출 시 해당 인증 함수를 호출하고, 성공/실패 시 사용자에게 피드백을 제공합니다.\n5. 로그아웃 버튼 클릭 시 `signOut` 함수를 호출합니다.\n\n```jsx\n// src/context/AuthContext.js (예시)\nimport React, { createContext, useContext, useEffect, useState } from 'react';\nimport { auth } from '../firebase'; // Task 1에서 내보낸 auth 인스턴스\nimport { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';\n\nconst AuthContext = createContext(null);\n\nexport const useAuth = () => useContext(AuthContext);\n\nexport const AuthProvider = ({ children }) => {\n  const [user, setUser] = useState(null);\n  const [loading, setLoading] = useState(true);\n\n  useEffect(() => {\n    const unsubscribe = auth.onAuthStateChanged(firebaseUser => {\n      setUser(firebaseUser);\n      setLoading(false);\n    });\n    return unsubscribe;\n  }, []);\n\n  const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);\n  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);\n  const logout = () => signOut(auth);\n\n  const value = { user, loading, signup, login, logout };\n\n  return (\n    <AuthContext.Provider value={value}>\n      {!loading && children}\n    </AuthContext.Provider>\n  );\n};\n\n// src/components/Auth.js (사용 예시)\n// ... (이전 코드)\nimport { useAuth } from '../context/AuthContext';\n// ...\n\nfunction AuthPage() {\n  // ... (state)\n  const { signup, login } = useAuth();\n\n  const handleSubmit = async (event) => {\n    event.preventDefault();\n    try {\n      if (isLogin) {\n        await login(email, password);\n        console.log('로그인 성공');\n      } else {\n        await signup(email, password);\n        console.log('회원가입 성공');\n      }\n    } catch (error) {\n      console.error('인증 실패:', error.message);\n      alert(error.message);\n    }\n  };\n  // ...\n}\n// ...\n```",
+        "testStrategy": "1. 새 계정을 생성하여 회원가입이 성공하는지, Firebase 콘솔에서 사용자 목록에 추가되는지 확인합니다.\n2. 생성된 계정으로 로그인했을 때 성공하는지, `AuthContext`의 `user` 상태가 업데이트되는지 확인합니다.\n3. 잘못된 이메일/비밀번호로 로그인 시도 시 적절한 에러 메시지가 표시되는지 확인합니다.\n4. 로그인 후 로그아웃 버튼을 클릭했을 때 `user` 상태가 `null`로 변경되는지 확인합니다.\n5. 브라우저를 닫았다 다시 열었을 때 로그인 상태가 유지되는지 확인합니다.",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "React Router 설정 및 라우팅 보호",
+        "description": "React Router DOM을 사용하여 애플리케이션의 라우팅을 설정합니다. `/login` 경로를 인증 페이지로, `/` 경로를 Todo List 페이지로 정의하고, 로그인하지 않은 사용자가 Todo List 페이지에 접근할 경우 `/login` 페이지로 강제 리디렉션되도록 보호된 라우트를 구현합니다.",
+        "details": "1. `react-router-dom`을 사용하여 `BrowserRouter`를 설정합니다.\n2. `/login` 경로에 `AuthPage` 컴포넌트를 연결하고, `/` 경로에 `TodoListPage` (아직 생성되지 않음) 컴포넌트를 연결합니다.\n3. `useAuth` 훅을 활용하여 사용자 인증 상태를 확인하고, 로그인하지 않은 사용자에게는 `Navigate` 컴포넌트를 사용하여 `/login`으로 리디렉션하는 `ProtectedRoute` 컴포넌트를 구현합니다.\n4. `App.js`에 `AuthProvider`를 감싸서 앱 전체에서 인증 상태에 접근할 수 있도록 합니다.\n\n```jsx\n// src/App.js\nimport React from 'react';\nimport { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';\nimport { AuthProvider, useAuth } from './context/AuthContext'; // Task 3에서 구현\nimport AuthPage from './components/Auth'; // Task 2에서 구현\nimport TodoListPage from './components/TodoList'; // 다음 태스크에서 구현 예정\n\n// 보호된 라우트 컴포넌트\nconst ProtectedRoute = ({ children }) => {\n  const { user, loading } = useAuth();\n  if (loading) {\n    return <div>로딩 중...</div>; // 인증 상태 로딩 중 표시\n  }\n  return user ? children : <Navigate to=\"/login\" replace />;\n};\n\nfunction App() {\n  return (\n    <Router>\n      <AuthProvider>\n        <Routes>\n          <Route path=\"/login\" element={<AuthPage />} />\n          <Route \n            path=\"/\" \n            element={\n              <ProtectedRoute>\n                <TodoListPage />\n              </ProtectedRoute>\n            }\n          />\n          {/* 다른 라우트들 */}\n        </Routes>\n      </AuthProvider>\n    </Router>\n  );\n}\nexport default App;\n```",
+        "testStrategy": "1. 로그아웃 상태에서 브라우저 주소창에 `/`를 입력하여 접근 시 `/login`으로 자동 리디렉션되는지 확인합니다.\n2. 로그인 후 `/`로 접근했을 때 Todo List 페이지가 정상적으로 표시되는지 확인합니다.\n3. 로그인 후 `/login`으로 접근했을 때 Todo List 페이지로 리디렉션되지 않고 로그인 페이지가 표시되는지 (혹은 `/`로 리디렉션되도록 추가 구현 여부) 확인합니다. (PRD에는 로그인 페이지로 강제 이동에 대한 내용은 없으므로, 로그인 페이지 접근은 허용해도 무방)",
+        "priority": "high",
+        "dependencies": [
+          "3"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Firestore 데이터 모델 정의 및 보안 규칙 설정",
+        "description": "Firestore 데이터베이스에 Todo 항목을 저장하기 위한 'todos' 컬렉션의 데이터 모델을 정의하고, 사용자별 데이터 격리 및 보안을 위한 Firestore 보안 규칙을 작성합니다. 각 Todo 항목은 `text`, `completed`, `createdAt`, `userId` 필드를 포함해야 합니다.",
+        "details": "1. **데이터 모델 정의:**\n   - Collection: `todos`\n   - Document (자동 생성 ID):\n     - `text` (string): 할 일 내용\n     - `completed` (boolean): 완료 여부\n     - `createdAt` (timestamp): 생성 시간\n     - `userId` (string): Todo를 생성한 사용자 ID (Firebase Auth의 `uid` 사용)\n\n2. **Firestore 보안 규칙 작성:**\n   Firebase 콘솔의 Firestore '규칙' 탭에서 다음 규칙을 적용합니다.\n   - 모든 사용자는 `todos` 컬렉션의 문서에 접근할 수 없습니다.\n   - 인증된 사용자만 `todos` 컬렉션에 접근할 수 있습니다.\n   - 사용자는 자신의 `userId`와 일치하는 Todo 문서만 생성, 읽기, 수정, 삭제할 수 있습니다.\n\n```firestore\nrules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /todos/{todoId} {\n      allow read, write: if request.auth != null && request.auth.uid == resource.data.userId;\n      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;\n    }\n  }\n}\n```",
+        "testStrategy": "1. **Firebase 콘솔에서 테스트:**\n   - 로그인하지 않은 상태에서 'todos' 컬렉션에 데이터를 추가/조회/수정/삭제 시도 시 거부되는지 확인합니다.\n   - 로그인한 사용자가 `userId` 필드를 자신의 `uid`로 설정하여 Todo를 생성 시 성공하는지 확인합니다.\n   - 로그인한 사용자가 `userId` 필드가 다른 `uid`로 설정된 Todo를 생성 시도 시 거부되는지 확인합니다.\n   - 로그인한 사용자가 자신의 `uid`와 일치하는 `userId`를 가진 Todo만 조회, 수정, 삭제할 수 있는지 확인합니다.\n   - 다른 사용자의 Todo를 조회/수정/삭제 시도 시 거부되는지 확인합니다.",
+        "priority": "high",
+        "dependencies": [
+          "3"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Todo 목록 표시 및 입력 UI 컴포넌트 개발",
+        "description": "로그인한 사용자를 위한 Todo List 페이지(`src/components/TodoList.js`)를 구현합니다. 이 페이지에는 현재 사용자의 Todo 항목 목록을 표시할 영역과 새로운 Todo 항목을 입력하고 추가할 수 있는 폼이 포함되어야 합니다.",
+        "details": "1. `src/components/TodoList.js` 파일을 생성하고 `TodoListPage` 컴포넌트를 정의합니다.\n2. 컴포넌트 내부에 새로운 Todo를 입력할 `<input type='text'>` 필드와 '추가' 버튼을 포함하는 폼을 구현합니다.\n3. Todo 항목들을 표시할 `<ul>` 또는 `<div>` 기반의 리스트 구조를 만듭니다.\n4. 각 Todo 항목은 텍스트, 완료 체크박스, 삭제 버튼을 위한 플레이스홀더를 포함해야 합니다.\n5. Task 3에서 구현된 `useAuth` 훅을 사용하여 현재 로그인한 사용자 정보 (특히 `user.uid`)를 가져올 준비를 합니다.\n\n```jsx\n// src/components/TodoList.js (예시)\nimport React, { useState } from 'react';\nimport { useAuth } from '../context/AuthContext'; // Task 3에서 구현\n\nfunction TodoListPage() {\n  const { user, logout } = useAuth();\n  const [newTodoText, setNewTodoText] = useState('');\n  const [todos, setTodos] = useState([]); // 임시 상태, 나중에 Firestore에서 가져옴\n\n  const handleAddTodo = (event) => {\n    event.preventDefault();\n    if (newTodoText.trim() === '') return;\n    console.log('새 Todo 추가 시도:', newTodoText);\n    // Firestore 추가 로직 (다음 태스크에서 구현)\n    setNewTodoText('');\n  };\n\n  return (\n    <div>\n      <h1>{user ? `${user.email}의 Todo List` : 'Todo List'}</h1>\n      <button onClick={logout}>로그아웃</button>\n\n      <form onSubmit={handleAddTodo}>\n        <input\n          type=\"text\"\n          value={newTodoText}\n          onChange={(e) => setNewTodoText(e.target.value)}\n          placeholder=\"새로운 할 일을 입력하세요\"\n        />\n        <button type=\"submit\">추가</button>\n      </form>\n\n      <h2>할 일 목록</h2>\n      {todos.length === 0 ? (\n        <p>할 일이 없습니다.</p>\n      ) : (\n        <ul>\n          {todos.map(todo => (\n            <li key={todo.id}>\n              <input type=\"checkbox\" checked={todo.completed} onChange={() => { /* 토글 로직 */ }} />\n              <span>{todo.text}</span>\n              <button onClick={() => { /* 삭제 로직 */ }}>삭제</button>\n            </li>\n          ))}\n        </ul>\n      )}\n    </div>\n  );\n}\nexport default TodoListPage;\n```",
+        "testStrategy": "1. 로그인 후 Todo List 페이지에 접근했을 때, Todo 입력 필드와 '추가' 버튼, '로그아웃' 버튼이 정상적으로 렌더링되는지 확인합니다.\n2. 임시 `todos` 상태를 사용하여 목록이 렌더링되는지, 항목별 체크박스, 텍스트, 삭제 버튼이 표시되는지 확인합니다.\n3. '할 일이 없습니다.' 메시지가 예상대로 표시되는지 확인합니다.",
+        "priority": "medium",
+        "dependencies": [
+          "4"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Todo 항목 CRUD (생성, 조회) 기능 구현",
+        "description": "Task 6에서 구현된 UI와 연동하여 Firestore에서 현재 사용자의 Todo 목록을 실시간으로 조회하고 UI에 반영합니다. 또한, 새로운 Todo 항목을 입력하고 '추가' 버튼을 클릭하면 Firestore에 저장되도록 생성 기능을 구현합니다.",
+        "details": "1. **조회 기능 (Read):**\n   - `TodoListPage` 컴포넌트 내에서 `useEffect` 훅을 사용하여 컴포넌트 마운트 시 Firestore에서 Todo 목록을 가져옵니다.\n   - `db` 인스턴스를 사용하여 `collection('todos')`를 참조하고, `where('userId', '==', user.uid)` 쿼리를 사용하여 현재 사용자의 Todo만 필터링합니다.\n   - `orderBy('createdAt', 'asc')`를 사용하여 생성 시간 순으로 정렬합니다.\n   - `onSnapshot` 리스너를 사용하여 실시간으로 데이터 변경사항을 감지하고 `setTodos`로 상태를 업데이트합니다.\n   - `cleanup` 함수를 `useEffect`에서 반환하여 리스너를 해제합니다.\n\n2. **생성 기능 (Create):**\n   - `handleAddTodo` 함수 내에서 `addDoc` 함수를 사용하여 `todos` 컬렉션에 새 문서를 추가합니다.\n   - 추가할 문서에는 `text` (입력 필드 값), `completed: false`, `createdAt: serverTimestamp()`, `userId: user.uid` 필드를 포함합니다.\n\n```jsx\n// src/components/TodoList.js (업데이트 예시)\nimport React, { useState, useEffect } from 'react';\nimport { useAuth } from '../context/AuthContext';\nimport { db } from '../firebase'; // Task 1에서 내보낸 db 인스턴스\nimport { collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';\n\nfunction TodoListPage() {\n  const { user, logout } = useAuth();\n  const [newTodoText, setNewTodoText] = useState('');\n  const [todos, setTodos] = useState([]);\n\n  useEffect(() => {\n    if (!user) return; // 사용자가 없으면 데이터를 가져오지 않음\n\n    const q = query(\n      collection(db, 'todos'),\n      where('userId', '==', user.uid),\n      orderBy('createdAt', 'asc')\n    );\n\n    const unsubscribe = onSnapshot(q, (snapshot) => {\n      const todosData = snapshot.docs.map(doc => ({\n        id: doc.id,\n        ...doc.data()\n      }));\n      setTodos(todosData);\n    });\n\n    return () => unsubscribe(); // 클린업 함수\n  }, [user]); // user 객체가 변경될 때마다 다시 실행\n\n  const handleAddTodo = async (event) => {\n    event.preventDefault();\n    if (newTodoText.trim() === '' || !user) return;\n\n    try {\n      await addDoc(collection(db, 'todos'), {\n        text: newTodoText.trim(),\n        completed: false,\n        createdAt: serverTimestamp(),\n        userId: user.uid,\n      });\n      setNewTodoText('');\n    } catch (error) {\n      console.error('Todo 추가 실패:', error.message);\n      alert('Todo 추가에 실패했습니다.');\n    }\n  };\n  // ... (렌더링 부분은 Task 6과 동일)\n}\n```",
+        "testStrategy": "1. 로그인 후 Todo List 페이지에서 새로운 할 일을 입력하고 '추가' 버튼을 클릭합니다. UI에 즉시 새 Todo가 추가되는지 확인합니다.\n2. Firebase 콘솔의 Firestore 데이터 탭에서 새 Todo 문서가 올바른 `userId`와 필드를 가지고 생성되었는지 확인합니다.\n3. 브라우저를 새로고침해도 추가한 Todo 목록이 유지되는지 확인합니다.\n4. 다른 사용자로 로그인했을 때, 이전 사용자의 Todo 목록이 보이지 않고 현재 로그인한 사용자의 Todo만 보이는지 확인합니다.\n5. 네트워크가 불안정한 상황을 시뮬레이션하여 실시간 동기화가 지연되거나 복구되는지 관찰합니다.",
+        "priority": "high",
+        "dependencies": [
+          "3",
+          "5",
+          "6"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Todo 항목 완료 상태 토글 (Update) 기능 구현",
+        "description": "각 Todo 항목의 체크박스를 클릭하여 해당 Todo의 `completed` 상태를 토글하는 기능을 구현합니다. 이 변경사항은 Firestore에 즉시 반영되어야 합니다.",
+        "details": "1. `TodoListPage` 컴포넌트에서 각 Todo 항목 렌더링 시 `<input type='checkbox'>`에 `onChange` 이벤트 핸들러를 추가합니다.\n2. 이벤트 핸들러 내에서 `updateDoc` 함수를 사용하여 해당 Todo 문서의 `completed` 필드를 현재 값의 반대로 업데이트합니다.\n3. `doc(db, 'todos', todoId)`를 사용하여 특정 Todo 문서를 참조합니다.\n\n```jsx\n// src/components/TodoList.js (추가될 handleToggleCompleted 함수 및 사용 예시)\nimport { doc, updateDoc } from 'firebase/firestore'; // Firebase 임포트 추가\n// ...\n\nfunction TodoListPage() {\n  // ... (기존 코드)\n\n  const handleToggleCompleted = async (id, currentCompleted) => {\n    try {\n      const todoRef = doc(db, 'todos', id);\n      await updateDoc(todoRef, {\n        completed: !currentCompleted\n      });\n      console.log('Todo 완료 상태 토글 성공:', id);\n    } catch (error) {\n      console.error('Todo 완료 상태 토글 실패:', error.message);\n      alert('Todo 상태 변경에 실패했습니다.');\n    }\n  };\n\n  return (\n    // ... (렌더링 부분)\n    <ul>\n      {todos.map(todo => (\n        <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>\n          <input \n            type=\"checkbox\" \n            checked={todo.completed} \n            onChange={() => handleToggleCompleted(todo.id, todo.completed)} \n          />\n          <span>{todo.text}</span>\n          {/* 삭제 버튼 등 */}\n        </li>\n      ))}\n    </ul>\n    // ...\n  );\n}\n```",
+        "testStrategy": "1. 기존 Todo 항목의 체크박스를 클릭했을 때, UI에서 텍스트에 취소선이 생기거나 사라지는 등 완료 상태가 시각적으로 토글되는지 확인합니다.\n2. 체크박스 클릭 후 브라우저를 새로고침하거나 Firebase 콘솔에서 해당 문서의 `completed` 필드가 올바르게 업데이트되었는지 확인합니다.\n3. Todo를 '완료' 또는 '미완료' 상태로 여러 번 토글하여 일관되게 작동하는지 확인합니다.",
+        "priority": "medium",
+        "dependencies": [
+          "7"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Todo 항목 삭제 (Delete) 기능 구현",
+        "description": "각 Todo 항목 옆에 '삭제' 버튼을 추가하고, 이 버튼을 클릭하면 해당 Todo 항목이 Firestore에서 영구적으로 제거되도록 기능을 구현합니다.",
+        "details": "1. `TodoListPage` 컴포넌트에서 각 Todo 항목 렌더링 시 '삭제' 버튼에 `onClick` 이벤트 핸들러를 추가합니다.\n2. 이벤트 핸들러 내에서 `deleteDoc` 함수를 사용하여 해당 Todo 문서를 Firestore에서 삭제합니다.\n3. `doc(db, 'todos', todoId)`를 사용하여 특정 Todo 문서를 참조합니다.\n\n```jsx\n// src/components/TodoList.js (추가될 handleDeleteTodo 함수 및 사용 예시)\nimport { doc, deleteDoc } from 'firebase/firestore'; // Firebase 임포트 추가\n// ...\n\nfunction TodoListPage() {\n  // ... (기존 코드)\n\n  const handleDeleteTodo = async (id) => {\n    if (!window.confirm('정말로 이 할 일을 삭제하시겠습니까?')) return;\n    try {\n      const todoRef = doc(db, 'todos', id);\n      await deleteDoc(todoRef);\n      console.log('Todo 삭제 성공:', id);\n    } catch (error) {\n      console.error('Todo 삭제 실패:', error.message);\n      alert('Todo 삭제에 실패했습니다.');\n    }\n  };\n\n  return (\n    // ... (렌더링 부분)\n    <ul>\n      {todos.map(todo => (\n        <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>\n          <input \n            type=\"checkbox\" \n            checked={todo.completed} \n            onChange={() => handleToggleCompleted(todo.id, todo.completed)} \n          />\n          <span>{todo.text}</span>\n          <button onClick={() => handleDeleteTodo(todo.id)}>삭제</button>\n        </li>\n      ))}\n    </ul>\n    // ...\n  );\n}\n```",
+        "testStrategy": "1. 기존 Todo 항목 옆의 '삭제' 버튼을 클릭했을 때, 경고 메시지(예: `confirm()`)가 표시되는지 확인합니다.\n2. 삭제를 확인했을 때, 해당 Todo 항목이 UI에서 즉시 사라지는지 확인합니다.\n3. Firebase 콘솔의 Firestore 데이터 탭에서 해당 문서가 성공적으로 삭제되었는지 확인합니다.\n4. 브라우저를 새로고침해도 삭제된 Todo 항목이 다시 나타나지 않는지 확인합니다.\n5. 다른 사용자의 Todo를 삭제하려고 시도했을 때, 보안 규칙에 의해 거부되는지 확인합니다.",
+        "priority": "medium",
+        "dependencies": [
+          "7"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "(선택 사항) Todo 항목 텍스트 수정 (Update) 기능 구현",
+        "description": "사용자가 기존 Todo 항목의 텍스트 내용을 직접 수정하고, 이 변경사항이 Firestore에 반영되도록 기능을 구현합니다. 더블 클릭 또는 '수정' 버튼을 통해 편집 모드로 전환하는 방식을 고려할 수 있습니다.",
+        "details": "1. 각 Todo 항목의 텍스트를 클릭하거나 별도의 '수정' 버튼을 통해 편집 모드로 전환하는 로직을 구현합니다.\n2. 편집 모드에서는 텍스트가 `<input type='text'>` 필드로 변경되고, 사용자가 내용을 수정할 수 있도록 합니다.\n3. 편집 모드를 종료(예: Enter 키 입력 또는 블러 이벤트)하면 `updateDoc` 함수를 사용하여 해당 Todo 문서의 `text` 필드를 새로운 값으로 업데이트합니다.\n\n```jsx\n// src/components/TodoList.js (추가될 handleUpdateText 함수 및 사용 예시)\nimport { doc, updateDoc } from 'firebase/firestore'; // Firebase 임포트 추가\n// ...\n\nfunction TodoListPage() {\n  // ... (기존 코드)\n  const [editingTodoId, setEditingTodoId] = useState(null);\n  const [editingText, setEditingText] = useState('');\n\n  const handleEditClick = (todo) => {\n    setEditingTodoId(todo.id);\n    setEditingText(todo.text);\n  };\n\n  const handleUpdateText = async (id) => {\n    if (editingText.trim() === '') return;\n    try {\n      const todoRef = doc(db, 'todos', id);\n      await updateDoc(todoRef, {\n        text: editingText.trim()\n      });\n      setEditingTodoId(null); // 편집 모드 종료\n      console.log('Todo 텍스트 수정 성공:', id);\n    } catch (error) {\n      console.error('Todo 텍스트 수정 실패:', error.message);\n      alert('Todo 텍스트 수정에 실패했습니다.');\n    }\n  };\n\n  return (\n    // ... (렌더링 부분)\n    <ul>\n      {todos.map(todo => (\n        <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>\n          <input \n            type=\"checkbox\" \n            checked={todo.completed} \n            onChange={() => handleToggleCompleted(todo.id, todo.completed)} \n          />\n          {\n            editingTodoId === todo.id ? (\n              <input\n                type=\"text\"\n                value={editingText}\n                onChange={(e) => setEditingText(e.target.value)}\n                onBlur={() => handleUpdateText(todo.id)} // 블러 시 저장\n                onKeyPress={(e) => { if (e.key === 'Enter') handleUpdateText(todo.id); }}\n                autoFocus\n              />\n            ) : (\n              <span onDoubleClick={() => handleEditClick(todo)}>{todo.text}</span>\n            )\n          }\n          <button onClick={() => handleDeleteTodo(todo.id)}>삭제</button>\n          {editingTodoId !== todo.id && <button onClick={() => handleEditClick(todo)}>수정</button>}\n        </li>\n      ))}\n    </ul>\n    // ...\n  );\n}\n```",
+        "testStrategy": "1. 기존 Todo 항목의 텍스트를 더블 클릭하거나 '수정' 버튼을 클릭했을 때 편집 모드로 전환되는지 확인합니다.\n2. 편집 모드에서 텍스트를 수정한 후 Enter 키를 누르거나 입력 필드 외부를 클릭했을 때, 변경사항이 UI에 즉시 반영되는지 확인합니다.\n3. Firebase 콘솔의 Firestore 데이터 탭에서 해당 문서의 `text` 필드가 올바르게 업데이트되었는지 확인합니다.\n4. 브라우저를 새로고침해도 수정된 텍스트가 유지되는지 확인합니다.\n5. 빈 문자열로 수정 시도 시 유효성 검사가 작동하는지 확인합니다.",
+        "priority": "low",
+        "dependencies": [
+          "7"
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2025-11-03T22:41:17.777Z",
+      "taskCount": 10,
+      "completedCount": 0,
+      "tags": [
+        "master"
+      ],
+      "created": "2025-11-03T22:41:31.017Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

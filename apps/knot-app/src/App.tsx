@@ -1,13 +1,7 @@
-import { css } from "@styled-system/css";
+import KnotMain from '@/pages/KnotMain';
 
 function App() {
-  return (
-    <>
-      <div className={css({ fontSize: "2xl", fontWeight: "bold" })}>
-        Hello 🐼!
-      </div>
-    </>
-  );
+  return <KnotMain />;
 }
 
 export default App;
