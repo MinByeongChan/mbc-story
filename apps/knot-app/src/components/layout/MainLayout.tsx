@@ -19,9 +19,11 @@ const mainLayoutStyles = css({
   maxWidth: '440px',
   minHeight: '100vh',
   height: '100%',
+  display: 'grid',
+  gridTemplateRows: 'repeat(2, 100vh) 40px',
   m: '0 auto',
-  p: '6',
   bg: 'token(colors.ivory.50)',
+  gap: '10',
 });
 
 export const MainLayout = (props: MainLayoutProps) => {

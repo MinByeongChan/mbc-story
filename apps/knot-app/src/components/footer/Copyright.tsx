@@ -1,6 +1,10 @@
 import { css } from '@styled-system/css';
 
 const copyrightStyles = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
   fontSize: '12px',
   color: 'token(colors.grey.500)',
   textAlign: 'center',
