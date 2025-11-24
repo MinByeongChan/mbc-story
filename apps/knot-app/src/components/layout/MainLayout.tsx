@@ -20,7 +20,7 @@ const mainLayoutStyles = css({
   minHeight: '100vh',
   height: '100%',
   display: 'grid',
-  gridTemplateRows: 'repeat(4, 100vh) 40px',
+  gridTemplateRows: 'repeat(5, 100vh) 40px',
   m: '0 auto',
   bg: 'token(colors.ivory.50)',
   gap: '10',

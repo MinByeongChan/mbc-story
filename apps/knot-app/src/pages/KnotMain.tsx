@@ -4,6 +4,7 @@ import { MainLayout } from '@components/layout';
 import { Invite } from '@components/invite';
 import { Calendar } from '@components/calendar';
 import { Gallery } from '@components/gallery';
+import { Location } from '@components/location';
 
 const KnotMain = () => {
   const introduction = {
@@ -86,7 +87,7 @@ const KnotMain = () => {
       <Invite />
       <Calendar {...calendar} />
       <Gallery imageList={galleryImageList} />
-      <Gallery imageList={galleryImageList} />
+      <Location />
       <Copyright />
     </MainLayout>
   );
