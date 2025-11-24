@@ -8,7 +8,6 @@ const copyrightStyles = css({
   fontSize: '12px',
   color: 'token(colors.grey.500)',
   textAlign: 'center',
-  mt: '6',
 });
 
 export const Copyright = () => {

@@ -31,7 +31,7 @@ const bottomTitleWrapperStyles = css({
 const bottomIntroStyles = css({
   width: '100%',
   display: 'grid',
-  gridTemplateColumns: '100px 50px 42px',
+  gridTemplateColumns: '115px 50px 50px',
   gap: '2',
   alignItems: 'center',
 });

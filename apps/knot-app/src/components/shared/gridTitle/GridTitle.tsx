@@ -10,7 +10,9 @@ const topTitleWrapperStyles = css({
 });
 
 const topTitleStyles = css({
-  fontSize: 'xs',
+  fontSize: 'md',
+  color: 'primary',
+  fontStyle: 'italic',
 });
 
 interface GridTitleProps {
