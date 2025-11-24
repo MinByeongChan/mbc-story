@@ -47,6 +47,9 @@ export default defineConfig({
             500: { value: '#757575' },
           },
         },
+        fonts: {
+          ridi: { value: 'RIDIBatang, sans-serif' },
+        },
       },
       semanticTokens: {
         colors: {
@@ -55,6 +58,13 @@ export default defineConfig({
           default: { value: '{colors.grey.300}' },
         },
       },
+    },
+  },
+
+  // Global css
+  globalCss: {
+    'html, body': {
+      fontFamily: 'ridi',
     },
   },
 
