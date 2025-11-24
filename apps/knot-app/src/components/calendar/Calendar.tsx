@@ -191,13 +191,11 @@ export const Calendar = ({ weddingDate, location }: CalendarProps) => {
         />
       </div>
 
-      <div>
-        <p>
-          <span>병찬 & 보영의 결혼식이 </span>
-          <span className={css({ fontWeight: 'bold', color: 'Highlight' })}>{weddingDay}</span>
-          <span> 입니다.</span>
-        </p>
-      </div>
+      <p className={css({ fontSize: 'md', color: 'charcoal.600', mt: '20' })}>
+        <span>병찬 & 보영의 결혼식이 </span>
+        <span className={css({ fontWeight: 'bold', color: 'Highlight' })}>{weddingDay}</span>
+        <span> 입니다.</span>
+      </p>
     </section>
   );
 };
