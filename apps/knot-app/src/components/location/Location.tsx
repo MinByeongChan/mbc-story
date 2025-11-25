@@ -1,6 +1,6 @@
+import { KakaoMap } from '@components/location/KakaoMap';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
-import React from 'react';
 
 const paragraphStyles = css({
   lineHeight: '2',
@@ -28,6 +28,8 @@ export const Location = () => {
         <p className={paragraphStyles}>4F 루아르홀</p>
         <p className={paragraphStyles}>02-766-8200</p>
       </div>
+
+      <KakaoMap />
     </section>
   );
 };
