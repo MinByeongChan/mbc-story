@@ -6,7 +6,14 @@ const paragraphStyles = css({
   lineHeight: '2',
 });
 
-export const Location = () => {
+interface LocationProps {
+  address: string;
+  name: string;
+  subInfo: string;
+  contact: string;
+}
+
+export const Location = ({ address, name, subInfo, contact }: LocationProps) => {
   return (
     <section>
       <GridTitle>Location</GridTitle>
@@ -23,13 +30,13 @@ export const Location = () => {
           flexDirection: 'column',
         })}
       >
-        <p className={paragraphStyles}>서울 중구 퇴계로18길 46</p>
-        <p className={paragraphStyles}>명동 라루체</p>
-        <p className={paragraphStyles}>4F 루아르홀</p>
-        <p className={paragraphStyles}>02-766-8200</p>
+        <p className={paragraphStyles}>{address}</p>
+        <p className={paragraphStyles}>{name}</p>
+        <p className={paragraphStyles}>{subInfo}</p>
+        <p className={paragraphStyles}>{contact}</p>
       </div>
 
-      <KakaoMap address="서울 중구 퇴계로18길 46" />
+      <KakaoMap address={address} />
     </section>
   );
 };

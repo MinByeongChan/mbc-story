@@ -81,13 +81,20 @@ const KnotMain = () => {
     },
   ];
 
+  const locationInfo = {
+    address: '서울 중구 퇴계로18길 46',
+    name: '명동 라루체',
+    subInfo: '4F 루아르홀',
+    contact: '02-766-8200',
+  };
+
   return (
     <MainLayout>
       <Introduction {...introduction} />
       <Invite />
       <Calendar {...calendar} />
       <Gallery imageList={galleryImageList} />
-      <Location />
+      <Location {...locationInfo} />
       <Copyright />
     </MainLayout>
   );
