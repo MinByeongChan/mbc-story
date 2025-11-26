@@ -29,7 +29,7 @@ export const Location = () => {
         <p className={paragraphStyles}>02-766-8200</p>
       </div>
 
-      <KakaoMap />
+      <KakaoMap address="서울 중구 퇴계로18길 46" />
     </section>
   );
 };

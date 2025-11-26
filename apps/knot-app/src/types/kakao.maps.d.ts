@@ -43,9 +43,26 @@ declare namespace kakao {
     class Map {
       constructor(container: HTMLElement, options: MapOptions);
       setCenter(latlng: LatLng): void;
+      getCenter(): LatLng;
       setLevel(level: number): void;
       addControl(control: Control, position: ControlPosition): void;
       removeControl(control: Control): void;
+    }
+
+    interface MarkerOptions {
+      map?: Map;
+      position: LatLng;
+      title?: string;
+      zIndex?: number;
+      image?: object; // MarkerImage
+    }
+
+    class Marker {
+      constructor(options: MarkerOptions);
+      setMap(map: Map | null): void;
+      getMap(): Map | null;
+      setPosition(position: LatLng): void;
+      getPosition(): LatLng;
     }
 
     function load(callback: () => void): void;

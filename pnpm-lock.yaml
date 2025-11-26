@@ -145,6 +145,12 @@ importers:
 
   apps/knot-app:
     dependencies:
+      '@tanstack/react-query':
+        specifier: ^5.90.2
+        version: 5.90.2(react@19.2.0)
+      axios:
+        specifier: ^1.10.0
+        version: 1.10.0
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
@@ -7219,6 +7225,11 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.90.2
       react: 19.1.0
+
+  '@tanstack/react-query@5.90.2(react@19.2.0)':
+    dependencies:
+      '@tanstack/query-core': 5.90.2
+      react: 19.2.0
 
   '@testing-library/dom@10.4.0':
     dependencies:

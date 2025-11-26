@@ -14,6 +14,8 @@
     "prepare": "panda codegen"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.2",
+    "axios": "^1.10.0",
     "dayjs": "^1.11.19",
     "react": "^19.2.0",
     "react-calendar": "^6.0.0",
