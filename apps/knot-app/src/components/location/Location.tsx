@@ -25,6 +25,7 @@ export const Location = ({ address, name, subInfo, contact }: LocationProps) => 
       <div
         className={css({
           mt: '10',
+          mb: '20',
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',

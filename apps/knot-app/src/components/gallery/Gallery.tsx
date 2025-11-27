@@ -34,7 +34,6 @@ export const Gallery = ({ imageList }: GalleryProps) => {
           width: '100%',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '3',
-          p: '3',
         })}
       >
         {imageList.slice(0, maxImageCount).map((src) => (
