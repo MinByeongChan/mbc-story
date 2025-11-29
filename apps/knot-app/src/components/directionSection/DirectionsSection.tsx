@@ -1,17 +1,8 @@
 import { css } from '@styled-system/css';
+import { type DirectionsInfoItem } from './type';
 
 interface DirectionsSectionProps {
   directionsItemList: DirectionsInfoItem[];
-}
-
-interface DirectionsInfoItem {
-  title: string;
-  titleImageSrc: string;
-  titleImageAlt: string;
-  info: {
-    subTitle: string;
-    description: string;
-  }[];
 }
 
 export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps) => {
@@ -57,20 +48,48 @@ export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps
             <h2>{data.title}</h2>
           </div>
 
-          <div className={css({ display: 'flex', flexDirection: 'row', gap: '2' })}>
-            <div>
-              {data.info.map((item) => (
-                <p className={css({ fontSize: 'md', fontWeight: 'bold', lineHeight: '2' })}>
-                  {item.subTitle}
-                </p>
-              ))}
-            </div>
-            <div>
-              {data.info.map((item) => (
-                <p className={css({ fontSize: 'md', lineHeight: '2' })}>{item.description}</p>
-              ))}
-            </div>
-          </div>
+          {data.info.map((item) => {
+            if (item.type === 'textarea') {
+              return (
+                <div className={css({})}>
+                  <p className={css({ whiteSpace: 'pre-wrap' })}>{item.description}</p>
+                </div>
+              );
+            }
+
+            if (item.type === 'list') {
+              return (
+                <div className={css({})}>
+                  <ul className={css({ listStyle: 'disc', listStylePosition: 'inside' })}>
+                    {item.items.map((item) => (
+                      <li key={item} className={css({ whiteSpace: 'pre-wrap' })}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+
+            return (
+              <div
+                className={css({
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(0, 8rem) auto',
+                  gap: '2',
+                })}
+              >
+                <div>
+                  <p className={css({ fontSize: 'md', fontWeight: 'bold', lineHeight: '2' })}>
+                    {item.subTitle}
+                  </p>
+                </div>
+                <div>
+                  <p className={css({ fontSize: 'md', lineHeight: '2' })}>{item.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       ))}
     </section>

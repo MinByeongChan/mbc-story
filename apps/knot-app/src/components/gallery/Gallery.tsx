@@ -1,3 +1,4 @@
+import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 import { useMemo, useState } from 'react';
@@ -73,22 +74,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
             mt: '10',
           })}
         >
-          <button
-            className={css({
-              px: '4',
-              py: '2',
-              overflow: 'hidden',
-              border: '1px solid token(colors.grey.300)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: 'token(colors.grey.400)',
-              },
-            })}
-            onClick={handleClickMoreImageButton}
-          >
-            More
-          </button>
+          <DefaultButton onClick={handleClickMoreImageButton}>More</DefaultButton>
         </div>
       )}
     </section>

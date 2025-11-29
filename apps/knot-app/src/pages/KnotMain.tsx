@@ -6,6 +6,8 @@ import { Calendar } from '@components/calendar';
 import { Gallery } from '@components/gallery';
 import { Location } from '@components/location';
 import { DirectionsSection } from '@components/directionSection';
+import { type DirectionsInfoItem } from '@components/directionSection/type';
+import { AttendanceInfo } from '@components/attendanceInfo';
 
 const KnotMain = () => {
   const introduction = {
@@ -89,17 +91,19 @@ const KnotMain = () => {
     contact: '02-766-8200',
   };
 
-  const directionsInfo = [
+  const directionsInfo: DirectionsInfoItem[] = [
     {
       title: '버스',
       titleImageSrc: '/sample/directions_bus.png',
       titleImageAlt: 'directions_bus_icon',
       info: [
         {
+          type: 'grid',
           subTitle: '퇴계로2가.명동역',
           description: '104, 105, 421, 463, 507, 604, N16, 7017',
         },
         {
+          type: 'grid',
           subTitle: '명동입구',
           description: '104, 421, 463, 507, 604, N16, 7017, 05',
         },
@@ -111,6 +115,7 @@ const KnotMain = () => {
       titleImageAlt: 'directions_subway_icon',
       info: [
         {
+          type: 'grid',
           subTitle: '4호선 명동역',
           description: '3번출구(퍼시픽 호텔 우측길로 60M)',
         },
@@ -122,10 +127,12 @@ const KnotMain = () => {
       titleImageAlt: 'directions_car_icon',
       info: [
         {
+          type: 'grid',
           subTitle: '내비게이션',
           description: '“라루체 웨딩홀" 검색',
         },
         {
+          type: 'grid',
           subTitle: '주소 검색',
           description: '"서울특별시 중구 퇴계로 18길 46" 입력',
         },
@@ -137,11 +144,12 @@ const KnotMain = () => {
       titleImageAlt: 'directions_parking_icon',
       info: [
         {
-          description: `- 2시간 무료주차가 가능합니다.
-(이후 15분당 2,000원 추가요금이 붙습니다.)
-- 라루체 웨딩홀 입구에서 주차 안내해 드립니다.
-- 입차 영수증을 지참하신 후, 연회장 입구에서 주차 도장을 찍 으면 됩니다`,
-          subTitle: '',
+          type: 'list',
+          items: [
+            `2시간 무료주차가 가능합니다\n\t(이후 15분당 2,000원 추가요금이 붙습니다.)`,
+            `라루체 웨딩홀 입구에서 주차 안내해 드립니다.`,
+            '입차 영수증을 지참하신 후, 연회장 입구에서 주차 도장을 찍 으면 됩니다',
+          ],
         },
       ],
     },
@@ -155,6 +163,7 @@ const KnotMain = () => {
       <Gallery imageList={galleryImageList} />
       <Location {...locationInfo} />
       <DirectionsSection directionsItemList={directionsInfo} />
+      <AttendanceInfo />
       <Copyright />
     </MainLayout>
   );
