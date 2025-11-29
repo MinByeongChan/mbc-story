@@ -48,6 +48,7 @@ export const KakaoMap = ({ address }: KakaoMapProps) => {
       ref={mapRef}
       id="map"
       className={css({
+        mt: '10',
         width: '100%',
         height: '400px',
         backgroundColor: '#f0f0f0',

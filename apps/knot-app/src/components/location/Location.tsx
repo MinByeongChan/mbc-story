@@ -37,6 +37,30 @@ export const Location = ({ address, name, subInfo, contact }: LocationProps) => 
         <p className={paragraphStyles}>{contact}</p>
       </div>
 
+      <div
+        className={css({
+          mt: '10',
+          display: 'flex',
+          justifyContent: 'center',
+        })}
+      >
+        <button
+          className={css({
+            rounded: 'md',
+            px: '4',
+            py: '2',
+            cursor: 'pointer',
+            backgroundColor: 'primary',
+            color: 'white',
+          })}
+          onClick={() => {
+            navigator.clipboard.writeText(address);
+          }}
+        >
+          주소 복사
+        </button>
+      </div>
+
       <KakaoMap address={address} />
     </section>
   );

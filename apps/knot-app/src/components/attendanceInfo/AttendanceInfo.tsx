@@ -33,7 +33,9 @@ export const AttendanceInfo = () => {
         <p className={css({ lineHeight: '2' })}>정성껏 준비하기 위해 여쭙는 것이니,</p>
         <p className={css({ lineHeight: '2' })}>참석 정보를 알려주시면 감사하겠습니다.</p>
 
-        <DefaultButton>참석 정보 전달하기</DefaultButton>
+        <div className={css({ mt: 16 })}>
+          <DefaultButton>참석 정보 전달하기</DefaultButton>
+        </div>
 
         <p className={css({ mt: '16', fontWeight: 'bold', fontSize: 'lg', lineHeight: '2' })}>
           화환은 정중히 사양합니다.

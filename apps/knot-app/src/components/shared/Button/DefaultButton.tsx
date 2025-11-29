@@ -1,4 +1,4 @@
-import { css } from '@styled-system/css';
+import { css, cx } from '@styled-system/css';
 import React from 'react';
 
 const defaultButtonStyles = css({
@@ -8,7 +8,6 @@ const defaultButtonStyles = css({
   border: '1px solid token(colors.grey.300)',
   cursor: 'pointer',
   transition: 'all 0.3s ease-in-out',
-  mt: '16',
   '&:hover': {
     backgroundColor: 'token(colors.grey.400)',
   },
@@ -16,10 +15,11 @@ const defaultButtonStyles = css({
 
 export const DefaultButton = ({
   children,
+  className,
   ...restProps
 }: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
-    <button className={defaultButtonStyles} {...restProps}>
+    <button className={cx(defaultButtonStyles, className)} {...restProps}>
       {children}
     </button>
   );

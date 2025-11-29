@@ -8,6 +8,7 @@ import { Location } from '@components/location';
 import { DirectionsSection } from '@components/directionSection';
 import { type DirectionsInfoItem } from '@components/directionSection/type';
 import { AttendanceInfo } from '@components/attendanceInfo';
+import { Account, AccountItem } from '@components/account';
 
 const KnotMain = () => {
   const introduction = {
@@ -155,6 +156,42 @@ const KnotMain = () => {
     },
   ];
 
+  const groomAccountItemList: AccountItem[] = [
+    {
+      name: '민병찬',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+    {
+      name: '민은식',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+    {
+      name: '이정옥',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+  ];
+
+  const brideAccountItemList: AccountItem[] = [
+    {
+      name: '김보영',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+    {
+      name: '민은식',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+    {
+      name: '이정옥',
+      number: '257-910629-82807',
+      bank: '하나은행',
+    },
+  ];
+
   return (
     <MainLayout>
       <Introduction {...introduction} />
@@ -164,6 +201,10 @@ const KnotMain = () => {
       <Location {...locationInfo} />
       <DirectionsSection directionsItemList={directionsInfo} />
       <AttendanceInfo />
+      <Account
+        groomAccountItemList={groomAccountItemList}
+        brideAccountItemList={brideAccountItemList}
+      />
       <Copyright />
     </MainLayout>
   );
