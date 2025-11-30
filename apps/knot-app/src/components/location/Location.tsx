@@ -1,4 +1,7 @@
+import { useModal } from '@components/layout/model/useModal';
 import { KakaoMap } from '@components/location/KakaoMap';
+import { DefaultAlert } from '@components/shared/alert';
+import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 
@@ -14,6 +17,16 @@ interface LocationProps {
 }
 
 export const Location = ({ address, name, subInfo, contact }: LocationProps) => {
+  const { openModal } = useModal((state) => state);
+
+  const handleClickCopyAddressButton = () => {
+    navigator.clipboard.writeText(address);
+    openModal({
+      type: 'ALERT',
+      children: <DefaultAlert>주소가 복사되었습니다.</DefaultAlert>,
+    });
+  };
+
   return (
     <section className={css({ p: '4' })}>
       <GridTitle>Location</GridTitle>
@@ -44,21 +57,12 @@ export const Location = ({ address, name, subInfo, contact }: LocationProps) => 
           justifyContent: 'center',
         })}
       >
-        <button
-          className={css({
-            rounded: 'md',
-            px: '4',
-            py: '2',
-            cursor: 'pointer',
-            backgroundColor: 'primary',
-            color: 'white',
-          })}
-          onClick={() => {
-            navigator.clipboard.writeText(address);
-          }}
+        <DefaultButton
+          className={css({ px: '10 !important' })}
+          onClick={handleClickCopyAddressButton}
         >
           주소 복사
-        </button>
+        </DefaultButton>
       </div>
 
       <KakaoMap address={address} />
