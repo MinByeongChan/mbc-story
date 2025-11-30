@@ -25,6 +25,8 @@ export const Gallery = ({ imageList }: GalleryProps) => {
     [maxImageCount, imageList.length],
   );
 
+  const handleClickImage = (src: string) => {};
+
   return (
     <section className={css({ p: '4' })}>
       <GridTitle>Gallery</GridTitle>
@@ -36,6 +38,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '3',
         })}
+        onClick={() => handleClickImage(src)}
       >
         {imageList.slice(0, maxImageCount).map((src) => (
           <div
