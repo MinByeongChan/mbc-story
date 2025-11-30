@@ -1,12 +1,11 @@
-import { css } from "@styled-system/css";
+import KnotMain from '@pages/KnotMain';
+import { ModalProvider } from './app/ModalProvider';
 
 function App() {
   return (
-    <>
-      <div className={css({ fontSize: "2xl", fontWeight: "bold" })}>
-        Hello 🐼!
-      </div>
-    </>
+    <ModalProvider>
+      <KnotMain />
+    </ModalProvider>
   );
 }
 
