@@ -18,6 +18,7 @@ const KnotMain = () => {
   };
 
   const calendar = {
+    weddingDay: '병찬 & 보영',
     weddingDate: '2025-11-22 13:00:00',
     location: '명동 라루체 4층 루아르홀',
   };

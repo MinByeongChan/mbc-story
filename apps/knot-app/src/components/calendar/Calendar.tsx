@@ -15,7 +15,7 @@ const sectionStyles = css({
   p: '4',
 });
 
-const discriptionWrapperStyles = css({
+const descriptionWrapperStyles = css({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
@@ -150,27 +150,45 @@ const calendarWrapperStyles = css({
 interface CalendarProps {
   weddingDate: string;
   location: string;
+  weddingDay: string;
 }
 
-export const Calendar = ({ weddingDate, location }: CalendarProps) => {
+export const Calendar = ({ weddingDay, weddingDate, location }: CalendarProps) => {
   const date = dayjs(weddingDate);
 
   const diffToday = useMemo(() => date.diff(dayjs(), 'day'), [date]);
-  const weddingDay = useMemo(() => {
+  const timeState = useMemo(() => {
     if (diffToday === 0) {
-      return '오늘';
+      return 0;
     } else if (diffToday > 0) {
-      return `${Math.abs(diffToday)}일 후`;
+      return -1;
     } else {
-      return `${Math.abs(diffToday)}일 전`;
+      return 1;
     }
   }, [diffToday]);
+
+  const weddingDayAbs = useMemo(() => {
+    if (diffToday === 0) {
+      return '오늘';
+    }
+    return `${Math.abs(diffToday)}`;
+  }, [diffToday]);
+
+  const weddingDayText = useMemo(() => {
+    if (timeState === 0) {
+      return '입니다';
+    } else if (timeState === 1) {
+      return '일 지났습니다';
+    } else {
+      return '일 남았습니다';
+    }
+  }, [timeState]);
 
   return (
     <section className={sectionStyles}>
       <GridTitle>Calendar</GridTitle>
 
-      <div className={discriptionWrapperStyles}>
+      <div className={descriptionWrapperStyles}>
         <p className={css({ fontWeight: 'bold', fontSize: 'lg', color: 'charcoal.700' })}>
           {date.format('YYYY년 M월 D일 dddd A h시 mm분')}
         </p>
@@ -193,9 +211,9 @@ export const Calendar = ({ weddingDate, location }: CalendarProps) => {
       </div>
 
       <p className={css({ fontSize: 'md', color: 'charcoal.600', mt: '20' })}>
-        <span>병찬 & 보영의 결혼식이 </span>
-        <span className={css({ fontWeight: 'bold', color: 'Highlight' })}>{weddingDay}</span>
-        <span> 입니다.</span>
+        <span>{weddingDay} 결혼식이 </span>
+        <span className={css({ fontWeight: 'bold', color: 'Highlight' })}>{weddingDayAbs}</span>
+        <span>{weddingDayText}</span>
       </p>
     </section>
   );
