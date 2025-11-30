@@ -15,7 +15,7 @@ interface LocationProps {
 
 export const Location = ({ address, name, subInfo, contact }: LocationProps) => {
   return (
-    <section>
+    <section className={css({ p: '4' })}>
       <GridTitle>Location</GridTitle>
 
       <div className={css({ display: 'flex', alignItems: 'center', justifyContent: 'center' })}>

@@ -6,6 +6,7 @@ const articleStyles = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  p: '4',
 });
 
 const contentWrapperStyles = css({

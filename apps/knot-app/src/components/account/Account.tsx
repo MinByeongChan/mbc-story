@@ -33,7 +33,7 @@ export const Account = ({ groomAccountItemList, brideAccountItemList }: AccountP
   };
 
   return (
-    <section>
+    <section className={css({ p: '4' })}>
       <GridTitle>Account</GridTitle>
 
       <div

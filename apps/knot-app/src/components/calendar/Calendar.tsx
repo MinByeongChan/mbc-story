@@ -12,6 +12,7 @@ const sectionStyles = css({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  p: '4',
 });
 
 const discriptionWrapperStyles = css({

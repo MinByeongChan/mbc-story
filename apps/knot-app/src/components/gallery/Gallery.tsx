@@ -26,7 +26,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
   );
 
   return (
-    <section>
+    <section className={css({ p: '4' })}>
       <GridTitle>Gallery</GridTitle>
 
       <div

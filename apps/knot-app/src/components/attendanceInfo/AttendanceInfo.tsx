@@ -4,7 +4,7 @@ import { css } from '@styled-system/css';
 
 export const AttendanceInfo = () => {
   return (
-    <section>
+    <section className={css({ p: '4' })}>
       <GridTitle>Attendance</GridTitle>
 
       <div

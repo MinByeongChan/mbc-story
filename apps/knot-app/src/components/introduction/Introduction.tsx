@@ -45,7 +45,7 @@ interface IntroductionProps {
 
 export const Introduction = ({ imageSrc, title, subtitle }: IntroductionProps) => {
   return (
-    <article>
+    <section>
       <div className={imageContainerStyles}>
         <img className={imageStyles} src={imageSrc} alt="introduction_cover_image" />
 
@@ -54,6 +54,6 @@ export const Introduction = ({ imageSrc, title, subtitle }: IntroductionProps) =
           <h2 className={subtitleStyles}>{subtitle}</h2>
         </div>
       </div>
-    </article>
+    </section>
   );
 };

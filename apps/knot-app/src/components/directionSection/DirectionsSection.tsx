@@ -7,7 +7,7 @@ interface DirectionsSectionProps {
 
 export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps) => {
   return (
-    <section className={css({ display: 'flex', flexDirection: 'column', gap: '4' })}>
+    <section className={css({ p: '4', display: 'flex', flexDirection: 'column', gap: '4' })}>
       {directionsItemList.map((data) => (
         <div>
           <div
