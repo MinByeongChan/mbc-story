@@ -63,6 +63,7 @@ export default defineConfig({
         },
         fonts: {
           ridi: { value: 'RIDIBatang, sans-serif' },
+          regale: { value: 'Regale, sans-serif' },
         },
       },
       semanticTokens: {
