@@ -2,26 +2,24 @@ import * as Dialog from '@radix-ui/react-dialog';
 import React from 'react';
 import { css } from '@styled-system/css';
 
-export interface DefaultModalLayoutProps {
-  isOpen: boolean;
+export interface ModalLayoutProps {
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
 }
 
-export const DefaultModalLayout = ({
-  isOpen,
-  onOpenChange: handleOpenChange,
-  children,
-}: DefaultModalLayoutProps) => {
+export const ModalLayout = ({ onOpenChange: handleOpenChange, children }: ModalLayoutProps) => {
+  const modalRoot = document.getElementById('modal-root');
+
   return (
-    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
-      <Dialog.Portal>
+    <Dialog.Root open onOpenChange={handleOpenChange}>
+      <Dialog.Portal container={modalRoot}>
         <Dialog.Overlay
           className={css({
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
             position: 'fixed',
             inset: 0,
             zIndex: 50,
+            animation: 'overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1)',
           })}
         />
         <Dialog.Content
@@ -36,6 +34,7 @@ export const DefaultModalLayout = ({
             maxWidth: '440px',
             zIndex: 51,
             '&:focus': { outline: 'none' },
+            animation: 'contentShow 300ms cubic-bezier(0.16, 1, 0.3, 1)',
           })}
         >
           {children}

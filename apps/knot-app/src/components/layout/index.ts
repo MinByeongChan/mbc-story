@@ -1,2 +1,2 @@
 export * from './MainLayout';
-export * from './DefaultModalLayout';
+export * from './ModalLayout';

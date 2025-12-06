@@ -1,3 +1,3 @@
 export * from './Account';
-export * from './AccoutDetailModal';
+export * from './AccountDetailModal';
 export * from './type';

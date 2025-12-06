@@ -1,14 +1,16 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { useModal } from '@components/layout/model/useModal';
+import { v4 as uuidv4 } from 'uuid';
 
 export const ModalProvider = ({ children }: PropsWithChildren) => {
-  const { modalState } = useModal((state) => state);
+  const state = useModal((state) => state);
+
   return (
     <>
       {children}
-      {modalState.map((modal) => {
+      {state.modalState.map((modal) => {
         if (!modal.isOpen) return null;
-        return <React.Fragment key={modal.type}>{modal.children}</React.Fragment>;
+        return <dialog key={uuidv4()}>{modal.children}</dialog>;
       })}
     </>
   );

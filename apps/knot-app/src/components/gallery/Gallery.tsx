@@ -1,13 +1,12 @@
+import { MODAL_KEY } from '@components/layout/model/constants';
+import { useModal } from '@components/layout/model/useModal';
 import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 import { useMemo, useState } from 'react';
+import { GalleryDetailsModal } from './GalleryDetailsModal';
+import { GalleryImage } from './type';
 
-interface GalleryImage {
-  id: string;
-  src: string;
-  alt: string;
-}
 interface GalleryProps {
   imageList: GalleryImage[];
 }
@@ -15,7 +14,7 @@ interface GalleryProps {
 export const Gallery = ({ imageList }: GalleryProps) => {
   const DEFAULT_MAX_IMAGE_COUNT = 9;
   const [maxImageCount, setMaxImageCount] = useState(DEFAULT_MAX_IMAGE_COUNT);
-
+  const openModal = useModal((state) => state.openModal);
   const handleClickMoreImageButton = () => {
     setMaxImageCount((prev) => prev + 3);
   };
@@ -25,7 +24,12 @@ export const Gallery = ({ imageList }: GalleryProps) => {
     [maxImageCount, imageList.length],
   );
 
-  const handleClickImage = (_src: string) => {};
+  const handleClickImage = (currentSlide: GalleryImage) => {
+    openModal({
+      type: MODAL_KEY.GALLERY_DETAILS,
+      children: <GalleryDetailsModal currentSlide={currentSlide} slides={imageList} />,
+    });
+  };
 
   return (
     <section className={css({ p: '4' })}>
@@ -48,7 +52,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
               rounded: 'md',
               overflow: 'hidden',
             })}
-            onClick={() => handleClickImage(src.src)}
+            onClick={() => handleClickImage(src)}
           >
             <img
               src={src.src}

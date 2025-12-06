@@ -1,22 +1,20 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { css } from '@styled-system/css';
-import { DefaultModalLayout } from '@components/layout';
+import { ModalLayout } from '@components/layout';
 import { DefaultButton } from '@components/shared/Button';
 import { AccountItem, AccountModalType } from './type';
 
-interface AccoutDetailModalProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
+interface AccountDetailModalProps {
   type: AccountModalType;
+  onOpenChange: (open: boolean) => void;
   accountItemList: AccountItem[];
 }
 
-export const AccoutDetailModal = ({
-  isOpen,
-  onOpenChange: handleOpenChange,
+export const AccountDetailModal = ({
   type,
+  onOpenChange: handleOpenChange,
   accountItemList,
-}: AccoutDetailModalProps) => {
+}: AccountDetailModalProps) => {
   const handleCopyAccountNumber = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -28,7 +26,7 @@ export const AccoutDetailModal = ({
   };
 
   return (
-    <DefaultModalLayout isOpen={isOpen} onOpenChange={handleOpenChange}>
+    <ModalLayout onOpenChange={handleOpenChange}>
       <div className={css({ width: '400px', p: '6' })}>
         <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold', mb: '4' })}>
           계좌번호
@@ -48,7 +46,7 @@ export const AccoutDetailModal = ({
           })}
         >
           {accountItemList.map((item) => (
-            <div>
+            <div key={item.name}>
               <p className={css({ fontSize: 'sm', lineHeight: '2' })}>
                 <span>{type === 'groom' ? '신랑' : '신부'}</span>
                 <span className={css({ fontWeight: 'bold' })}>&nbsp;{item.name}</span>
@@ -104,6 +102,6 @@ export const AccoutDetailModal = ({
           </Dialog.Close>
         </div>
       </div>
-    </DefaultModalLayout>
+    </ModalLayout>
   );
 };
