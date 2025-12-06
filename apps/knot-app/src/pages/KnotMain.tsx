@@ -9,11 +9,16 @@ import { DirectionsSection } from '@components/directionSection';
 import { type DirectionsInfoItem } from '@components/directionSection/type';
 import { AttendanceInfo } from '@components/attendanceInfo';
 import { Account, AccountItem } from '@components/account';
+import { css } from '@styled-system/css';
 
 const KnotMain = () => {
   const introduction = {
     imageSrc: '/sample/introduction.jpg',
-    title: '병찬 & 보영',
+    title: (
+      <span className={css({ display: 'flex', alignItems: 'center', gap: '1' })}>
+        병찬 <img src="/sample/favorite.svg" alt="heart" width={20} height={20} /> 보영
+      </span>
+    ),
     subtitle: '2025년 11월 23일',
   };
 

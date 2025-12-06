@@ -1,3 +1,4 @@
+import { MODAL_KEY } from '@components/layout/model/constants';
 import { useModal } from '@components/layout/model/useModal';
 import { KakaoMap } from '@components/location/KakaoMap';
 import { DefaultAlert } from '@components/shared/alert';
@@ -22,7 +23,7 @@ export const Location = ({ address, name, subInfo, contact }: LocationProps) => 
   const handleClickCopyAddressButton = () => {
     navigator.clipboard.writeText(address);
     openModal({
-      type: 'ALERT',
+      type: MODAL_KEY.ALERT,
       children: <DefaultAlert>주소가 복사되었습니다.</DefaultAlert>,
     });
   };

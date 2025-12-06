@@ -3,6 +3,7 @@ import { ModalLayout } from '@components/layout';
 import { useModal } from '@components/layout/model/useModal';
 import { css } from '@styled-system/css';
 import { DefaultButton } from '../Button';
+import { MODAL_KEY } from '@components/layout/model/constants';
 
 interface DefaultAlertProps {
   title?: string;
@@ -13,7 +14,7 @@ export const DefaultAlert = ({ title, children }: DefaultAlertProps) => {
   const handleChangeModal = useModal((state) => state.onChangeModal);
 
   return (
-    <ModalLayout onOpenChange={(open) => handleChangeModal('ALERT', open)}>
+    <ModalLayout onOpenChange={(open) => handleChangeModal(MODAL_KEY.ALERT, open)}>
       <div className={css({ width: '400px', p: '6' })}>
         <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold' })}>{title}</Dialog.Title>
         <Dialog.Description className={css({ mt: title ? '4' : '0' })}>

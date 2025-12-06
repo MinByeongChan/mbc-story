@@ -34,12 +34,12 @@ const subtitleStyles = css({
   fontSize: 'lg',
   fontWeight: 'bold',
   color: 'white',
-  marginBottom: '20',
+  marginBottom: '150px',
 });
 
 interface IntroductionProps {
   imageSrc: string;
-  title: string;
+  title: React.ReactNode;
   subtitle: string;
 }
 
@@ -48,6 +48,31 @@ export const Introduction = ({ imageSrc, title, subtitle }: IntroductionProps) =
     <section>
       <div className={imageContainerStyles}>
         <img className={imageStyles} src={imageSrc} alt="introduction_cover_image" />
+
+        <div
+          className={css({
+            position: 'absolute',
+            w: '80%',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+          })}
+        >
+          <span
+            className={css({
+              fontStyle: 'italic',
+              fontFamily: 'regale',
+              transform: 'rotate(0deg)',
+              fontSize: '4xl',
+              color: 'white',
+              letterSpacing: '0.3rem',
+              lineHeight: '0.8',
+            })}
+          >
+            We are getting married
+          </span>
+        </div>
 
         <div className={textContainerStyles}>
           <h1 className={titleStyles}>{title}</h1>

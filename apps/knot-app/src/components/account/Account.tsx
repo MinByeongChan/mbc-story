@@ -4,6 +4,7 @@ import { css } from '@styled-system/css';
 import { AccountDetailModal } from './AccountDetailModal';
 import { AccountItem, AccountModalType } from './type';
 import { useModal } from '@components/layout/model/useModal';
+import { MODAL_KEY } from '@components/layout/model/constants';
 
 interface AccountProps {
   groomAccountItemList: AccountItem[];
@@ -12,16 +13,15 @@ interface AccountProps {
 
 export const Account = ({ groomAccountItemList, brideAccountItemList }: AccountProps) => {
   const { openModal, onChangeModal } = useModal((state) => state);
-  const MODAL_KEY = 'ACCOUNT_MODAL';
 
   const handleOpenModal = (type: AccountModalType) => {
     const accountItemList = type === 'groom' ? groomAccountItemList : brideAccountItemList;
     openModal({
-      type: MODAL_KEY,
+      type: MODAL_KEY.ACCOUNT_DETAILS,
       children: (
         <AccountDetailModal
           type={type}
-          onOpenChange={(isOpen) => onChangeModal(MODAL_KEY, isOpen)}
+          onOpenChange={(isOpen) => onChangeModal(MODAL_KEY.ACCOUNT_DETAILS, isOpen)}
           accountItemList={accountItemList}
         />
       ),
