@@ -3,13 +3,11 @@ import { create } from 'zustand';
 interface ModalItem {
   type: string;
   isOpen: boolean;
-  modalProps?: any;
   children: React.ReactNode;
 }
 
 interface FuncOpenModalParameter {
   type: string;
-  modalProps?: any;
   children: React.ReactNode;
 }
 
@@ -22,12 +20,12 @@ interface ModalState {
 
 export const useModal = create<ModalState>((set) => ({
   modalState: [],
-  openModal: ({ type, modalProps, children }: FuncOpenModalParameter) =>
+  openModal: ({ type, children }: FuncOpenModalParameter) =>
     set((state) => {
       const newModalState = [...state.modalState];
       if (newModalState.find((item) => item.type === type)) return { ...state };
 
-      newModalState.push({ type, isOpen: true, modalProps, children });
+      newModalState.push({ type, isOpen: true, children });
       return { ...state, modalState: newModalState };
     }),
   closeModal: (type: string) => {

@@ -5,14 +5,12 @@ import { DefaultButton } from '@components/shared/Button';
 import { AccountItem, AccountModalType } from './type';
 
 interface AccoutDetailModalProps {
-  isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   type: AccountModalType;
   accountItemList: AccountItem[];
 }
 
 export const AccoutDetailModal = ({
-  isOpen,
   onOpenChange: handleOpenChange,
   type,
   accountItemList,
@@ -28,7 +26,7 @@ export const AccoutDetailModal = ({
   };
 
   return (
-    <DefaultModalLayout isOpen={isOpen} onOpenChange={handleOpenChange}>
+    <DefaultModalLayout onOpenChange={handleOpenChange}>
       <div className={css({ width: '400px', p: '6' })}>
         <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold', mb: '4' })}>
           계좌번호
@@ -48,7 +46,7 @@ export const AccoutDetailModal = ({
           })}
         >
           {accountItemList.map((item) => (
-            <div>
+            <div key={item.name}>
               <p className={css({ fontSize: 'sm', lineHeight: '2' })}>
                 <span>{type === 'groom' ? '신랑' : '신부'}</span>
                 <span className={css({ fontWeight: 'bold' })}>&nbsp;{item.name}</span>

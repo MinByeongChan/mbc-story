@@ -1,9 +1,9 @@
 import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
-import { useState } from 'react';
 import { AccoutDetailModal } from './AccoutDetailModal';
-import { AccountItem, AccountModalState, AccountModalType } from './type';
+import { AccountItem, AccountModalType } from './type';
+import { useModal } from '@components/layout/model/useModal';
 
 interface AccountProps {
   groomAccountItemList: AccountItem[];
@@ -11,24 +11,20 @@ interface AccountProps {
 }
 
 export const Account = ({ groomAccountItemList, brideAccountItemList }: AccountProps) => {
-  const [modalState, setModalState] = useState<AccountModalState>({
-    isOpen: false,
-    props: {
-      type: 'groom',
-      accountItemList: [],
-    },
-  });
-  const handleToggleModal = (isOpen: boolean) => {
-    setModalState((prev) => ({ ...prev, isOpen }));
-  };
+  const { openModal, onChangeModal } = useModal((state) => state);
+  const MODAL_KEY = 'ACCOUNT_MODAL';
 
   const handleOpenModal = (type: AccountModalType) => {
-    setModalState({
-      isOpen: true,
-      props: {
-        type,
-        accountItemList: type === 'groom' ? groomAccountItemList : brideAccountItemList,
-      },
+    const accountItemList = type === 'groom' ? groomAccountItemList : brideAccountItemList;
+    openModal({
+      type: MODAL_KEY,
+      children: (
+        <AccoutDetailModal
+          type={type}
+          onOpenChange={(isOpen) => onChangeModal(MODAL_KEY, isOpen)}
+          accountItemList={accountItemList}
+        />
+      ),
     });
   };
 
@@ -78,12 +74,6 @@ export const Account = ({ groomAccountItemList, brideAccountItemList }: AccountP
         <DefaultButton onClick={() => handleOpenModal('groom')}>신랑측</DefaultButton>
         <DefaultButton onClick={() => handleOpenModal('bride')}>신부측</DefaultButton>
       </div>
-      <AccoutDetailModal
-        isOpen={modalState.isOpen}
-        onOpenChange={handleToggleModal}
-        type={modalState.props.type}
-        accountItemList={modalState.props.accountItemList}
-      />
     </section>
   );
 };

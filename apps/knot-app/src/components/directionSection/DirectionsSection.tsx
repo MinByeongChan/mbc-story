@@ -1,5 +1,6 @@
 import { css } from '@styled-system/css';
 import { type DirectionsInfoItem } from './type';
+import { v4 as uuidv4 } from 'uuid';
 
 interface DirectionsSectionProps {
   directionsItemList: DirectionsInfoItem[];
@@ -9,7 +10,7 @@ export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps
   return (
     <section className={css({ p: '4', display: 'flex', flexDirection: 'column', gap: '4' })}>
       {directionsItemList.map((data) => (
-        <div>
+        <div key={uuidv4()}>
           <div
             className={css({
               display: 'flex',
@@ -51,7 +52,7 @@ export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps
           {data.info.map((item) => {
             if (item.type === 'textarea') {
               return (
-                <div className={css({})}>
+                <div key={uuidv4()}>
                   <p className={css({ whiteSpace: 'pre-wrap' })}>{item.description}</p>
                 </div>
               );
@@ -59,7 +60,7 @@ export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps
 
             if (item.type === 'list') {
               return (
-                <div className={css({})}>
+                <div key={uuidv4()}>
                   <ul className={css({ listStyle: 'disc', listStylePosition: 'inside' })}>
                     {item.items.map((item) => (
                       <li key={item} className={css({ whiteSpace: 'pre-wrap' })}>
@@ -73,6 +74,7 @@ export const DirectionsSection = ({ directionsItemList }: DirectionsSectionProps
 
             return (
               <div
+                key={uuidv4()}
                 className={css({
                   display: 'grid',
                   gridTemplateColumns: 'minmax(0, 8rem) auto',

@@ -16,17 +16,12 @@ export const DefaultAlert = ({ title, children }: DefaultAlertProps) => {
   if (!alertModatState) return null;
 
   return (
-    <DefaultModalLayout
-      isOpen={alertModatState?.isOpen}
-      onOpenChange={(open) => handleChangeModal('ALERT', open)}
-    >
+    <DefaultModalLayout onOpenChange={(open) => handleChangeModal('ALERT', open)}>
       <div className={css({ width: '400px', p: '6' })}>
-        {title && (
-          <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold', mb: '4' })}>
-            {title}
-          </Dialog.Title>
-        )}
-        {children}
+        <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold' })}>{title}</Dialog.Title>
+        <Dialog.Description className={css({ mt: title ? '4' : '0' })}>
+          {children}
+        </Dialog.Description>
         <div className={css({ mt: '6', display: 'flex', justifyContent: 'flex-end' })}>
           <Dialog.Close asChild>
             <DefaultButton
