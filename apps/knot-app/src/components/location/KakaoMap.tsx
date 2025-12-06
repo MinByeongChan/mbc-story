@@ -38,7 +38,6 @@ export const KakaoMap = ({ address }: KakaoMapProps) => {
 
   useEffect(() => {
     if (geoCode) {
-      console.log('geoCode', geoCode);
       initKakaoMap();
     }
   }, [geoCode]);

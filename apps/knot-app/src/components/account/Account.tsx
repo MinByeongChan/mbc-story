@@ -1,7 +1,7 @@
 import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
-import { AccoutDetailModal } from './AccoutDetailModal';
+import { AccountDetailModal } from './AccountDetailModal';
 import { AccountItem, AccountModalType } from './type';
 import { useModal } from '@components/layout/model/useModal';
 
@@ -19,7 +19,7 @@ export const Account = ({ groomAccountItemList, brideAccountItemList }: AccountP
     openModal({
       type: MODAL_KEY,
       children: (
-        <AccoutDetailModal
+        <AccountDetailModal
           type={type}
           onOpenChange={(isOpen) => onChangeModal(MODAL_KEY, isOpen)}
           accountItemList={accountItemList}

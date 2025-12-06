@@ -1,20 +1,20 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { css } from '@styled-system/css';
-import { DefaultModalLayout } from '@components/layout';
+import { ModalLayout } from '@components/layout';
 import { DefaultButton } from '@components/shared/Button';
 import { AccountItem, AccountModalType } from './type';
 
-interface AccoutDetailModalProps {
-  onOpenChange: (open: boolean) => void;
+interface AccountDetailModalProps {
   type: AccountModalType;
+  onOpenChange: (open: boolean) => void;
   accountItemList: AccountItem[];
 }
 
-export const AccoutDetailModal = ({
-  onOpenChange: handleOpenChange,
+export const AccountDetailModal = ({
   type,
+  onOpenChange: handleOpenChange,
   accountItemList,
-}: AccoutDetailModalProps) => {
+}: AccountDetailModalProps) => {
   const handleCopyAccountNumber = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -26,7 +26,7 @@ export const AccoutDetailModal = ({
   };
 
   return (
-    <DefaultModalLayout onOpenChange={handleOpenChange}>
+    <ModalLayout onOpenChange={handleOpenChange}>
       <div className={css({ width: '400px', p: '6' })}>
         <Dialog.Title className={css({ fontSize: 'lg', fontWeight: 'bold', mb: '4' })}>
           계좌번호
@@ -102,6 +102,6 @@ export const AccoutDetailModal = ({
           </Dialog.Close>
         </div>
       </div>
-    </DefaultModalLayout>
+    </ModalLayout>
   );
 };

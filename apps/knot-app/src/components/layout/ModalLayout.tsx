@@ -2,15 +2,12 @@ import * as Dialog from '@radix-ui/react-dialog';
 import React from 'react';
 import { css } from '@styled-system/css';
 
-export interface DefaultModalLayoutProps {
+export interface ModalLayoutProps {
   onOpenChange: (open: boolean) => void;
   children: React.ReactNode;
 }
 
-export const DefaultModalLayout = ({
-  onOpenChange: handleOpenChange,
-  children,
-}: DefaultModalLayoutProps) => {
+export const ModalLayout = ({ onOpenChange: handleOpenChange, children }: ModalLayoutProps) => {
   const modalRoot = document.getElementById('modal-root');
 
   return (

@@ -1,7 +1,10 @@
+import { MODAL_KEY } from '@components/layout/model/constants';
+import { useModal } from '@components/layout/model/useModal';
 import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 import { useMemo, useState } from 'react';
+import { GalleryDetailsModal } from './GalleryDetailsModal';
 
 interface GalleryImage {
   id: string;
@@ -15,7 +18,7 @@ interface GalleryProps {
 export const Gallery = ({ imageList }: GalleryProps) => {
   const DEFAULT_MAX_IMAGE_COUNT = 9;
   const [maxImageCount, setMaxImageCount] = useState(DEFAULT_MAX_IMAGE_COUNT);
-
+  const openModal = useModal((state) => state.openModal);
   const handleClickMoreImageButton = () => {
     setMaxImageCount((prev) => prev + 3);
   };
@@ -25,7 +28,12 @@ export const Gallery = ({ imageList }: GalleryProps) => {
     [maxImageCount, imageList.length],
   );
 
-  const handleClickImage = (_src: string) => {};
+  const handleClickImage = (src: string) => {
+    openModal({
+      type: MODAL_KEY.GALLERY_DETAILS,
+      children: <GalleryDetailsModal src={src} />,
+    });
+  };
 
   return (
     <section className={css({ p: '4' })}>
