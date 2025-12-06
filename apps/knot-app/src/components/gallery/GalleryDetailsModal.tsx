@@ -16,9 +16,12 @@ interface GalleryDetailsModalProps {
 }
 
 export const GalleryDetailsModal = ({ currentSlide, slides }: GalleryDetailsModalProps) => {
-  console.log('currentSlide', currentSlide);
+  const startIndex = slides.findIndex((slide) => slide.id === currentSlide.id);
+
   const handleChangeModal = useModal((state) => state.onChangeModal);
-  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    startIndex,
+  });
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     useCarouselControls(emblaApi);
 
