@@ -1,19 +1,27 @@
-import './embla.css';
 import { EmblaCarouselRef } from './type';
+import { css } from '@styled-system/css';
 
-interface CarouselProps {
+interface CarouselProps extends React.PropsWithChildren {
   emblaRef: EmblaCarouselRef;
-  slides: number[];
 }
-export const Carousel = ({ emblaRef, slides }: CarouselProps) => {
+
+export const Carousel = ({ emblaRef, children }: CarouselProps) => {
   return (
-    <div className="embla__viewport" ref={emblaRef}>
-      <div className="embla__container">
-        {slides.map((index) => (
-          <div className="embla__slide" key={index}>
-            <div className="embla__slide__number">{index}</div>
-          </div>
-        ))}
+    <div
+      className={css({
+        overflow: 'hidden',
+        borderRadius: 'md',
+        mt: '2',
+      })}
+      ref={emblaRef}
+    >
+      <div
+        className={css({
+          display: 'flex',
+          touchAction: 'pan-y pinch-zoom',
+        })}
+      >
+        {children}
       </div>
     </div>
   );

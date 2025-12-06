@@ -1,4 +1,4 @@
 export * from './Carousel';
-export * from './NavigatorPrevButton';
-export * from './NavigatorNextButton';
+export * from './CarouselSlide';
 export * from './CarouselNavigator';
+export * from './NavigatorButton';

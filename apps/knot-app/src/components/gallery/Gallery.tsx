@@ -5,12 +5,8 @@ import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 import { useMemo, useState } from 'react';
 import { GalleryDetailsModal } from './GalleryDetailsModal';
+import { GalleryImage } from './type';
 
-interface GalleryImage {
-  id: string;
-  src: string;
-  alt: string;
-}
 interface GalleryProps {
   imageList: GalleryImage[];
 }
@@ -28,10 +24,10 @@ export const Gallery = ({ imageList }: GalleryProps) => {
     [maxImageCount, imageList.length],
   );
 
-  const handleClickImage = (src: string) => {
+  const handleClickImage = (currentSlide: GalleryImage) => {
     openModal({
       type: MODAL_KEY.GALLERY_DETAILS,
-      children: <GalleryDetailsModal src={src} />,
+      children: <GalleryDetailsModal currentSlide={currentSlide} slides={imageList} />,
     });
   };
 
@@ -56,7 +52,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
               rounded: 'md',
               overflow: 'hidden',
             })}
-            onClick={() => handleClickImage(src.src)}
+            onClick={() => handleClickImage(src)}
           >
             <img
               src={src.src}
