@@ -1,5 +1,10 @@
+import { MODAL_KEY } from '@components/layout/model/constants';
+import { useModal } from '@components/layout/model/useModal';
+import { DefaultButton } from '@components/shared/Button';
 import { GridTitle } from '@components/shared/gridTitle/GridTitle';
 import { css } from '@styled-system/css';
+import { InviteDetailsModal } from './InviteDetailsModal';
+import { ContactDetailsItem } from './type';
 
 const articleStyles = css({
   display: 'flex',
@@ -38,6 +43,49 @@ const bottomIntroStyles = css({
 });
 
 export const Invite = () => {
+  const { openModal } = useModal((state) => state);
+  const groomItems: ContactDetailsItem[] = [
+    {
+      name: '민병찬',
+      relation: '신랑',
+      tel: '010-1234-5678',
+    },
+    {
+      name: '민은식',
+      relation: '신랑 아버지',
+      tel: '010-1234-5678',
+    },
+    {
+      name: '이정옥',
+      relation: '신랑 아버지',
+      tel: '010-1234-5678',
+    },
+  ];
+  const brideItems: ContactDetailsItem[] = [
+    {
+      name: '김보영',
+      relation: '신부',
+      tel: '010-1234-5678',
+    },
+    {
+      name: '김보영 아버지',
+      relation: '신랑 아버지',
+      tel: '010-1234-5678',
+    },
+    {
+      name: '김보영 어머니',
+      relation: '신부 어머니',
+      tel: '010-1234-5678',
+    },
+  ];
+
+  const handleInviteButton = () => {
+    openModal({
+      type: MODAL_KEY.INVITE_DETAILS,
+      children: <InviteDetailsModal brideItems={brideItems} groomItems={groomItems} />,
+    });
+  };
+
   return (
     <article className={articleStyles}>
       <GridTitle>Invite you</GridTitle>
@@ -84,11 +132,9 @@ export const Invite = () => {
           mt: '10',
         })}
       >
-        <button
-          className={css({ px: '4', py: '2', borderRadius: 'md', backgroundColor: 'primary' })}
-        >
+        <DefaultButton onClick={handleInviteButton} onKeyDown={handleInviteButton}>
           연락하기
-        </button>
+        </DefaultButton>
       </div>
     </article>
   );
