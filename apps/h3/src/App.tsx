@@ -2,13 +2,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import maplibregl from 'maplibre-gl';
-import { polygonToCells, latLngToCell } from 'h3-js';
+import { polygonToCells, compactCells } from 'h3-js';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import type { LayerDataSource, PickingInfo } from '@deck.gl/core';
 import geojsonData from './assets/sig_4326.json';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
-const H3_RESOLUTION = 11;
+const DEFAULT_H3_RESOLUTION = 8;
 const H3_RING_SIZE = 10;
 const DEFAULT_ZOOM = 12;
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
@@ -25,56 +24,43 @@ type HoverInfo = {
 function App() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const resolutionOptions = [5,6,7,8,9,10,11,12];
+  const [resolution, setResolution] = useState(DEFAULT_H3_RESOLUTION);
   const [hoverInfo, setHoverInfo] = useState<HoverInfo>(null);
 
-  const h3PolygonList = useMemo(() => {
+  const allH3Data = useMemo(() => {
     const data = geojsonData as unknown as GeoJSON.FeatureCollection;
-    const features = data.features.filter((feature) => feature.geometry.type === 'Polygon');
-    console.log('features', features);
+    const features = data.features.filter((feature) => feature.geometry.type === 'Polygon').slice(0, 30);
 
-    return features.map((data) => {
-      return polygonToCells(data.geometry.coordinates[0], H3_RESOLUTION);
+    return features.flatMap((feature) => {
+      const color = [ Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), 140];
+      const lineColor = [ Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), 200];
+      // @ts-ignore
+      const cells = polygonToCells(feature.geometry.coordinates[0], resolution, true);
+      const compacted = compactCells(cells);
+      
+      return compacted.map(h3Index => ({
+        h3Index,
+        color,
+        lineColor
+      }));
     });
-  }, []);
-  console.log('h3PolygonList', h3PolygonList);
-
-  const getH3Layer = (id: string = 'h3-layer', data?: LayerDataSource<string>) => {
-    return new H3HexagonLayer<string>({
-      id,
-      data,
-      getHexagon: (d: string) => d,
-      pickable: true,
-      filled: true,
-      extruded: false,
-      lineWidthMinPixels: 1,
-      getFillColor: () => [59, 130, 246, 140],
-      getLineColor: () => [29, 78, 216, 200],
-      // onHover: (info: PickingInfo<string>) => {
-      //   if (!info.object) {
-      //     setHoverInfo(null);
-      //     return;
-      //   }
-      //   const { object, coordinate } = info;
-      //   if (!coordinate || !Array.isArray(coordinate)) {
-      //     setHoverInfo(null);
-      //     return;
-      //   }
-      //   setHoverInfo({
-      //     id: String(object),
-      //     longitude: coordinate[0],
-      //     latitude: coordinate[1],
-      //   });
-      // },
-    });
-  };
+  }, [resolution]);
 
   const h3Layer = useMemo(() => {
-    return h3PolygonList.map((data, index) => {
-      console.log('data', data);
-      return getH3Layer(`h3-layer-${index}`, data);
+    return new H3HexagonLayer({
+      id: 'h3-layer-all',
+      data: allH3Data,      // 모든 H3 인덱스가 담긴 배열
+      getHexagon: (d) => d.h3Index,    // 배열 요소 자체가 H3 인덱스임
+      pickable: true,
+      filled: true,
+      extruded: false,         // true면 3D로 돌출됨
+      lineWidthMinPixels: 1,
+      getFillColor: (d) => d.color,
+      getLineColor: (d) => d.lineColor,
     });
-  }, [h3PolygonList]);
-
+  }, [allH3Data]);
+  
   useEffect(() => {
     if (!mapContainerRef.current || !VWORLD_KEY || mapRef.current) {
       return;
@@ -107,7 +93,7 @@ function App() {
     });
 
     const overlay = new MapboxOverlay({
-      layers: h3Layer,
+      layers: [h3Layer],
     });
 
     map.on('load', () => {
@@ -134,6 +120,16 @@ function App() {
         },
       });
     });
+    
+    map.on('zoom', () => {
+      const currentZoom = map.getZoom();
+      console.log('현재 줌 레벨:', currentZoom);
+      
+      // 예: 줌 레벨에 따라 H3 해상도를 동적으로 변경하려면?
+      // if (currentZoom > 15) setResolution(11);
+      // else if (currentZoom > 12) setResolution(9);
+    });
+
     map.addControl(overlay);
     mapRef.current = map;
 
@@ -153,6 +149,13 @@ function App() {
       <header style={{ padding: '12px 16px' }}>
         <h3>VWorld + H3 WebGL 예제</h3>
         {/* <div>H3 셀 개수: {h3Data.length}</div> */}
+        <div>
+          <select value={resolution} onChange={(e) => setResolution(Number(e.target.value))}>
+            {resolutionOptions.map((option) => (
+              <option key={option} value={option}>{option}</option>
+            ))}
+          </select>
+        </div>
 
         <div style={{ height: '30px' }}>
           info:
