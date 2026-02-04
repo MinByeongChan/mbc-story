@@ -120,10 +120,15 @@ function App() {
         },
       });
     });
+
+    map.on('mouseleave', () => {
+      const currentCenter = map.getCenter();
+      console.log('현재 센터', currentCenter);
+    });
     
     map.on('zoom', () => {
       const currentZoom = map.getZoom();
-      console.log('현재 줌 레벨:', currentZoom);
+      // console.log('현재 줌 레벨:', currentZoom);
       
       // 예: 줌 레벨에 따라 H3 해상도를 동적으로 변경하려면?
       // if (currentZoom > 15) setResolution(11);
