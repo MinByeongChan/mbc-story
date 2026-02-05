@@ -31,6 +31,36 @@ function App() {
   const [resolution, setResolution] = useState(DEFAULT_H3_RESOLUTION);
   const [hoverInfo, setHoverInfo] = useState<HoverInfo>(null);
 
+  const map = useMemo(() => {
+    if (!mapContainerRef.current) return null;
+    const map = new maplibregl.Map({
+      container: mapContainerRef.current,
+      style: {
+        version: 8,
+        sources: {
+          vworld: {
+            type: 'raster',
+            tiles: [VWORLD_TILE_URL],
+            tileSize: 256,
+            attribution: 'VWorld',
+          },
+        },
+        layers: [
+          {
+            id: 'vworld-base',
+            type: 'raster',
+            source: 'vworld',
+          },
+        ],
+      },
+      center: [CENTER.lng, CENTER.lat],
+      zoom: DEFAULT_ZOOM,
+      pitch: 0,
+      bearing: 0,
+    });
+    return map;
+  }, []);
+
   const features = useMemo(() => {
     const data = geojsonData as unknown as GeoJSON.FeatureCollection;
     const features = data.features.filter((feature) => feature.geometry.type === 'Polygon');
@@ -42,7 +72,7 @@ function App() {
     return features.map((feature) => {
       return {
         id: feature.properties?.SIG_CD,
-        name: feature.properties?.SIG_ENG_NM,
+        name: feature.properties?.SIG_KOR_NM,
       };
     });
   }, [features]);
@@ -51,6 +81,7 @@ function App() {
   const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSig = e.target.value;
     console.log('selectedSig', selectedSig);
+
     fetch(
       `/req/address?service=address&request=getcoord&version=2.0&crs=EPSG:4326&format=json&type=PARCEL&key=${VWORLD_KEY}&address=서울특별시 강남구`,
       // `/req/data?key=${VWORLD_KEY}&format=json&type=json&service=data&request=getfeature&featureType=attribute&featureKey=SIG_CD&featureValue=${selectedSig}`,
@@ -58,6 +89,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
+        const { x, y } = data.response.result.items[0].point;
+        map?.setCenter([x, y]);
       })
       .catch((error) => {
         console.error('error', error);
@@ -118,46 +151,22 @@ function App() {
   };
 
   useEffect(() => {
-    if (!mapContainerRef.current || !VWORLD_KEY || mapRef.current) {
+    if (!VWORLD_KEY || mapRef.current || !map) {
       return;
     }
 
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current,
-      style: {
-        version: 8,
-        sources: {
-          vworld: {
-            type: 'raster',
-            tiles: [VWORLD_TILE_URL],
-            tileSize: 256,
-            attribution: 'VWorld',
-          },
-        },
-        layers: [
-          {
-            id: 'vworld-base',
-            type: 'raster',
-            source: 'vworld',
-          },
-        ],
-      },
-      center: [CENTER.lng, CENTER.lat],
-      zoom: DEFAULT_ZOOM,
-      pitch: 0,
-      bearing: 0,
-    });
+    console.log('map', map);
 
     const overlay = new MapboxOverlay({
       layers: [h3Layer],
     });
 
-    map.on('load', () => {
-      map.addSource('geojson-source', {
+    map?.on('load', () => {
+      map?.addSource('geojson-source', {
         type: 'geojson',
         data: geojsonData as maplibregl.GeoJSONSourceSpecification['data'],
       });
-      map.addLayer({
+      map?.addLayer({
         id: 'geojson-fill',
         type: 'fill',
         source: 'geojson-source',
@@ -166,7 +175,7 @@ function App() {
           'fill-opacity': 0.25,
         },
       });
-      map.addLayer({
+      map?.addLayer({
         id: 'geojson-outline',
         type: 'line',
         source: 'geojson-source',
@@ -177,18 +186,18 @@ function App() {
       });
     });
 
-    map.on('moveend', handleMapMoveEnd);
-    map.on('zoom', handleMapZoom);
+    map?.on('moveend', handleMapMoveEnd);
+    map?.on('zoom', handleMapZoom);
 
-    map.addControl(overlay);
+    map?.addControl(overlay);
     mapRef.current = map;
 
     return () => {
       overlay.finalize();
-      map.remove();
+      map?.remove();
       mapRef.current = null;
     };
-  }, [h3Layer]);
+  }, [map, h3Layer]);
 
   if (!VWORLD_KEY) {
     return <div style={{ color: '#dc2626' }}>VITE_VWORLD_KEY를 .env에 설정해주세요.</div>;
