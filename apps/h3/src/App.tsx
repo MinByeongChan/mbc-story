@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import maplibregl from 'maplibre-gl';
@@ -11,7 +11,7 @@ import { ContentLayout } from '@/components/ui/ContentLayout';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
 const DEFAULT_H3_RESOLUTION = 8;
-const H3_RING_SIZE = 10;
+// const H3_RING_SIZE = 10;
 const DEFAULT_ZOOM = 12;
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
 const VWORLD_TILE_URL = VWORLD_KEY
@@ -24,42 +24,14 @@ type HoverInfo = {
   longitude: number;
 } | null;
 
+const toByte = (value: number) => ((Math.round(value) % 256) + 256) % 256;
+
 function App() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const resolutionOptions = [5, 6, 7, 8, 9, 10, 11, 12];
   const [resolution, setResolution] = useState(DEFAULT_H3_RESOLUTION);
-  const [hoverInfo, setHoverInfo] = useState<HoverInfo>(null);
-
-  const map = useMemo(() => {
-    if (!mapContainerRef.current) return null;
-    const map = new maplibregl.Map({
-      container: mapContainerRef.current,
-      style: {
-        version: 8,
-        sources: {
-          vworld: {
-            type: 'raster',
-            tiles: [VWORLD_TILE_URL],
-            tileSize: 256,
-            attribution: 'VWorld',
-          },
-        },
-        layers: [
-          {
-            id: 'vworld-base',
-            type: 'raster',
-            source: 'vworld',
-          },
-        ],
-      },
-      center: [CENTER.lng, CENTER.lat],
-      zoom: DEFAULT_ZOOM,
-      pitch: 0,
-      bearing: 0,
-    });
-    return map;
-  }, []);
+  const [hoverInfo] = useState<HoverInfo>(null);
 
   const features = useMemo(() => {
     const data = geojsonData as unknown as GeoJSON.FeatureCollection;
@@ -80,17 +52,16 @@ function App() {
 
   const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSig = e.target.value;
-    console.log('selectedSig', selectedSig);
 
     fetch(
-      `/req/address?service=address&request=getcoord&version=2.0&crs=EPSG:4326&format=json&type=PARCEL&key=${VWORLD_KEY}&address=서울특별시 강남구`,
+      `/req/address?service=address&request=getcoord&version=2.0&crs=EPSG:4326&format=json&type=PARCEL&key=${VWORLD_KEY}&address=${selectedSig}`,
       // `/req/data?key=${VWORLD_KEY}&format=json&type=json&service=data&request=getfeature&featureType=attribute&featureKey=SIG_CD&featureValue=${selectedSig}`,
     )
       .then((response) => response.json())
       .then((data) => {
         console.log('data', data);
-        const { x, y } = data.response.result.items[0].point;
-        map?.setCenter([x, y]);
+        const { x, y } = data.response.result.point;
+        mapRef.current?.setCenter([x, y]);
       })
       .catch((error) => {
         console.error('error', error);
@@ -101,21 +72,14 @@ function App() {
   const allH3Data = useMemo(() => {
     const slicedFeatures = features.slice(0, 30);
 
-    return slicedFeatures.flatMap((feature) => {
-      const color = [
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        140,
-      ];
-      const lineColor = [
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        Math.floor(Math.random() * 256),
-        200,
-      ];
-      // @ts-ignore
-      const cells = polygonToCells(feature.geometry.coordinates[0], resolution, true);
+    return slicedFeatures.flatMap((feature, index) => {
+      const base = toByte(index * 37 + 10);
+      const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
+      const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
+
+      const polygon = feature.geometry as GeoJSON.Polygon;
+      const outerRing = polygon.coordinates[0] as unknown as number[][];
+      const cells = polygonToCells(outerRing, resolution, true);
       const compacted = compactCells(cells);
 
       return compacted.map((h3Index) => ({
@@ -151,22 +115,20 @@ function App() {
   };
 
   useEffect(() => {
-    if (!VWORLD_KEY || mapRef.current || !map) {
+    if (!VWORLD_KEY || !mapRef.current) {
       return;
     }
-
-    console.log('map', map);
 
     const overlay = new MapboxOverlay({
       layers: [h3Layer],
     });
 
-    map?.on('load', () => {
-      map?.addSource('geojson-source', {
+    mapRef.current?.on('load', () => {
+      mapRef.current?.addSource('geojson-source', {
         type: 'geojson',
         data: geojsonData as maplibregl.GeoJSONSourceSpecification['data'],
       });
-      map?.addLayer({
+      mapRef.current?.addLayer({
         id: 'geojson-fill',
         type: 'fill',
         source: 'geojson-source',
@@ -175,7 +137,7 @@ function App() {
           'fill-opacity': 0.25,
         },
       });
-      map?.addLayer({
+      mapRef.current?.addLayer({
         id: 'geojson-outline',
         type: 'line',
         source: 'geojson-source',
@@ -186,18 +148,47 @@ function App() {
       });
     });
 
-    map?.on('moveend', handleMapMoveEnd);
-    map?.on('zoom', handleMapZoom);
+    mapRef.current?.on('moveend', handleMapMoveEnd);
+    mapRef.current?.on('zoom', handleMapZoom);
 
-    map?.addControl(overlay);
-    mapRef.current = map;
+    mapRef.current?.addControl(overlay);
 
     return () => {
       overlay.finalize();
-      map?.remove();
+      mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [map, h3Layer]);
+  }, [mapRef, h3Layer]);
+
+  useLayoutEffect(() => {
+    if (!mapContainerRef.current) return;
+
+    mapRef.current = new maplibregl.Map({
+      container: mapContainerRef.current,
+      style: {
+        version: 8,
+        sources: {
+          vworld: {
+            type: 'raster',
+            tiles: [VWORLD_TILE_URL],
+            tileSize: 256,
+            attribution: 'VWorld',
+          },
+        },
+        layers: [
+          {
+            id: 'vworld-base',
+            type: 'raster',
+            source: 'vworld',
+          },
+        ],
+      },
+      center: [CENTER.lng, CENTER.lat],
+      zoom: DEFAULT_ZOOM,
+      pitch: 0,
+      bearing: 0,
+    });
+  }, [mapContainerRef]);
 
   if (!VWORLD_KEY) {
     return <div style={{ color: '#dc2626' }}>VITE_VWORLD_KEY를 .env에 설정해주세요.</div>;
