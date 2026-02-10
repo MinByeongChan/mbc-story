@@ -25,6 +25,23 @@ type HoverInfo = {
 } | null;
 
 const toByte = (value: number) => ((Math.round(value) % 256) + 256) % 256;
+const getPolygonCentroid = (coordinates: number[][][]) => {
+  // Polygon의 외곽선(Outer Ring) 좌표 추출
+  const ring = coordinates[0];
+  let lngSum = 0;
+  let latSum = 0;
+  
+  ring.forEach(([lng, lat]) => {
+    lngSum += lng;
+    latSum += lat;
+  });
+  
+  return {
+    lng: lngSum / ring.length,
+    lat: latSum / ring.length
+  };
+};
+
 
 function App() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -44,33 +61,26 @@ function App() {
     return features.map((feature) => {
       return {
         id: feature.properties?.SIG_CD,
-        name: feature.properties?.SIG_KOR_NM,
+        name: feature.properties?.SIG_ENG_NM,
       };
     });
   }, [features]);
-  console.log('getSigOptions', getSigOptions);
 
   const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSig = e.target.value;
+    const selectedSigCd = e.target.value;
+    const targetFeature = features.find((feature) => feature.properties?.SIG_CD === selectedSigCd);
 
-    fetch(
-      `/req/address?service=address&request=getcoord&version=2.0&crs=EPSG:4326&format=json&type=PARCEL&key=${VWORLD_KEY}&address=${selectedSig}`,
-      // `/req/data?key=${VWORLD_KEY}&format=json&type=json&service=data&request=getfeature&featureType=attribute&featureKey=SIG_CD&featureValue=${selectedSig}`,
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('data', data);
-        const { x, y } = data.response.result.point;
-        mapRef.current?.setCenter([x, y]);
-      })
-      .catch((error) => {
-        console.error('error', error);
-      });
-    console.log('selectedSig', selectedSig);
+    if (targetFeature) {
+      // @ts-ignore
+      const centroid = getPolygonCentroid(targetFeature.geometry.coordinates);
+      console.log(`이동: ${selectedSigCd}, 좌표:`, centroid);
+      mapRef.current?.flyTo({ center: [centroid.lng, centroid.lat], zoom: 10 });
+    }
   };
 
   const allH3Data = useMemo(() => {
-    const slicedFeatures = features.slice(0, 30);
+    const slicedFeatures = features
+    // const slicedFeatures = features.slice(0, 30);
 
     return slicedFeatures.flatMap((feature, index) => {
       const base = toByte(index * 37 + 10);
@@ -90,17 +100,24 @@ function App() {
     });
   }, [features, resolution]);
 
+  const numberOfCells = useMemo(() => {
+    return allH3Data.length;
+  }, [allH3Data]);
+
   const h3Layer = useMemo(() => {
     return new H3HexagonLayer({
       id: 'h3-layer-all',
       data: allH3Data, // 모든 H3 인덱스가 담긴 배열
       getHexagon: (d) => d.h3Index, // 배열 요소 자체가 H3 인덱스임
       pickable: true,
-      filled: true,
+      filled: false,
       extruded: false, // true면 3D로 돌출됨
       lineWidthMinPixels: 1,
-      getFillColor: (d) => d.color,
-      getLineColor: (d) => d.lineColor,
+      // getFillColor: (d) => d.color,
+      // getLineColor: (d) => d.lineColor,
+      onHover: (info) => {
+        console.log('info', info);
+      },
     });
   }, [allH3Data]);
 
@@ -150,6 +167,48 @@ function App() {
 
     mapRef.current?.on('moveend', handleMapMoveEnd);
     mapRef.current?.on('zoom', handleMapZoom);
+    mapRef.current?.on('click', 'geojson-fill', (e) => {
+      if (e.features && e.features.length > 0) {
+        const feature = e.features[0];
+        // 마우스 커서 변경
+        mapRef.current!.getCanvas().style.cursor = 'pointer';
+        
+        // 예: 호버된 지역 이름 로그 출력 (또는 툴팁 표시)
+        console.log('Hovered:', feature.properties?.SIG_KOR_NM);
+        const base = toByte(feature.properties?.SIG_CD?.charCodeAt(0) * 37 + 10);
+        const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
+        const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
+
+        const polygon = feature.geometry as GeoJSON.Polygon;
+        const outerRing = polygon.coordinates[0] as unknown as number[][];
+        const cells = polygonToCells(outerRing, resolution, true);
+        const compacted = compactCells(cells);
+
+        const data = compacted.map((h3Index) => ({
+          h3Index,
+          color,
+          lineColor,
+        }));
+
+
+        const hexagonLayer = new H3HexagonLayer({
+          id: `h3-additional-layer-${feature.properties?.SIG_CD}`,
+          data, // 모든 H3 인덱스가 담긴 배열
+          getHexagon: (d) => d.h3Index, // 배열 요소 자체가 H3 인덱스임
+          pickable: true,
+          filled: false,
+          extruded: false, // true면 3D로 돌출됨
+          lineWidthMinPixels: 1,
+          getFillColor: (d) => d.color,
+          getLineColor: (d) => d.lineColor,
+        });
+
+        const additionalOverlay = new MapboxOverlay({
+          layers: [hexagonLayer],
+        });
+        mapRef.current?.addControl(additionalOverlay);
+      }
+    });
 
     mapRef.current?.addControl(overlay);
 
@@ -201,15 +260,18 @@ function App() {
         <aside style={{ width: '250px', height: '100%', padding: '16px' }}>
           <div>
             <select onChange={handleChangeSigSelectBox}>
+              <option value="">지역 선택</option>
               {getSigOptions.map((option) => (
-                <option key={option.id} value={option.name}>
-                  {option.name}
+                <option key={option.id} value={option.id}>
+                  {option.name || option.id}
                 </option>
               ))}
             </select>
           </div>
+          <div>
+            H3 셀 개수: {numberOfCells}
+          </div>
         </aside>
-        {/* <div>H3 셀 개수: {h3Data.length}</div> */}
         <section style={{ padding: '16px' }}>
           <div>
             <select value={resolution} onChange={(e) => setResolution(Number(e.target.value))}>
