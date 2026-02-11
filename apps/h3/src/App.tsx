@@ -10,7 +10,7 @@ import { Header } from '@/components/ui/Header';
 import { ContentLayout } from '@/components/ui/ContentLayout';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
-const DEFAULT_H3_RESOLUTION = 8;
+const DEFAULT_H3_RESOLUTION = 7;
 // const H3_RING_SIZE = 10;
 const DEFAULT_ZOOM = 12;
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
@@ -18,11 +18,13 @@ const VWORLD_TILE_URL = VWORLD_KEY
   ? `https://api.vworld.kr/req/wmts/1.0.0/${VWORLD_KEY}/Base/{z}/{y}/{x}.png`
   : '';
 
-type HoverInfo = {
+interface SelectedInfo {
   id: string;
-  latitude: number;
-  longitude: number;
-} | null;
+  center: [number, number];
+  code: string;
+  korName: string;
+  engName: string;
+}
 
 const toByte = (value: number) => ((Math.round(value) % 256) + 256) % 256;
 const getPolygonCentroid = (coordinates: number[][][]) => {
@@ -30,30 +32,28 @@ const getPolygonCentroid = (coordinates: number[][][]) => {
   const ring = coordinates[0];
   let lngSum = 0;
   let latSum = 0;
-  
+
   ring.forEach(([lng, lat]) => {
     lngSum += lng;
     latSum += lat;
   });
-  
+
   return {
     lng: lngSum / ring.length,
-    lat: latSum / ring.length
+    lat: latSum / ring.length,
   };
 };
-
 
 function App() {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const additionalOverlayRef = useRef<MapboxOverlay | null>(null);
   const resolutionOptions = [5, 6, 7, 8, 9, 10, 11, 12];
   const [resolution, setResolution] = useState(DEFAULT_H3_RESOLUTION);
-  const [hoverInfo] = useState<HoverInfo>(null);
 
   const features = useMemo(() => {
     const data = geojsonData as unknown as GeoJSON.FeatureCollection;
     const features = data.features.filter((feature) => feature.geometry.type === 'Polygon');
-    console.log('features', features);
     return features;
   }, []);
 
@@ -66,21 +66,22 @@ function App() {
     });
   }, [features]);
 
+  const [selectedInfo, setSelectedInfo] = useState<SelectedInfo | null>(null);
+
   const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSigCd = e.target.value;
     const targetFeature = features.find((feature) => feature.properties?.SIG_CD === selectedSigCd);
 
     if (targetFeature) {
-      // @ts-ignore
-      const centroid = getPolygonCentroid(targetFeature.geometry.coordinates);
-      console.log(`이동: ${selectedSigCd}, 좌표:`, centroid);
+      const polygon = targetFeature.geometry as GeoJSON.Polygon;
+      const centroid = getPolygonCentroid(polygon.coordinates);
       mapRef.current?.flyTo({ center: [centroid.lng, centroid.lat], zoom: 10 });
     }
   };
 
   const allH3Data = useMemo(() => {
-    const slicedFeatures = features
-    // const slicedFeatures = features.slice(0, 30);
+    // const slicedFeatures = features;
+    const slicedFeatures = features.slice(0, 30);
 
     return slicedFeatures.flatMap((feature, index) => {
       const base = toByte(index * 37 + 10);
@@ -172,9 +173,7 @@ function App() {
         const feature = e.features[0];
         // 마우스 커서 변경
         mapRef.current!.getCanvas().style.cursor = 'pointer';
-        
-        // 예: 호버된 지역 이름 로그 출력 (또는 툴팁 표시)
-        console.log('Hovered:', feature.properties?.SIG_KOR_NM);
+
         const base = toByte(feature.properties?.SIG_CD?.charCodeAt(0) * 37 + 10);
         const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
         const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
@@ -190,23 +189,39 @@ function App() {
           lineColor,
         }));
 
+        const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
 
+        const centroid = getPolygonCentroid(polygon.coordinates);
+        setSelectedInfo({
+          id: feature.properties?.SIG_CD,
+          center: [centroid.lng, centroid.lat],
+          code: feature.properties?.SIG_CD,
+          korName: feature.properties?.SIG_KOR_NM,
+          engName: feature.properties?.SIG_ENG_NM,
+        });
         const hexagonLayer = new H3HexagonLayer({
-          id: `h3-additional-layer-${feature.properties?.SIG_CD}`,
+          id: layerId,
           data, // 모든 H3 인덱스가 담긴 배열
           getHexagon: (d) => d.h3Index, // 배열 요소 자체가 H3 인덱스임
           pickable: true,
-          filled: false,
+          filled: true,
           extruded: false, // true면 3D로 돌출됨
           lineWidthMinPixels: 1,
           getFillColor: (d) => d.color,
           getLineColor: (d) => d.lineColor,
         });
 
-        const additionalOverlay = new MapboxOverlay({
+        if (additionalOverlayRef.current) {
+          mapRef.current?.removeControl(additionalOverlayRef.current);
+          additionalOverlayRef.current.finalize();
+          additionalOverlayRef.current = null;
+        }
+
+        const nextOverlay = new MapboxOverlay({
           layers: [hexagonLayer],
         });
-        mapRef.current?.addControl(additionalOverlay);
+        mapRef.current?.addControl(nextOverlay);
+        additionalOverlayRef.current = nextOverlay;
       }
     });
 
@@ -217,7 +232,7 @@ function App() {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [mapRef, h3Layer]);
+  }, [resolution, h3Layer]);
 
   useLayoutEffect(() => {
     if (!mapContainerRef.current) return;
@@ -257,8 +272,39 @@ function App() {
     <MainLayout>
       <Header />
       <ContentLayout>
-        <aside style={{ width: '250px', height: '100%', padding: '16px' }}>
+        <aside
+          style={{
+            width: '250px',
+            height: '100%',
+            padding: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+          }}
+        >
           <div>
+            <div>
+              <h4>선택 영역</h4>
+              <div>
+                {!selectedInfo && <div>선택 영역이 없습니다.</div>}
+                {selectedInfo && (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div>
+                      <div>지역명</div>
+                      <div>{selectedInfo.engName}</div>
+                    </div>
+                    <div>
+                      <div>중심좌표</div>
+                      <div>
+                        {selectedInfo.center[0].toFixed(5)} , {selectedInfo.center[1].toFixed(5)}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <h4>지역 선택</h4>
             <select onChange={handleChangeSigSelectBox}>
               <option value="">지역 선택</option>
               {getSigOptions.map((option) => (
@@ -268,12 +314,14 @@ function App() {
               ))}
             </select>
           </div>
+
           <div>
-            H3 셀 개수: {numberOfCells}
+            <h4>H3 셀 개수</h4>
+            <p>{numberOfCells}</p>
           </div>
-        </aside>
-        <section style={{ padding: '16px' }}>
+
           <div>
+            <h4>H3 해상도</h4>
             <select value={resolution} onChange={(e) => setResolution(Number(e.target.value))}>
               {resolutionOptions.map((option) => (
                 <option key={option} value={option}>
@@ -282,13 +330,9 @@ function App() {
               ))}
             </select>
           </div>
+        </aside>
 
-          <div style={{ height: '30px' }}>
-            info:
-            {hoverInfo
-              ? `${hoverInfo?.id} ${hoverInfo?.latitude.toFixed(5)} , ${hoverInfo?.longitude.toFixed(5)}`
-              : ''}
-          </div>
+        <section style={{ padding: '16px' }}>
           <div ref={mapContainerRef} style={{ width: '1000px', height: '500px' }} />
         </section>
       </ContentLayout>
