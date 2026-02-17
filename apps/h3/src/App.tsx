@@ -26,12 +26,6 @@ function App() {
     return features;
   }, []);
 
-  console.log('features', features);
-  console.log(
-    'features',
-    features.find((feature) => feature.properties?.SIG_ENG_NM === 'Dangjin-si'),
-  );
-
   const overlayAllH3Data = useMemo<H3HexagonData[]>(() => {
     return features.flatMap((feature, index) => {
       const cells = getH3Cells(feature.geometry, overlayResolution, true);
