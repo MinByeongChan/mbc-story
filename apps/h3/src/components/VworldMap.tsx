@@ -24,7 +24,9 @@ interface VworldMapProps {
 
 export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
-  const additionalOverlayRef = useRef<MapboxOverlay | null>(null);
+  const overlayRef = useRef<MapboxOverlay | null>(null);
+  const selectedLayerRef = useRef<H3HexagonLayer | null>(null);
+
   const { setSelectedAreaInfo } = useAreaInfo();
   const { resolution, overlayResolution } = useResolutionInfo();
 
@@ -48,49 +50,12 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     console.log('현재 센터', currentCenter);
   };
 
-  const removeAdditionalOverlay = () => {
-    if (additionalOverlayRef.current) {
-      mapRef.current?.removeControl(additionalOverlayRef.current);
-      additionalOverlayRef.current.finalize();
-      additionalOverlayRef.current = null;
-    }
-  };
-
-  const addAdditionalOverlay = (feature: GeoJSON.Feature) => {
-    const base = toByte(feature.properties?.SIG_CD?.charCodeAt(0) * 37 + 10);
-    const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
-    const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
-
-    const polygon = feature.geometry as GeoJSON.Polygon;
-    const outerRing = polygon.coordinates[0] as unknown as number[][];
-    const cells = polygonToCells(outerRing, resolution, true);
-    const compacted = compactCells(cells);
-
-    const data = compacted.map((h3Index) => ({
-      h3Index,
-      color,
-      lineColor,
-    }));
-
-    const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
-
-    const hexagonLayer = new H3HexagonLayer({
-      id: layerId,
-      data,
-      getHexagon: (d) => d.h3Index,
-      pickable: true,
-      filled: true,
-      extruded: false,
-      lineWidthMinPixels: 1,
-      getFillColor: (d) => d.color,
-      getLineColor: (d) => d.lineColor,
-    });
-
-    const nextOverlay = new MapboxOverlay({
-      layers: [hexagonLayer],
-    });
-    mapRef.current?.addControl(nextOverlay);
-    additionalOverlayRef.current = nextOverlay;
+  const updateOverlayLayers = (
+    overlayLayer: H3HexagonLayer,
+    selectedLayer: H3HexagonLayer | null,
+  ) => {
+    const layers = selectedLayer ? [overlayLayer, selectedLayer] : [overlayLayer];
+    overlayRef.current?.setProps({ layers });
   };
 
   const handleClickMapArea = (
@@ -102,9 +67,36 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       const feature = e.features[0];
       mapRef.current!.getCanvas().style.cursor = 'pointer';
 
-      removeAdditionalOverlay();
+      const base = toByte(feature.properties?.SIG_CD?.charCodeAt(0) * 37 + 10);
+      const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
+      const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
 
-      addAdditionalOverlay(feature);
+      const polygon = feature.geometry as GeoJSON.Polygon;
+      const outerRing = polygon.coordinates[0] as unknown as number[][];
+      const cells = polygonToCells(outerRing, resolution, true);
+      const compacted = compactCells(cells);
+
+      const data = compacted.map((h3Index) => ({
+        h3Index,
+        color,
+        lineColor,
+      }));
+
+      const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
+      const hexagonLayer = new H3HexagonLayer({
+        id: layerId,
+        data,
+        getHexagon: (d) => d.h3Index,
+        pickable: true,
+        filled: true,
+        extruded: false,
+        lineWidthMinPixels: 1,
+        getFillColor: (d) => d.color,
+        getLineColor: (d) => d.lineColor,
+      });
+
+      selectedLayerRef.current = hexagonLayer;
+      updateOverlayLayers(overlayH3Layer, hexagonLayer);
 
       const centroid = getPolygonCentroid((feature.geometry as GeoJSON.Polygon).coordinates);
       setSelectedAreaInfo({
@@ -114,12 +106,6 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
         korName: feature.properties?.SIG_KOR_NM,
         engName: feature.properties?.SIG_ENG_NM,
       });
-
-      const style = mapRef.current?.getStyle();
-      if (style?.layers) {
-        const layerCount = style.layers.length;
-        console.log('레이어 개수:', layerCount);
-      }
     }
   };
 
@@ -128,9 +114,10 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       return;
     }
 
-    const overlay = new MapboxOverlay({
-      layers: [overlayH3Layer],
-    });
+    const layers = [overlayH3Layer];
+
+    const overlay = new MapboxOverlay({ layers });
+    overlayRef.current = overlay;
 
     mapRef.current?.on('load', () => {
       mapRef.current?.addSource('geojson-source', {
@@ -157,17 +144,28 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       });
     });
 
-    mapRef.current?.on('moveend', handleMapMoveEnd);
-    mapRef.current?.on('click', 'geojson-fill', handleClickMapArea);
+    const moveEndHandler = handleMapMoveEnd;
+    const clickHandler = handleClickMapArea;
+    mapRef.current?.on('moveend', moveEndHandler);
+    mapRef.current?.on('click', 'geojson-fill', clickHandler);
 
     mapRef.current?.addControl(overlay);
 
     return () => {
+      mapRef.current?.off('moveend', moveEndHandler);
+      mapRef.current?.off('click', 'geojson-fill', clickHandler);
+      mapRef.current?.removeControl(overlay);
       overlay.finalize();
+      overlayRef.current = null;
+    };
+  }, [overlayH3Layer, overlayResolution, resolution]);
+
+  useEffect(() => {
+    return () => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, [overlayH3Layer, overlayResolution, resolution]);
+  }, []);
 
   useLayoutEffect(() => {
     if (!mapContainerRef.current) return;
