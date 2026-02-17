@@ -12,7 +12,7 @@ interface SnbProps {
 }
 
 const overlayResolutionOptions = [6, 7];
-const resolutionOptions = [5, 6, 7, 8, 9, 10, 11, 12];
+const resolutionOptions = [7, 8, 9, 10];
 
 export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
   const { selectedAreaInfo } = useAreaInfo();
