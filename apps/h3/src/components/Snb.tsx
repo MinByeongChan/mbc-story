@@ -37,6 +37,10 @@ export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
     setOverlayResolution(Number(e.target.value));
   };
 
+  const handleChangeSelectedResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setResolution(Number(e.target.value));
+  };
+
   const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedSigCd = e.target.value;
     const targetFeature = features.find((feature) => feature.properties?.SIG_CD === selectedSigCd);
@@ -72,7 +76,7 @@ export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
 
       <div>
         <h4>시군구 영역 H3 해상도</h4>
-        <select value={resolution} onChange={(e) => setResolution(Number(e.target.value))}>
+        <select value={resolution} onChange={handleChangeSelectedResolution}>
           {resolutionOptions.map((option) => (
             <option key={option} value={option}>
               {option}

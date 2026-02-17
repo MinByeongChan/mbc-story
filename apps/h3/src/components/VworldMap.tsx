@@ -28,7 +28,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   const selectedLayerRef = useRef<H3HexagonLayer | null>(null);
 
   const { setSelectedAreaInfo } = useAreaInfo();
-  const { resolution, overlayResolution } = useResolutionInfo();
+  const { resolution } = useResolutionInfo();
 
   const overlayH3Layer = useMemo(() => {
     return new H3HexagonLayer<H3HexagonData>({
@@ -144,21 +144,26 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       });
     });
 
-    const moveEndHandler = handleMapMoveEnd;
-    const clickHandler = handleClickMapArea;
-    mapRef.current?.on('moveend', moveEndHandler);
-    mapRef.current?.on('click', 'geojson-fill', clickHandler);
-
+    mapRef.current?.on('moveend', handleMapMoveEnd);
+    mapRef.current?.on('click', 'geojson-fill', handleClickMapArea);
     mapRef.current?.addControl(overlay);
 
     return () => {
-      mapRef.current?.off('moveend', moveEndHandler);
-      mapRef.current?.off('click', 'geojson-fill', clickHandler);
+      mapRef.current?.off('moveend', handleMapMoveEnd);
       mapRef.current?.removeControl(overlay);
       overlay.finalize();
       overlayRef.current = null;
     };
-  }, [overlayH3Layer, overlayResolution, resolution]);
+  }, [overlayH3Layer]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    mapRef.current.on('click', 'geojson-fill', handleClickMapArea);
+
+    return () => {
+      mapRef.current?.off('click', 'geojson-fill', handleClickMapArea);
+    };
+  }, [resolution]);
 
   useEffect(() => {
     return () => {
