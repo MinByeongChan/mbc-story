@@ -1,13 +1,14 @@
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { compactCells, polygonToCells } from 'h3-js';
-import { getPolygonCentroid, toByte } from '@/utils/utils';
+import { compactCells } from 'h3-js';
+import { getPolygonCentroid } from '@/utils/utils';
 import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import geojsonData from '@/assets/sig_4326.json';
 import { useAreaInfo } from '@/stores/areaInfo';
 import { H3HexagonData } from '@/types';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
+import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
 
@@ -67,20 +68,9 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       const feature = e.features[0];
       mapRef.current!.getCanvas().style.cursor = 'pointer';
 
-      const base = toByte(feature.properties?.SIG_CD?.charCodeAt(0) * 37 + 10);
-      const color = [base, toByte(base + 85), toByte(base + 170), 140] as const;
-      const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200] as const;
-
-      const polygon = feature.geometry as GeoJSON.Polygon;
-      const outerRing = polygon.coordinates[0] as unknown as number[][];
-      const cells = polygonToCells(outerRing, resolution, true);
-      const compacted = compactCells(cells);
-
-      const data = compacted.map((h3Index) => ({
-        h3Index,
-        color,
-        lineColor,
-      }));
+      const cells = getH3Cells(feature.geometry, resolution, true);
+      const compacted = compactCells(cells || []);
+      const data = compacted.map((h3Index) => buildH3HexagonData(h3Index, 0));
 
       const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
       const hexagonLayer = new H3HexagonLayer({

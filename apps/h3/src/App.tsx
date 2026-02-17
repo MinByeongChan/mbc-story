@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { polygonToCells, compactCells } from 'h3-js';
+import { compactCells } from 'h3-js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import geojsonData from './assets/sig_4326.json';
 import { MainLayout } from '@/components/ui/MainLayout';
@@ -8,9 +8,9 @@ import { Header } from '@/components/ui/Header';
 import { ContentLayout } from '@/components/ui/ContentLayout';
 import { VworldMap } from './components/VworldMap';
 import { H3HexagonData } from './types';
-import { toByte } from './utils/utils';
 import { Snb } from './components/Snb';
 import { useResolutionInfo } from './stores/resolutionInfo';
+import { buildH3HexagonData, getH3Cells } from './utils/h3';
 
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
 
@@ -20,26 +20,23 @@ function App() {
 
   const features = useMemo(() => {
     const data = geojsonData as unknown as GeoJSON.FeatureCollection;
-    const features = data.features.filter((feature) => feature.geometry.type === 'Polygon');
+    const features = data.features.filter(
+      (feature) => feature.geometry.type === 'Polygon' || feature.geometry.type === 'MultiPolygon',
+    );
     return features;
   }, []);
 
+  console.log('features', features);
+  console.log(
+    'features',
+    features.find((feature) => feature.properties?.SIG_ENG_NM === 'Dangjin-si'),
+  );
+
   const overlayAllH3Data = useMemo<H3HexagonData[]>(() => {
     return features.flatMap((feature, index) => {
-      const base = toByte(index * 37 + 10);
-      const color = [base, toByte(base + 85), toByte(base + 170), 140];
-      const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200];
-
-      const polygon = feature.geometry as GeoJSON.Polygon;
-      const outerRing = polygon.coordinates[0] as unknown as number[][];
-      const cells = polygonToCells(outerRing, overlayResolution, true);
-      const compacted = compactCells(cells);
-
-      return compacted.map((h3Index) => ({
-        h3Index,
-        color,
-        lineColor,
-      }));
+      const cells = getH3Cells(feature.geometry, overlayResolution, true);
+      const compacted = compactCells(cells || []);
+      return compacted.map((h3Index) => buildH3HexagonData(h3Index, index));
     });
   }, [features, overlayResolution]);
 
