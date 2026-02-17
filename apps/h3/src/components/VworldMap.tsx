@@ -29,7 +29,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   const { resolution, overlayResolution } = useResolutionInfo();
 
   const overlayH3Layer = useMemo(() => {
-    return new H3HexagonLayer({
+    return new H3HexagonLayer<H3HexagonData>({
       id: 'h3-layer-overlay-all',
       data: overlayAllH3Data,
       getHexagon: (d) => d.h3Index,
@@ -76,11 +76,11 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
 
     const hexagonLayer = new H3HexagonLayer({
       id: layerId,
-      data, // 모든 H3 인덱스가 담긴 배열
-      getHexagon: (d) => d.h3Index, // 배열 요소 자체가 H3 인덱스임
+      data,
+      getHexagon: (d) => d.h3Index,
       pickable: true,
       filled: true,
-      extruded: false, // true면 3D로 돌출됨
+      extruded: false,
       lineWidthMinPixels: 1,
       getFillColor: (d) => d.color,
       getLineColor: (d) => d.lineColor,
