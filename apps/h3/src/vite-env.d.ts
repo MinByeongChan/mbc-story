@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_VWORLD_KEY: string;
+  readonly VITE_BASE_URL: string;
 }
 
 interface ImportMeta {

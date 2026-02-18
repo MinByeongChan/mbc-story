@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { compactCells } from 'h3-js';
 import { getPolygonCentroid } from '@/utils/utils';
@@ -6,9 +6,10 @@ import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import geojsonData from '@/assets/sig_4326.json';
 import { useAreaInfo } from '@/stores/areaInfo';
-import { H3HexagonData } from '@/types';
+import { H3HexagonData, VworldAddressResponseBody } from '@/types';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
+import { getAddress } from '@/api/axios';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
 
@@ -30,6 +31,8 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
 
   const { setSelectedAreaInfo } = useAreaInfo();
   const { resolution } = useResolutionInfo();
+  const [locationInfo, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
+  console.log('locationInfo', locationInfo);
 
   const overlayH3Layer = useMemo(() => {
     return new H3HexagonLayer<H3HexagonData>({
@@ -59,7 +62,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     overlayRef.current?.setProps({ layers });
   };
 
-  const handleClickMapArea = (
+  const handleClickMapArea = async (
     e: maplibregl.MapMouseEvent & {
       features?: maplibregl.MapGeoJSONFeature[];
     } & object,
@@ -96,6 +99,12 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
         korName: feature.properties?.SIG_KOR_NM,
         engName: feature.properties?.SIG_ENG_NM,
       });
+
+      console.log('centroid', centroid);
+      if (centroid.lng && centroid.lat) {
+        const response = await getAddress({ lng: centroid.lng, lat: centroid.lat });
+        setLocationInfo(response);
+      }
     }
   };
 
