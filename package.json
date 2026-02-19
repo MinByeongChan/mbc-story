@@ -1,6 +1,6 @@
 {
   "name": "mbc-stroy",
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.30.0",
   "private": true,
   "workspaces": {
     "packages": [

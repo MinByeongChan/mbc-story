@@ -1,3 +1,5 @@
+import { css } from '@styled-system/css';
+
 import { useAreaInfo } from '@/stores/areaInfo';
 import { getPolygonCentroid } from '@/utils/utils';
 import { useMemo } from 'react';
@@ -13,6 +15,15 @@ interface SnbProps {
 
 const overlayResolutionOptions = [6, 7];
 const resolutionOptions = [7, 8, 9, 10];
+
+const snbStyles = css({
+  width: '250px',
+  height: '100%',
+  padding: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4',
+});
 
 export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
   const { selectedAreaInfo } = useAreaInfo();
@@ -53,16 +64,7 @@ export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
   };
 
   return (
-    <aside
-      style={{
-        width: '250px',
-        height: '100%',
-        padding: '16px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-      }}
-    >
+    <aside className={snbStyles}>
       <div>
         <h4>Overlay H3 셀 Resolution</h4>
         <select value={overlayResolution} onChange={handleChangeOverlayResolution}>
