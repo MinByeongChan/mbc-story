@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H3 그리드 테스트 페이지 - 와이어프레임</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
+    
+    /* 와이어프레임 스타일 - 그레이스케일 */
+    .wireframe { color: #333; }
+    .wireframe .placeholder { background: #e0e0e0; border: 2px dashed #999; }
+    .wireframe .label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+    .wireframe .priority { font-size: 9px; padding: 2px 6px; border-radius: 4px; margin-left: 4px; }
+    .wireframe .p1 { background: #4caf50; color: white; }
+    .wireframe .p2 { background: #2196f3; color: white; }
+    .wireframe .p3 { background: #ff9800; color: white; }
+
+    /* 레이아웃 */
+    .app { display: flex; flex-direction: column; height: 100vh; }
+    .header { height: 60px; padding: 0 24px; display: flex; align-items: center; border-bottom: 1px solid #ccc; background: #fff; }
+    .content { display: flex; flex: 1; overflow: hidden; }
+    .snb { width: 280px; min-width: 280px; padding: 16px; overflow-y: auto; background: #fff; border-right: 1px solid #ccc; }
+    .map-area { flex: 1; overflow: hidden; }
+    
+    /* SNB 섹션 */
+    .section { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #ccc; }
+    .section:last-child { border-bottom: none; }
+    .section-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; }
+    .section-content { font-size: 11px; }
+    .control-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .control-row:last-child { margin-bottom: 0; }
+    .control-label { min-width: 80px; }
+    .placeholder-box { height: 32px; border: 1px dashed #999; border-radius: 4px; padding: 0 8px; }
+    .placeholder-box.small { width: 60px; }
+    .placeholder-box.medium { flex: 1; min-width: 120px; }
+    .placeholder-box.large { width: 100%; }
+    .tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+    .tab { padding: 4px 8px; border: 1px solid #999; border-radius: 4px; font-size: 10px; }
+    .checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .slider-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .slider { flex: 1; height: 6px; background: #ddd; border-radius: 3px; }
+    .btn { padding: 6px 12px; border: 1px solid #999; border-radius: 4px; font-size: 11px; background: #f5f5f5; }
+    .btn-primary { background: #333; color: white; border-color: #333; }
+    .info-text { font-size: 10px; color: #666; margin-top: 4px; }
+    .divider { height: 1px; background: #ddd; margin: 12px 0; }
+    
+    /* 지도 영역 */
+    .map-placeholder { width: 100%; height: 100%; background: #e8e8e8; border: 2px dashed #999; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #666; }
+    
+    /* 툴팁 영역 (지도 위) */
+    .tooltip-zone { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); padding: 8px 16px; background: rgba(0,0,0,0.7); color: white; font-size: 11px; border-radius: 4px; display: none; }
+    .map-wrapper { position: relative; width: 100%; height: 100%; }
+    
+    /* 페이지 타이틀 */
+    .page-title { text-align: center; padding: 24px; background: #fff; border-bottom: 1px solid #ccc; }
+    .page-title h1 { margin: 0; font-size: 18px; }
+    .page-title p { margin: 8px 0 0; font-size: 12px; color: #666; }
+  </style>
+</head>
+<body class="wireframe">
+  <div class="page-title">
+    <h1>H3 그리드 테스트 페이지 – 와이어프레임</h1>
+    <p>Figma / Photoshop / Zeplin 디자인 참고용 | 우선순위: <span class="priority p1">1순위</span> <span class="priority p2">2순위</span> <span class="priority p3">3순위</span></p>
+  </div>
+
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <span class="label">Header</span>
+      <h2 style="margin: 0 0 0 12px; font-size: 16px;">VWorld + H3 WebGL 예제</h2>
+    </header>
+
+    <div class="content">
+      <!-- SNB (사이드 네비게이션 바) -->
+      <aside class="snb">
+        <span class="label">SNB (280px)</span>
+
+        <!-- 1. H3 Resolution -->
+        <section class="section">
+          <div class="section-title">H3 Resolution <span class="priority p1">1순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <span class="control-label">Overlay</span>
+              <div class="placeholder-box medium">Resolution 6, 7 선택</div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">선택 영역</span>
+              <div class="placeholder-box medium">Resolution 7~10 선택</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. 레이어 제어 -->
+        <section class="section">
+          <div class="section-title">레이어 제어 <span class="priority p1">1순위</span></div>
+          <div class="section-content">
+            <div class="checkbox-row">
+              <div class="placeholder-box small" style="width: 18px; height: 18px;"></div>
+              <span>GeoJSON Base</span>
+            </div>
+            <div class="checkbox-row">
+              <div class="placeholder-box small" style="width: 18px; height: 18px;"></div>
+              <span>Overlay H3</span>
+            </div>
+            <div class="checkbox-row">
+              <div class="placeholder-box small" style="width: 18px; height: 18px;"></div>
+              <span>선택 영역 H3</span>
+            </div>
+            <div class="divider"></div>
+            <div class="slider-row">
+              <span class="control-label">Opacity</span>
+              <div class="slider"></div>
+              <span>80%</span>
+            </div>
+            <div class="control-row" style="margin-top: 8px;">
+              <button class="btn">선택 영역 클리어</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. 지역 검색 -->
+        <section class="section">
+          <div class="section-title">지역 검색 <span class="priority p1">1순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <div class="placeholder-box large" style="height: 36px;">지역명 또는 주소 검색...</div>
+            </div>
+            <div class="checkbox-row" style="margin-top: 8px;">
+              <div class="placeholder-box small" style="width: 18px; height: 18px;"></div>
+              <span>검색 결과 영역 자동 선택</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. 선택 영역 정보 -->
+        <section class="section">
+          <div class="section-title">선택 영역 <span class="priority p1">1순위</span></div>
+          <div class="section-content">
+            <div class="info-text">선택 영역이 없습니다.</div>
+            <div class="control-row" style="margin-top: 8px;">
+              <button class="btn" disabled>선택 영역 클리어</button>
+            </div>
+            <!-- 선택 시 표시 -->
+            <div style="margin-top: 8px; padding: 8px; background: #f0f0f0; border-radius: 4px; font-size: 10px;">
+              <div>지역명: Suji-gu</div>
+              <div>중심좌표: 127.xxx, 37.xxx</div>
+              <div><strong>H3 셀 개수: 1,234</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. H3 유틸리티 -->
+        <section class="section">
+          <div class="section-title">H3 유틸리티 <span class="priority p2">2순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <span class="control-label">H3 인덱스</span>
+              <div class="placeholder-box medium">8f2830828c44fff 입력</div>
+            </div>
+            <div class="control-row">
+              <button class="btn btn-primary">이동 & 하이라이트</button>
+            </div>
+            <div class="divider"></div>
+            <div class="control-row">
+              <span class="control-label">Lat</span>
+              <div class="placeholder-box small">37.xxx</div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Lng</span>
+              <div class="placeholder-box small">127.xxx</div>
+            </div>
+            <div class="control-row">
+              <button class="btn">좌표 → H3 변환</button>
+            </div>
+            <div class="divider"></div>
+            <div class="checkbox-row">
+              <div class="placeholder-box small" style="width: 18px; height: 18px;"></div>
+              <span>K-ring 시각화</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. H3 셀 호버 툴팁 (지도 위 표시) -->
+        <section class="section">
+          <div class="section-title">H3 셀 호버 툴팁 <span class="priority p1">1순위</span></div>
+          <div class="section-content">
+            <div class="placeholder-box large" style="height: 80px; display: flex; align-items: center; justify-content: center;">
+              지도 위 마우스 오버 시 표시<br>
+              H3 인덱스, resolution, parent/children
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. 데이터 내보내기 -->
+        <section class="section">
+          <div class="section-title">데이터 내보내기 <span class="priority p2">2순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <button class="btn">H3 인덱스 CSV</button>
+              <button class="btn">JSON</button>
+            </div>
+            <div class="control-row" style="margin-top: 8px;">
+              <button class="btn">통계 내보내기</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. 성능 / 비교 테스트 -->
+        <section class="section">
+          <div class="section-title">성능 / 비교 <span class="priority p3">3순위</span></div>
+          <div class="section-content">
+            <div class="tabs">
+              <div class="tab">Compact vs Non-compact</div>
+              <div class="tab">Resolution 비교</div>
+            </div>
+            <div class="info-text">셀 개수: 13,106 | 렌더: 45ms</div>
+          </div>
+        </section>
+
+        <!-- 9. 스타일 커스터마이징 -->
+        <section class="section">
+          <div class="section-title">스타일 <span class="priority p3">3순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <span class="control-label">색상 모드</span>
+              <div class="tabs">
+                <div class="tab">지역별 구분</div>
+                <div class="tab">단일 색상</div>
+              </div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">테두리</span>
+              <div class="placeholder-box small">두께</div>
+              <div class="placeholder-box small">색상</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. 기타 -->
+        <section class="section">
+          <div class="section-title">기타 <span class="priority p3">3순위</span></div>
+          <div class="section-content">
+            <div class="control-row">
+              <span class="control-label">반경(km)</span>
+              <div class="placeholder-box small">5</div>
+              <button class="btn">gridDisk 생성</button>
+            </div>
+            <div class="info-text">URL 상태 공유: 쿼리 파라미터</div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Map Area -->
+      <main class="map-area">
+        <div class="map-wrapper">
+          <div class="map-placeholder">
+            VWorld Map + GeoJSON + H3 Overlay
+            <br><br>
+            <small>• GeoJSON Base Layer (폴리곤)</small><br>
+            <small>• 전체 시군구 H3 Layer (헥사곤)</small><br>
+            <small>• 선택 영역 H3 Layer (헥사곤, 클릭 시 표시)</small>
+          </div>
+          <!-- 호버 툴팁 영역 (지도 위) -->
+          <div class="tooltip-zone" style="display: block; position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);">
+            [호버 툴팁] 8f2830828c44fff | res:7 | parent: 8f2830828bfffff
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- 상세 와이어프레임 페이지 2: 컴포넌트 분리도 -->
+  <div style="padding: 24px; max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-size: 16px; margin-top: 32px; padding-top: 24px; border-top: 2px solid #999;">컴포넌트 구조 (디자인 시스템 참고)</h2>
+    <pre style="background: #f0f0f0; padding: 16px; font-size: 11px; overflow-x: auto;">
+App
+├── Header
+├── ContentLayout
+│   ├── Snb (280px)
+│   │   ├── H3ResolutionSection
+│   │   ├── LayerControlSection (토글, Opacity, 클리어)
+│   │   ├── RegionSearchSection
+│   │   ├── SelectedAreaSection (선택 영역 정보 + H3 셀 개수)
+│   │   ├── H3UtilitySection (인덱스 검색, 좌표→H3, K-ring)
+│   │   ├── DataExportSection
+│   │   ├── PerformanceSection
+│   │   ├── StyleSection
+│   │   └── MiscSection (반경 기반, URL 공유)
+│   └── VworldMap
+│       ├── GeoJSON Layer
+│       ├── Overlay H3 Layer
+│       ├── Selected Area H3 Layer
+│       └── HoverTooltip (지도 위)
+    </pre>
+
+    <h2 style="font-size: 16px; margin-top: 24px;">레이어 구조</h2>
+    <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+      <thead>
+        <tr style="background: #e0e0e0;">
+          <th style="padding: 8px; text-align: left; border: 1px solid #999;">레이어</th>
+          <th style="padding: 8px; text-align: left; border: 1px solid #999;">설명</th>
+          <th style="padding: 8px; text-align: left; border: 1px solid #999;">토글</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding: 8px; border: 1px solid #999;">GeoJSON Base</td><td style="padding: 8px; border: 1px solid #999;">시군구 폴리곤</td><td style="padding: 8px; border: 1px solid #999;">✓</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #999;">Overlay H3</td><td style="padding: 8px; border: 1px solid #999;">전체 시군구 헥사곤</td><td style="padding: 8px; border: 1px solid #999;">✓</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #999;">선택 영역 H3</td><td style="padding: 8px; border: 1px solid #999;">클릭한 시군구 헥사곤 (초기 2개, 클릭 후 3개)</td><td style="padding: 8px; border: 1px solid #999;">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
