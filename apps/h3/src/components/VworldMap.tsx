@@ -31,8 +31,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
 
   const { setSelectedAreaInfo } = useAreaInfo();
   const { resolution } = useResolutionInfo();
-  const [locationInfo, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
-  console.log('locationInfo', locationInfo);
+  const [, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
 
   const overlayH3Layer = useMemo(() => {
     return new H3HexagonLayer<H3HexagonData>({
@@ -62,6 +61,44 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     overlayRef.current?.setProps({ layers });
   };
 
+  const handleSetLayer = async (feature: maplibregl.MapGeoJSONFeature) => {
+    mapRef.current!.getCanvas().style.cursor = 'pointer';
+
+    const cells = getH3Cells(feature.geometry, resolution, true);
+    const compacted = compactCells(cells || []);
+    const data = compacted.map((h3Index) => buildH3HexagonData(h3Index, 0));
+
+    const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
+    const hexagonLayer = new H3HexagonLayer({
+      id: layerId,
+      data,
+      getHexagon: (d) => d.h3Index,
+      pickable: true,
+      filled: true,
+      extruded: false,
+      lineWidthMinPixels: 1,
+      getFillColor: (d) => d.color,
+      getLineColor: (d) => d.lineColor,
+    });
+
+    selectedLayerRef.current = hexagonLayer;
+    updateOverlayLayers(overlayH3Layer, hexagonLayer);
+
+    const centroid = getPolygonCentroid((feature.geometry as GeoJSON.Polygon).coordinates);
+    setSelectedAreaInfo({
+      id: feature.properties?.SIG_CD,
+      center: [centroid.lng, centroid.lat],
+      code: feature.properties?.SIG_CD,
+      korName: feature.properties?.SIG_KOR_NM,
+      engName: feature.properties?.SIG_ENG_NM,
+    });
+
+    if (centroid.lng && centroid.lat) {
+      const response = await getAddress({ lng: centroid.lng, lat: centroid.lat });
+      setLocationInfo(response);
+    }
+  };
+
   const handleClickMapArea = async (
     e: maplibregl.MapMouseEvent & {
       features?: maplibregl.MapGeoJSONFeature[];
@@ -69,42 +106,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   ) => {
     if (e.features && e.features.length > 0) {
       const feature = e.features[0];
-      mapRef.current!.getCanvas().style.cursor = 'pointer';
-
-      const cells = getH3Cells(feature.geometry, resolution, true);
-      const compacted = compactCells(cells || []);
-      const data = compacted.map((h3Index) => buildH3HexagonData(h3Index, 0));
-
-      const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
-      const hexagonLayer = new H3HexagonLayer({
-        id: layerId,
-        data,
-        getHexagon: (d) => d.h3Index,
-        pickable: true,
-        filled: true,
-        extruded: false,
-        lineWidthMinPixels: 1,
-        getFillColor: (d) => d.color,
-        getLineColor: (d) => d.lineColor,
-      });
-
-      selectedLayerRef.current = hexagonLayer;
-      updateOverlayLayers(overlayH3Layer, hexagonLayer);
-
-      const centroid = getPolygonCentroid((feature.geometry as GeoJSON.Polygon).coordinates);
-      setSelectedAreaInfo({
-        id: feature.properties?.SIG_CD,
-        center: [centroid.lng, centroid.lat],
-        code: feature.properties?.SIG_CD,
-        korName: feature.properties?.SIG_KOR_NM,
-        engName: feature.properties?.SIG_ENG_NM,
-      });
-
-      console.log('centroid', centroid);
-      if (centroid.lng && centroid.lat) {
-        const response = await getAddress({ lng: centroid.lng, lat: centroid.lat });
-        setLocationInfo(response);
-      }
+      handleSetLayer(feature);
     }
   };
 
