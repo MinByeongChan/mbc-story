@@ -7,11 +7,11 @@ import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import geojsonData from '@/assets/sig_4326.json';
 import { useAreaInfo } from '@/stores/areaInfo';
-import { H3HexagonData, H3HoverInfo, VworldAddressResponseBody } from '@/types';
+import { FeatureProperties, H3HexagonData, H3HoverInfo, VworldAddressResponseBody } from '@/types';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
 import { getAddress } from '@/api/axios';
-import { css } from '@styled-system/css';
+import { Tooltip } from '@/components/ui/Tooltip';
 
 const CENTER = { lat: 37.3595704, lng: 127.105399 };
 
@@ -20,20 +20,6 @@ const VWORLD_TILE_URL = VWORLD_KEY
   ? `https://api.vworld.kr/req/wmts/1.0.0/${VWORLD_KEY}/Base/{z}/{y}/{x}.png`
   : '';
 const DEFAULT_ZOOM = 12;
-
-const hoverInfoStyles = css({
-  position: 'relative',
-  backgroundColor: 'gray.900',
-  color: 'white',
-  padding: '4px 8px',
-  borderRadius: '4px',
-  zIndex: 1000,
-});
-
-const textXsStyles = css({
-  fontSize: 'xs',
-  color: 'gray.300',
-});
 
 interface VworldMapProps {
   mapRef: React.RefObject<maplibregl.Map | null>;
@@ -65,13 +51,10 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       lineWidthMinPixels: 1,
       getFillColor: [0, 0, 0, 1], // 클릭 피킹용 거의 투명한 fill (시각적으로는 filled: false와 동일)
       onClick: (info) => {
-        if (!info.object) {
-          return;
-        }
-        const data = info.object as H3HexagonData;
-        const props = data.feature?.properties as
-          | { SIG_KOR_NM?: string; SIG_ENG_NM?: string }
-          | undefined;
+        const data = info?.object as H3HexagonData | undefined;
+        const props = data?.feature?.properties as FeatureProperties | undefined;
+        if (!data || !props) return;
+
         setSelectedHexagonInfo({
           h3Index: data.h3Index,
           korName: props?.SIG_KOR_NM ?? '',
@@ -264,21 +247,11 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       {selectedHexagonInfo &&
         popupPixelPosition &&
         createPortal(
-          <div
-            className={hoverInfoStyles}
-            style={{
-              position: 'fixed',
-              left: popupPixelPosition.x,
-              top: popupPixelPosition.y,
-              transform: 'translate(12px, 12px)',
-              pointerEvents: 'none',
-            }}
-          >
-            <div>
-              {selectedHexagonInfo.korName} ({selectedHexagonInfo.engName})
-            </div>
-            <div className={textXsStyles}>h3 index: {selectedHexagonInfo.h3Index}</div>
-          </div>,
+          <Tooltip
+            selectedHexagonInfo={selectedHexagonInfo}
+            popupPixelPosition={popupPixelPosition}
+            onClickClose={() => setSelectedHexagonInfo(null)}
+          />,
           document.body,
         )}
     </>
