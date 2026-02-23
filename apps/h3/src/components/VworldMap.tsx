@@ -252,7 +252,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
             popupPixelPosition={popupPixelPosition}
             onClickClose={() => setSelectedHexagonInfo(null)}
           />,
-          document.body,
+          document.getElementById('modal-root')!,
         )}
     </>
   );
