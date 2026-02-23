@@ -12,3 +12,8 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.maplibregl-popup-content {
+  background: none !important;
+
+}

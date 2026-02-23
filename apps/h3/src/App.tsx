@@ -30,7 +30,7 @@ function App() {
     return features.flatMap((feature, index) => {
       const cells = getH3Cells(feature.geometry, overlayResolution, true);
       const compacted = compactCells(cells || []);
-      return compacted.map((h3Index) => buildH3HexagonData(h3Index, index));
+      return compacted.map((h3Index) => buildH3HexagonData(h3Index, feature, index));
     });
   }, [features, overlayResolution]);
 
