@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface SelectedAreaInfo {
   id: string;
   center: [number, number];
+  coordinates: [number, number];
   code: string;
   korName: string;
   engName: string;

@@ -5,6 +5,7 @@ import { getPolygonCentroid } from '@/utils/utils';
 import { useMemo } from 'react';
 import maplibregl from 'maplibre-gl';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
+import { latLngToCell } from 'h3-js';
 
 interface SnbProps {
   features: GeoJSON.Feature[];
@@ -68,6 +69,21 @@ export const Snb = ({ features, mapRef }: SnbProps) => {
       const centroid = getPolygonCentroid(polygon.coordinates);
       mapRef.current?.flyTo({ center: [centroid.lng, centroid.lat], zoom: 10 });
     }
+  };
+
+  const handleClickMoveAndHighlight = () => {
+    if (!selectedAreaInfo) return;
+    mapRef.current?.flyTo({ center: selectedAreaInfo.coordinates, zoom: 12 });
+  };
+
+  const handleClickConvertToH3 = () => {
+    if (!selectedAreaInfo) return;
+    const h3Index = latLngToCell(
+      selectedAreaInfo.center[1],
+      selectedAreaInfo.center[0],
+      resolution,
+    );
+    alert('변환된 h3Index: ' + h3Index);
   };
 
   return (
@@ -140,6 +156,24 @@ export const Snb = ({ features, mapRef }: SnbProps) => {
               </option>
             ))}
           </select>
+        </li>
+
+        <li className={liStyles}>
+          <h4>
+            <strong>H3 유틸리티</strong>
+          </h4>
+          <div>
+            <div>
+              <input type="text" placeholder="H3 인덱스 입력" />
+              <button onClick={handleClickMoveAndHighlight}>이동 & 하이라이트</button>
+            </div>
+
+            <div>
+              <input type="text" placeholder="Lat 입력" />
+              <input type="text" placeholder="Lng 입력" />
+              <button onClick={handleClickConvertToH3}>좌표 → H3 변환</button>
+            </div>
+          </div>
         </li>
       </ul>
     </aside>

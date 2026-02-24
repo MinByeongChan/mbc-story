@@ -103,7 +103,10 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     overlayRef.current?.setProps({ layers });
   };
 
-  const handleSetLayer = async (feature: maplibregl.MapGeoJSONFeature) => {
+  const handleSetLayer = async (
+    feature: maplibregl.MapGeoJSONFeature,
+    pointer: [number, number],
+  ) => {
     mapRef.current!.getCanvas().style.cursor = 'pointer';
 
     const cells = getH3Cells(feature.geometry, resolution, true);
@@ -129,6 +132,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     setSelectedAreaInfo({
       id: feature.properties?.SIG_CD,
       center: [centroid.lng, centroid.lat],
+      coordinates: pointer,
       code: feature.properties?.SIG_CD,
       korName: feature.properties?.SIG_KOR_NM,
       engName: feature.properties?.SIG_ENG_NM,
@@ -148,7 +152,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   ) => {
     if (e.features && e.features.length > 0) {
       const feature = e.features[0];
-      handleSetLayer(feature);
+      handleSetLayer(feature, [e.lngLat.lng, e.lngLat.lat]);
     }
   };
 
