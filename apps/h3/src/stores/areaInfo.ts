@@ -6,6 +6,7 @@ interface SelectedAreaInfo {
   code: string;
   korName: string;
   engName: string;
+  numberOfCells: number;
 }
 interface AreaInfoState {
   selectedAreaInfo: SelectedAreaInfo | null;

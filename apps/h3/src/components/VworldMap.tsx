@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import maplibregl from 'maplibre-gl';
-import { compactCells } from 'h3-js';
 import { getPolygonCentroid } from '@/utils/utils';
 import { H3HexagonLayer } from '@deck.gl/geo-layers';
 import { MapboxOverlay } from '@deck.gl/mapbox';
@@ -13,18 +12,47 @@ import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
 import { getAddress } from '@/api/axios';
 import { Tooltip } from '@/components/ui/Tooltip';
 
-const CENTER = { lat: 37.3595704, lng: 127.105399 };
+const CENTER = { lat: 37.56302, lng: 126.98071 };
 
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
 const VWORLD_TILE_URL = VWORLD_KEY
   ? `https://api.vworld.kr/req/wmts/1.0.0/${VWORLD_KEY}/Base/{z}/{y}/{x}.png`
   : '';
-const DEFAULT_ZOOM = 12;
+const DEFAULT_ZOOM = 10;
 
 interface VworldMapProps {
   mapRef: React.RefObject<maplibregl.Map | null>;
   overlayAllH3Data: H3HexagonData[];
 }
+
+// const MIN_H3_RESOLUTION = 6;
+// const MAX_H3_RESOLUTION = 8;
+
+// const ZOOM_TO_H3_RESOLUTION: Record<number, number> = {
+//   0: MIN_H3_RESOLUTION,
+//   1: MIN_H3_RESOLUTION,
+//   2: MIN_H3_RESOLUTION,
+//   3: MIN_H3_RESOLUTION,
+//   4: MIN_H3_RESOLUTION,
+//   5: MIN_H3_RESOLUTION,
+//   6: MIN_H3_RESOLUTION,
+//   7: MIN_H3_RESOLUTION,
+//   8: MIN_H3_RESOLUTION,
+//   9: 6,
+//   10: 7,
+//   11: 8,
+//   12: MAX_H3_RESOLUTION,
+//   13: MAX_H3_RESOLUTION,
+//   14: MAX_H3_RESOLUTION,
+//   15: MAX_H3_RESOLUTION,
+//   16: MAX_H3_RESOLUTION,
+//   17: MAX_H3_RESOLUTION,
+//   18: MAX_H3_RESOLUTION,
+//   19: MAX_H3_RESOLUTION,
+//   20: MAX_H3_RESOLUTION,
+//   21: MAX_H3_RESOLUTION,
+//   22: MAX_H3_RESOLUTION,
+// };
 
 export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
@@ -79,8 +107,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     mapRef.current!.getCanvas().style.cursor = 'pointer';
 
     const cells = getH3Cells(feature.geometry, resolution, true);
-    const compacted = compactCells(cells || []);
-    const data = compacted.map((h3Index) => buildH3HexagonData(h3Index, feature, 0));
+    const data = cells.map((h3Index) => buildH3HexagonData(h3Index, feature, 0));
 
     const layerId = `h3-additional-layer-${feature.properties?.SIG_CD}`;
     const hexagonLayer = new H3HexagonLayer({
@@ -105,6 +132,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       code: feature.properties?.SIG_CD,
       korName: feature.properties?.SIG_KOR_NM,
       engName: feature.properties?.SIG_ENG_NM,
+      numberOfCells: data.length,
     });
 
     if (centroid.lng && centroid.lat) {
@@ -123,6 +151,13 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       handleSetLayer(feature);
     }
   };
+
+  // const handleZoomChange = () => {
+  //   const zoom = Number(mapRef.current?.getZoom() ?? 0);
+  //   const newResolution = ZOOM_TO_H3_RESOLUTION[Math.floor(zoom)];
+  //   if (resolution === newResolution) return;
+  //   setOverlayResolution(newResolution);
+  // };
 
   useEffect(() => {
     if (!VWORLD_KEY || !mapRef.current) {
@@ -161,6 +196,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
 
     mapRef.current?.on('moveend', handleMapMoveEnd);
     mapRef.current?.on('click', 'geojson-fill', handleClickMapArea);
+    // mapRef.current?.on('zoom', handleZoomChange);
     mapRef.current?.addControl(overlay);
 
     return () => {
@@ -240,10 +276,8 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   }, [mapContainerRef]);
 
   return (
-    <>
-      <div style={{ position: 'relative', width: 'calc(100vw - 332px)', height: '500px' }}>
-        <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
-      </div>
+    <section style={{ flex: 1, minWidth: 0 }}>
+      <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
       {selectedHexagonInfo &&
         popupPixelPosition &&
         createPortal(
@@ -254,6 +288,6 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
           />,
           document.getElementById('modal-root')!,
         )}
-    </>
+    </section>
   );
 };

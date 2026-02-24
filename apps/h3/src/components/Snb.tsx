@@ -4,12 +4,10 @@ import { useAreaInfo } from '@/stores/areaInfo';
 import { getPolygonCentroid } from '@/utils/utils';
 import { useMemo } from 'react';
 import maplibregl from 'maplibre-gl';
-import { H3HexagonData } from '@/types';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 
 interface SnbProps {
   features: GeoJSON.Feature[];
-  overlayAllH3Data: H3HexagonData[];
   mapRef: React.RefObject<maplibregl.Map | null>;
 }
 
@@ -17,12 +15,15 @@ const overlayResolutionOptions = [6, 7];
 const resolutionOptions = [7, 8, 9, 10];
 
 const snbStyles = css({
+  position: 'relative',
+  backgroundColor: 'white',
   width: '300px',
   height: '100%',
   padding: '16px',
   display: 'flex',
   flexDirection: 'column',
   gap: '4',
+  zIndex: 101,
 });
 
 const liStyles = css({
@@ -31,7 +32,7 @@ const liStyles = css({
   padding: '8px 0',
 });
 
-export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
+export const Snb = ({ features, mapRef }: SnbProps) => {
   const { selectedAreaInfo } = useAreaInfo();
 
   const { resolution, overlayResolution, setResolution, setOverlayResolution } =
@@ -47,8 +48,8 @@ export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
   }, [features]);
 
   const numberOfCells = useMemo(() => {
-    return overlayAllH3Data.length;
-  }, [overlayAllH3Data]);
+    return selectedAreaInfo?.numberOfCells ?? 0;
+  }, [selectedAreaInfo]);
 
   const handleChangeOverlayResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOverlayResolution(Number(e.target.value));

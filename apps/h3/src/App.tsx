@@ -1,6 +1,5 @@
 import { useMemo, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { compactCells } from 'h3-js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import geojsonData from '@/assets/sig_4326.json';
 import { MainLayout } from '@/components/ui/MainLayout';
@@ -29,8 +28,7 @@ function App() {
   const overlayAllH3Data = useMemo<H3HexagonData[]>(() => {
     return features.flatMap((feature, index) => {
       const cells = getH3Cells(feature.geometry, overlayResolution, true);
-      const compacted = compactCells(cells || []);
-      return compacted.map((h3Index) => buildH3HexagonData(h3Index, feature, index));
+      return cells.map((h3Index) => buildH3HexagonData(h3Index, feature, index));
     });
   }, [features, overlayResolution]);
 
@@ -42,11 +40,8 @@ function App() {
     <MainLayout>
       <Header />
       <ContentLayout>
-        <Snb features={features} overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
-
-        <section style={{ padding: '16px' }}>
-          <VworldMap overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
-        </section>
+        <Snb features={features} mapRef={mapRef} />
+        <VworldMap overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
       </ContentLayout>
     </MainLayout>
   );

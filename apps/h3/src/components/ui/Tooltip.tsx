@@ -8,7 +8,7 @@ const hoverInfoStyles = css({
   color: 'white',
   padding: '4px 8px',
   borderRadius: '4px',
-  zIndex: 1000,
+  zIndex: 100,
   transform: 'translate(12px, 12px)',
 });
 
@@ -55,6 +55,10 @@ export const Tooltip = ({
       </div>
       <div>{selectedHexagonInfo.engName}</div>
       <div className={textXsStyles}>h3 index: {selectedHexagonInfo.h3Index}</div>
+      <div className={textXsStyles}>
+        좌표: {selectedHexagonInfo.position.lng.toFixed(5)},{' '}
+        {selectedHexagonInfo.position.lat.toFixed(5)}
+      </div>
     </div>
   );
 };
