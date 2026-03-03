@@ -1,11 +1,12 @@
 import { css } from '@styled-system/css';
 
 import { useAreaInfo } from '@/stores/areaInfo';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { latLngToCell } from 'h3-js';
 import { getAddressToGeocode } from '@/api/getAddressToGeocode';
+import { PolygonType, usePolygonTypeInfo } from '@/stores/usePolygonType';
 
 interface SnbProps {
   features?: GeoJSON.Feature[];
@@ -29,23 +30,32 @@ const snbStyles = css({
 
 const liStyles = css({
   listStyle: 'none',
-  borderBottom: '1px solid #e0e0e0',
+  borderBottom: '1px solid token(colors.grey.300)',
   padding: '8px 0',
+});
+
+const buttonStyles = css({
+  backgroundColor: 'token(colors.primary)',
+  color: 'white',
+  p: 2,
+  borderRadius: 'md',
+  cursor: 'pointer',
 });
 
 export const Snb = ({ mapRef }: SnbProps) => {
   const { selectedAreaInfo } = useAreaInfo();
+  const { polygonType, setPolygonType } = usePolygonTypeInfo();
   const { resolution, overlayResolution, setResolution, setOverlayResolution } =
     useResolutionInfo();
   const [address, setAddress] = useState('');
 
+  const handleChangePolygonType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPolygonType(e.target.value as PolygonType);
+  };
+
   const handleChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(e.target.value);
   };
-
-  const numberOfCells = useMemo(() => {
-    return selectedAreaInfo?.numberOfCells ?? 0;
-  }, [selectedAreaInfo]);
 
   const handleChangeOverlayResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOverlayResolution(Number(e.target.value));
@@ -89,10 +99,38 @@ export const Snb = ({ mapRef }: SnbProps) => {
       console.error('주소 검색 실패: ' + error);
     }
   };
+  console.log('polygonType', polygonType);
 
   return (
     <aside>
       <ul className={snbStyles}>
+        <li className={liStyles}>
+          <h4>
+            <strong>폴리곤 타입</strong>
+          </h4>
+
+          <div className={css({ display: 'flex', flexDirection: 'row', gap: '2' })}>
+            <div className={css({ display: 'flex', alignItems: 'center', gap: '4' })}>
+              <input
+                id="h3"
+                type="radio"
+                checked={polygonType === 'h3'}
+                onChange={handleChangePolygonType}
+              />
+              <label htmlFor="h3">H3 Cell</label>
+            </div>
+            <div className={css({ display: 'flex', alignItems: 'center', gap: '2' })}>
+              <input
+                id="s2"
+                type="radio"
+                checked={polygonType === 's2'}
+                onChange={handleChangePolygonType}
+              />
+              <label htmlFor="s2">S2 Cell</label>
+            </div>
+          </div>
+        </li>
+
         <li className={liStyles}>
           <h4>
             <strong>Resolution</strong>
@@ -121,35 +159,6 @@ export const Snb = ({ mapRef }: SnbProps) => {
 
         <li className={liStyles}>
           <h4>
-            <strong>선택 영역</strong>
-          </h4>
-          <div>
-            {!selectedAreaInfo && <div>선택 영역이 없습니다.</div>}
-            {selectedAreaInfo && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div>
-                  <div>지역명</div>
-                  <div>{selectedAreaInfo.engName}</div>
-                </div>
-                <div>
-                  <div>중심좌표</div>
-                  <div>
-                    {selectedAreaInfo.center[0].toFixed(5)} ,{' '}
-                    {selectedAreaInfo.center[1].toFixed(5)}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div>
-              <span>H3 셀 개수 : </span>
-              <strong>{numberOfCells}</strong>
-            </div>
-          </div>
-        </li>
-
-        <li className={liStyles}>
-          <h4>
             <strong>주소 검색</strong>
           </h4>
           <input
@@ -158,7 +167,9 @@ export const Snb = ({ mapRef }: SnbProps) => {
             value={address}
             onChange={handleChangeAddress}
           />
-          <button onClick={handleClickSearchAddress}>검색</button>
+          <button className={buttonStyles} onClick={handleClickSearchAddress}>
+            검색
+          </button>
         </li>
 
         <li className={liStyles}>

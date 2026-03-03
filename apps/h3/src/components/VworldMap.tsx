@@ -12,6 +12,7 @@ import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
 import { getAddress } from '@/api/axios';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { VWORLD_KEY, VWORLD_BASE_URL } from '@/api/constants';
+import { css } from '@styled-system/css';
 
 const CENTER = { lat: 37.56302, lng: 126.98071 };
 
@@ -64,9 +65,13 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     y: number;
   } | null>(null);
 
-  const { setSelectedAreaInfo } = useAreaInfo();
+  const { selectedAreaInfo, setSelectedAreaInfo } = useAreaInfo();
   const { resolution } = useResolutionInfo();
   const [, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
+
+  const numberOfH3Cells = useMemo(() => {
+    return selectedAreaInfo?.numberOfCells ?? 0;
+  }, [selectedAreaInfo]);
 
   const overlayH3Layer = useMemo(() => {
     return new H3HexagonLayer<H3HexagonData>({
@@ -282,6 +287,46 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   return (
     <section style={{ flex: 1, minWidth: 0 }}>
       <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
+      <div
+        className={css({
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+          width: '200px',
+          backgroundColor: 'token(colors.white)',
+          opacity: 0.8,
+          borderRadius: 'md',
+          boxShadow: 'lg',
+          zIndex: 100,
+          p: 4,
+        })}
+      >
+        <div
+          className={css({
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '4',
+          })}
+        >
+          <div
+            className={css({
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            })}
+          >
+            {!numberOfH3Cells && <div>선택 영역이 없습니다.</div>}
+            {numberOfH3Cells && (
+              <>
+                <h2>
+                  <b>선택 h3 셀 개수:</b>
+                </h2>
+                <span>{numberOfH3Cells}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
       {selectedHexagonInfo &&
         popupPixelPosition &&
         createPortal(
