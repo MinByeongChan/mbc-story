@@ -1,14 +1,14 @@
 import { css } from '@styled-system/css';
 
 import { useAreaInfo } from '@/stores/areaInfo';
-import { getPolygonCentroid } from '@/utils/utils';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import maplibregl from 'maplibre-gl';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { latLngToCell } from 'h3-js';
+import { getAddressToGeocode } from '@/api/getAddressToGeocode';
 
 interface SnbProps {
-  features: GeoJSON.Feature[];
+  features?: GeoJSON.Feature[];
   mapRef: React.RefObject<maplibregl.Map | null>;
 }
 
@@ -33,20 +33,15 @@ const liStyles = css({
   padding: '8px 0',
 });
 
-export const Snb = ({ features, mapRef }: SnbProps) => {
+export const Snb = ({ mapRef }: SnbProps) => {
   const { selectedAreaInfo } = useAreaInfo();
-
   const { resolution, overlayResolution, setResolution, setOverlayResolution } =
     useResolutionInfo();
+  const [address, setAddress] = useState('');
 
-  const getSigOptions = useMemo(() => {
-    return features.map((feature) => {
-      return {
-        id: feature.properties?.SIG_CD,
-        name: feature.properties?.SIG_ENG_NM,
-      };
-    });
-  }, [features]);
+  const handleChangeAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddress(e.target.value);
+  };
 
   const numberOfCells = useMemo(() => {
     return selectedAreaInfo?.numberOfCells ?? 0;
@@ -58,17 +53,6 @@ export const Snb = ({ features, mapRef }: SnbProps) => {
 
   const handleChangeSelectedResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setResolution(Number(e.target.value));
-  };
-
-  const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSigCd = e.target.value;
-    const targetFeature = features.find((feature) => feature.properties?.SIG_CD === selectedSigCd);
-
-    if (targetFeature) {
-      const polygon = targetFeature.geometry as GeoJSON.Polygon;
-      const centroid = getPolygonCentroid(polygon.coordinates);
-      mapRef.current?.flyTo({ center: [centroid.lng, centroid.lat], zoom: 10 });
-    }
   };
 
   const handleClickMoveAndHighlight = () => {
@@ -84,6 +68,26 @@ export const Snb = ({ features, mapRef }: SnbProps) => {
       resolution,
     );
     alert('변환된 h3Index: ' + h3Index);
+  };
+
+  const handleClickSearchAddress = async () => {
+    if (!address) return;
+    try {
+      const response = await getAddressToGeocode(address);
+      if (response.data.response.status === 'OK') {
+        const point = response.data.response.result.point;
+        mapRef.current?.flyTo({ center: [point.x, point.y], zoom: 11 });
+
+        // openModal({
+        //   type: 'search-address',
+        //   children: <SearchAddressModal />,
+        // });
+      } else {
+        throw new Error(response.data.response.status);
+      }
+    } catch (error) {
+      console.error('주소 검색 실패: ' + error);
+    }
   };
 
   return (
@@ -146,16 +150,15 @@ export const Snb = ({ features, mapRef }: SnbProps) => {
 
         <li className={liStyles}>
           <h4>
-            <strong>지역 선택</strong>
+            <strong>주소 검색</strong>
           </h4>
-          <select onChange={handleChangeSigSelectBox}>
-            <option value="">지역 선택</option>
-            {getSigOptions.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.name || option.id}
-              </option>
-            ))}
-          </select>
+          <input
+            type="text"
+            placeholder="도로명 주소를 입력해주세요."
+            value={address}
+            onChange={handleChangeAddress}
+          />
+          <button onClick={handleClickSearchAddress}>검색</button>
         </li>
 
         <li className={liStyles}>

@@ -10,6 +10,7 @@ import { H3HexagonData } from './types';
 import { Snb } from '@/components/Snb';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
+import { ModalProvider } from '@/app/ModalProvider';
 
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
 
@@ -37,13 +38,15 @@ function App() {
   }
 
   return (
-    <MainLayout>
-      <Header />
-      <ContentLayout>
-        <Snb features={features} mapRef={mapRef} />
-        <VworldMap overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
-      </ContentLayout>
-    </MainLayout>
+    <ModalProvider>
+      <MainLayout>
+        <Header />
+        <ContentLayout>
+          <Snb features={features} mapRef={mapRef} />
+          <VworldMap overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
+        </ContentLayout>
+      </MainLayout>
+    </ModalProvider>
   );
 }
 
