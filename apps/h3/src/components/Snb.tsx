@@ -4,6 +4,8 @@ import maplibregl from 'maplibre-gl';
 import { PolygonType, usePolygonTypeInfo } from '@/stores/usePolygonType';
 import { SnbH3Info } from '@/components/snb/SnbH3Info';
 import { SnbS2Info } from '@/components/snb/SnbS2Info';
+import { RadioItem } from '@/components/ui/radio/RadioItem';
+import { RadioGroup } from '@/components/ui/radio/RadioGroup';
 
 const wrapperStyles = css({
   position: 'relative',
@@ -32,45 +34,34 @@ export const Snb = ({ mapRef }: SnbProps) => {
   return (
     <aside className={wrapperStyles}>
       <div>
-        <h4>
-          <strong>폴리곤 타입</strong>
-        </h4>
+        <h4 className={css({ fontSize: 'xl', fontWeight: 'bold' })}>폴리곤 타입</h4>
 
-        <div className={css({ display: 'flex', flexDirection: 'row', gap: '2' })}>
-          <div className={css({ display: 'flex', alignItems: 'center', gap: '4' })}>
-            <input
-              id="h3"
-              type="radio"
-              value="h3"
-              checked={polygonType === 'h3'}
-              onChange={handleChangePolygonType}
-            />
-            <label htmlFor="h3">H3 Cell</label>
-          </div>
-          <div className={css({ display: 'flex', alignItems: 'center', gap: '2' })}>
-            <input
-              id="s2"
-              type="radio"
-              value="s2"
-              checked={polygonType === 's2'}
-              onChange={handleChangePolygonType}
-            />
-            <label htmlFor="s2">S2 Cell</label>
-          </div>
-          <div className={css({ display: 'flex', alignItems: 'center', gap: '2' })}>
-            <input
-              id="none"
-              type="radio"
-              value="none"
-              checked={polygonType === 'none'}
-              onChange={handleChangePolygonType}
-            />
-            <label htmlFor="none">None</label>
-          </div>
-        </div>
+        <RadioGroup>
+          <RadioItem
+            id="h3"
+            value="h3"
+            checked={polygonType === 'h3'}
+            onChange={handleChangePolygonType}
+            label="H3 Cell"
+          />
+          <RadioItem
+            id="s2"
+            value="s2"
+            checked={polygonType === 's2'}
+            onChange={handleChangePolygonType}
+            label="S2 Cell"
+          />
+          <RadioItem
+            id="none"
+            value="none"
+            checked={polygonType === 'none'}
+            onChange={handleChangePolygonType}
+            label="None"
+          />
+        </RadioGroup>
       </div>
 
-      <div className={css({ border: '1px solid token(colors.grey.300)' })} />
+      <div className={css({ height: '1px', backgroundColor: 'token(colors.grey.300)' })} />
 
       {polygonType === 'h3' && <SnbH3Info mapRef={mapRef} />}
       {polygonType === 's2' && <SnbS2Info />}
