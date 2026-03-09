@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type PolygonType = 'h3' | 's2';
+export type PolygonType = 'h3' | 's2' | 'none';
 
 interface PolygonTypeInfoState {
   polygonType: PolygonType;

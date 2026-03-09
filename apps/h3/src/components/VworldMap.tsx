@@ -13,6 +13,7 @@ import { getAddress } from '@/api/axios';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { VWORLD_KEY, VWORLD_BASE_URL } from '@/api/constants';
 import { css } from '@styled-system/css';
+import { usePolygonTypeInfo } from '@/stores/usePolygonType';
 
 const CENTER = { lat: 37.56302, lng: 126.98071 };
 
@@ -59,15 +60,17 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<MapboxOverlay | null>(null);
   const selectedLayerRef = useRef<H3HexagonLayer | null>(null);
+  const overlayH3LayerRef = useRef<H3HexagonLayer<H3HexagonData> | null>(null);
   const [selectedHexagonInfo, setSelectedHexagonInfo] = useState<H3HoverInfo | null>(null);
   const [popupPixelPosition, setPopupPixelPosition] = useState<{
     x: number;
     y: number;
   } | null>(null);
+  const [, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
 
   const { selectedAreaInfo, setSelectedAreaInfo } = useAreaInfo();
   const { resolution } = useResolutionInfo();
-  const [, setLocationInfo] = useState<VworldAddressResponseBody | null>(null);
+  const { polygonType } = usePolygonTypeInfo();
 
   const numberOfH3Cells = useMemo(() => {
     return selectedAreaInfo?.numberOfCells ?? 0;
@@ -104,8 +107,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
   };
 
   const updateOverlayLayers = (newLayers: H3HexagonLayer[]) => {
-    const layers = [newLayers];
-    overlayRef.current?.setProps({ layers });
+    overlayRef.current?.setProps({ layers: newLayers });
   };
 
   const handleSetLayer = async (
@@ -131,7 +133,8 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     });
 
     selectedLayerRef.current = hexagonLayer;
-    updateOverlayLayers([overlayH3Layer, hexagonLayer]);
+    const baseOverlayLayer = overlayH3LayerRef.current ?? overlayH3Layer;
+    updateOverlayLayers([baseOverlayLayer, hexagonLayer]);
 
     const centroid = getPolygonCentroid((feature.geometry as GeoJSON.Polygon).coordinates);
     setSelectedAreaInfo({
@@ -173,9 +176,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       return;
     }
 
-    const layers = [overlayH3Layer];
-
-    const overlay = new MapboxOverlay({ layers });
+    const overlay = new MapboxOverlay({ layers: [] });
     overlayRef.current = overlay;
 
     mapRef.current?.on('load', () => {
@@ -204,7 +205,6 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
     });
 
     mapRef.current?.on('moveend', handleMapMoveEnd);
-    mapRef.current?.on('click', 'geojson-fill', handleClickMapArea);
     // mapRef.current?.on('zoom', handleZoomChange);
     mapRef.current?.addControl(overlay);
 
@@ -214,16 +214,7 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       overlay.finalize();
       overlayRef.current = null;
     };
-  }, [overlayH3Layer]);
-
-  useEffect(() => {
-    if (!mapRef.current) return;
-    mapRef.current.on('click', 'geojson-fill', handleClickMapArea);
-
-    return () => {
-      mapRef.current?.off('click', 'geojson-fill', handleClickMapArea);
-    };
-  }, [resolution]);
+  }, []);
 
   useEffect(() => {
     if (!selectedHexagonInfo || !mapRef.current) return;
@@ -246,6 +237,48 @@ export const VworldMap = ({ overlayAllH3Data, mapRef }: VworldMapProps) => {
       mapRef.current?.off('move', updatePosition);
     };
   }, [selectedHexagonInfo]);
+
+  useEffect(() => {
+    if (!mapRef.current) return;
+    console.log('polygonType', polygonType);
+    mapRef.current.off('click', 'geojson-fill', handleClickMapArea);
+
+    if (polygonType === 'h3') {
+      mapRef.current.on('click', 'geojson-fill', handleClickMapArea);
+      // deck.gl은 제거된 layer 인스턴스를 다시 추가할 때 assertion failed 발생
+      // 매번 새 layer 인스턴스를 생성하여 재사용 문제 방지
+      const layer = new H3HexagonLayer<H3HexagonData>({
+        id: 'h3-layer-overlay-all',
+        data: overlayAllH3Data,
+        getHexagon: (d) => d.h3Index,
+        pickable: true,
+        filled: true,
+        extruded: false,
+        lineWidthMinPixels: 1,
+        getFillColor: [0, 0, 0, 1],
+        onClick: (info) => {
+          const data = info?.object as H3HexagonData | undefined;
+          const props = data?.feature?.properties as FeatureProperties | undefined;
+          if (!data || !props) return;
+
+          setSelectedHexagonInfo({
+            h3Index: data.h3Index,
+            korName: props?.SIG_KOR_NM ?? '',
+            engName: props?.SIG_ENG_NM ?? '',
+            position: { lng: info.coordinate?.[0] ?? 0, lat: info.coordinate?.[1] ?? 0 },
+          });
+        },
+      });
+      overlayH3LayerRef.current = layer;
+      updateOverlayLayers([layer]);
+    } else if (polygonType === 's2') {
+      overlayH3LayerRef.current = null;
+      updateOverlayLayers([]);
+    } else if (polygonType === 'none') {
+      overlayH3LayerRef.current = null;
+      updateOverlayLayers([]);
+    }
+  }, [polygonType, overlayAllH3Data]);
 
   useEffect(() => {
     return () => {
