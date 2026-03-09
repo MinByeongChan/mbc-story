@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { latLngToCell } from 'h3-js';
 import { getAddressToGeocode } from '@/api/getAddressToGeocode';
 import { css } from '@styled-system/css';
+import { Button } from '@/components/ui/button/Button';
 
 const overlayResolutionOptions = [6, 7];
 const resolutionOptions = [7, 8, 9, 10];
@@ -12,14 +13,6 @@ const liStyles = css({
   listStyle: 'none',
   borderBottom: '1px solid token(colors.grey.300)',
   padding: '8px 0',
-});
-
-const buttonStyles = css({
-  backgroundColor: 'token(colors.primary)',
-  color: 'white',
-  p: 2,
-  borderRadius: 'md',
-  cursor: 'pointer',
 });
 
 const snbStyles = css({
@@ -125,9 +118,9 @@ export const SnbH3Info = ({ mapRef }: SnbH3InfoProps) => {
           value={address}
           onChange={handleChangeAddress}
         />
-        <button className={buttonStyles} onClick={handleClickSearchAddress}>
+        <Button css={{ mt: 4 }} onClick={handleClickSearchAddress}>
           검색
-        </button>
+        </Button>
       </li>
 
       <li className={liStyles}>
