@@ -11,7 +11,7 @@ const headerStyles = css({
 export const Header = () => {
   return (
     <header className={headerStyles}>
-      <h2>VWorld + H3 WebGL 예제</h2>
+      <h2 className={css({ fontSize: 'xl', fontWeight: 'bold' })}>VWorld + H3 WebGL 예제</h2>
     </header>
   );
 };
