@@ -37,5 +37,8 @@ dist-ssr
 
 .env*
 ## Panda
+
+# Google Cloud SDK
+google-cloud-sdk/
 styled-system
 styled-system-studio
