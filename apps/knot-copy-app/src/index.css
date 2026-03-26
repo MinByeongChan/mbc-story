@@ -1,0 +1,14 @@
+@layer reset, base, tokens, recipes, utilities;
+
+@font-face {
+  font-family: 'RIDIBatang';
+  src: url('/fonts/RIDIBatang.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Regale';
+  src: url('/fonts/Regale.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
