@@ -1,27 +1,15 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
-import { defineConfig, globalIgnores } from "eslint/config";
+import js from '@eslint/js';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
+import { defineConfig } from 'eslint/config';
+import { defaultPrettierOptions, mbcReactViteConfig } from './index.js';
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  ...mbcReactViteConfig({ tsconfigRootDir: import.meta.dirname }),
   {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parser: tseslint.parser,
-      parserOptions: {
-        tsconfigRootDir: import.meta.dirname,
-      },
+    files: ['**/*.{js,mjs,cjs}'],
+    extends: [js.configs.recommended, prettierRecommended],
+    rules: {
+      'prettier/prettier': ['error', defaultPrettierOptions],
     },
   },
 ]);
