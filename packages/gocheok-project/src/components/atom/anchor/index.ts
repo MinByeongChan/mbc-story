@@ -1,2 +1,2 @@
-export * from "./Anchor";
-export * from "./UnderlineAnchor";
+export * from './Anchor';
+export * from './UnderlineAnchor';

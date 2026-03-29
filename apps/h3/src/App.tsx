@@ -1,6 +1,5 @@
 import { useMemo, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
-import { compactCells } from 'h3-js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import geojsonData from '@/assets/sig_4326.json';
 import { MainLayout } from '@/components/ui/MainLayout';
@@ -11,6 +10,7 @@ import { H3HexagonData } from './types';
 import { Snb } from '@/components/Snb';
 import { useResolutionInfo } from '@/stores/resolutionInfo';
 import { buildH3HexagonData, getH3Cells } from '@/utils/h3';
+import { ModalProvider } from '@/app/ModalProvider';
 
 const VWORLD_KEY = import.meta.env.VITE_VWORLD_KEY as string | undefined;
 
@@ -29,8 +29,7 @@ function App() {
   const overlayAllH3Data = useMemo<H3HexagonData[]>(() => {
     return features.flatMap((feature, index) => {
       const cells = getH3Cells(feature.geometry, overlayResolution, true);
-      const compacted = compactCells(cells || []);
-      return compacted.map((h3Index) => buildH3HexagonData(h3Index, index));
+      return cells.map((h3Index) => buildH3HexagonData(h3Index, feature, index));
     });
   }, [features, overlayResolution]);
 
@@ -39,16 +38,15 @@ function App() {
   }
 
   return (
-    <MainLayout>
-      <Header />
-      <ContentLayout>
-        <Snb features={features} overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
-
-        <section style={{ padding: '16px' }}>
+    <ModalProvider>
+      <MainLayout>
+        <Header />
+        <ContentLayout>
+          <Snb features={features} mapRef={mapRef} />
           <VworldMap overlayAllH3Data={overlayAllH3Data} mapRef={mapRef} />
-        </section>
-      </ContentLayout>
-    </MainLayout>
+        </ContentLayout>
+      </MainLayout>
+    </ModalProvider>
   );
 }
 

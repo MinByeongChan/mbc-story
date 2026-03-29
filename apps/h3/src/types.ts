@@ -2,6 +2,14 @@ export interface H3HexagonData {
   h3Index: string;
   color: number[];
   lineColor: number[];
+  feature: GeoJSON.Feature;
+}
+
+export interface H3HoverInfo {
+  h3Index: string;
+  korName: string;
+  engName: string;
+  position: { lng: number; lat: number };
 }
 
 export interface VworldAddressService {
@@ -56,4 +64,15 @@ export interface VworldAddressApiResponse {
 export interface VworldAddressApiRequest {
   lng: number;
   lat: number;
+}
+
+export interface PopupPixelPosition {
+  x: number;
+  y: number;
+}
+
+export interface FeatureProperties {
+  SIG_KOR_NM?: string;
+  SIG_ENG_NM?: string;
+  SIG_CD?: string;
 }

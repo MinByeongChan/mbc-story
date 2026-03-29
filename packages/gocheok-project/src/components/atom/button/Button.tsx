@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { PropsWithChildren, useRef } from "react";
-import { twMerge } from "tailwind-merge";
+import React, { PropsWithChildren, useRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * primary	주요 강조 색상 (버튼, 링크, 액션 등)
@@ -13,24 +13,17 @@ import { twMerge } from "tailwind-merge";
  * info	정보 메시지, 중립 알림 (보통 blue)
  * success	성공 상태 (보통 green)
  */
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  PropsWithChildren;
-export const Button = ({
-  children,
-  className,
-  color,
-  ...restProps
-}: ButtonProps) => {
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & PropsWithChildren;
+export const Button = ({ children, className, ...restProps }: ButtonProps) => {
   const ref = useRef(null);
   return (
     <button
       ref={ref}
       className={twMerge(
-        "rounded-lg border-transparent-[1px] bg-(--color-primary-100) py-2 px-4 text-sm text-(--color-neutral-100) cursor-pointer transition duration-300 ease-in-out",
+        'border-transparent-[1px] cursor-pointer rounded-lg bg-(--color-primary-100) px-4 py-2 text-sm text-(--color-neutral-100) transition duration-300 ease-in-out',
         className,
       )}
-      {...restProps}
-    >
+      {...restProps}>
       {children}
     </button>
   );

@@ -1,2 +1,2 @@
-export * from "./Button";
-export * from "./StressButton";
+export * from './Button';
+export * from './StressButton';

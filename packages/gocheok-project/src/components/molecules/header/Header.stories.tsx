@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Header } from "./Header";
+import { Header } from './Header';
 
 type Story = StoryObj<typeof Header>;
 
 const meta: Meta<typeof Header> = {
-  title: "Molecules/Header/Default",
+  title: 'Molecules/Header/Default',
   component: Header,
   decorators: [
     (Story) => (
-      <div className="w-full h-[calc(100vh)] bg-(--color-bg-100)">
+      <div className="h-[calc(100vh)] w-full bg-(--color-bg-100)">
         <Story />
       </div>
     ),

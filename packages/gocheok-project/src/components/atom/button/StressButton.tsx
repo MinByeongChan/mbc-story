@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import gsap from "gsap";
-import React, { PropsWithChildren, useRef } from "react";
-import { twMerge } from "tailwind-merge";
-import { Typography } from "../typography/Typography";
-import { SplitText } from "gsap/all";
-import { useGSAP } from "@gsap/react";
+import gsap from 'gsap';
+import React, { PropsWithChildren, useRef } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { Typography } from '../typography/Typography';
+import { SplitText } from 'gsap/all';
+import { useGSAP } from '@gsap/react';
 
 export type StressButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   PropsWithChildren & {
@@ -32,16 +32,16 @@ export const StressButton = ({
 
   const splitStart = (target: HTMLSpanElement | null, direction: number) => {
     SplitText.create(target, {
-      type: "words,lines",
+      type: 'words,lines',
       autoSplit: true,
-      mask: "lines",
+      mask: 'lines',
       onSplit: (self) => {
         return gsap.from(self.lines, {
           duration: 1,
           yPercent: 100,
           opacity: direction,
           stagger: 0.3,
-          ease: "expo.out",
+          ease: 'expo.out',
         });
       },
       onRevert: (self) => {
@@ -50,7 +50,7 @@ export const StressButton = ({
           yPercent: 0,
           opacity: 1 - direction,
           stagger: 0.3,
-          ease: "expo.out",
+          ease: 'expo.out',
         });
       },
     });
@@ -65,34 +65,31 @@ export const StressButton = ({
     <button
       ref={ref}
       className={twMerge(
-        "group",
-        "z-1000 flex items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70  text-xs tracking-tight text-(--color-neutral-100) cursor-pointer relative",
-        "relative w-[10rem] h-[1.7rem]",
-        noneBorder && "border-none",
-        noneRadius && "rounded-none",
+        'group',
+        'relative z-1000 flex cursor-pointer items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70 text-xs tracking-tight text-(--color-neutral-100)',
+        'relative h-[1.7rem] w-[10rem]',
+        noneBorder && 'border-none',
+        noneRadius && 'rounded-none',
         className,
       )}
       {...restProps}
-      onMouseEnter={handleMouseEnterButton}
-    >
+      onMouseEnter={handleMouseEnterButton}>
       <div
         ref={hoverBackgroundRef}
         className={twMerge(
-          "absolute transition-all duration-300 rounded-[80%] ease-in-out scale-0",
-          "group-hover:rounded-xl group-hover:w-full group-hover:left-0 group-hover:bottom-0 group-hover:h-full group-hover:bg-white group-hover:scale-100",
-          noneRadius && "group-hover:rounded-none",
+          'absolute scale-0 rounded-[80%] transition-all duration-300 ease-in-out',
+          'group-hover:bottom-0 group-hover:left-0 group-hover:h-full group-hover:w-full group-hover:scale-100 group-hover:rounded-xl group-hover:bg-white',
+          noneRadius && 'group-hover:rounded-none',
         )}
       />
       <Typography
         ref={typoRef}
-        className="absolute w-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black"
-      >
+        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black">
         {children}
       </Typography>
       <Typography
         ref={typo2Ref}
-        className="absolute w-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-black"
-      >
+        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black">
         {children}
       </Typography>
     </button>

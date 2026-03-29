@@ -1,7 +1,7 @@
-import { Anchor } from "../../../components/atom/anchor/Anchor";
-import { PropsWithChildren } from "react";
+import { Anchor } from '../../../components/atom/anchor/Anchor';
+import { PropsWithChildren } from 'react';
 
-interface HeaderItemProps extends PropsWithChildren {}
+type HeaderItemProps = PropsWithChildren;
 
 export const HeaderItem = ({ children }: HeaderItemProps) => {
   return (

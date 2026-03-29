@@ -1,24 +1,18 @@
-import React, { PropsWithChildren } from "react";
-import { twMerge } from "tailwind-merge";
+import React, { PropsWithChildren } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-type UnderlineAnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  PropsWithChildren;
+type UnderlineAnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & PropsWithChildren;
 
-export const UnderlineAnchor = ({
-  children,
-  className,
-  ...rest
-}: UnderlineAnchorProps) => {
+export const UnderlineAnchor = ({ children, className, ...rest }: UnderlineAnchorProps) => {
   return (
     <a
       className={twMerge(
-        "relative text-(--color-neutral-100) text-md cursor-pointer transition duration-300 ease-in-out pb-2",
-        "after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-[0px] after:h-[2px] after:rounded-[1px] after:opacity-0 after:bg-gradient-to-r after:from-[#ff6600] after:via-[#ff983f] after:to-[#ffffa1] after:transition-all after:duration-300 after:ease-in-out",
-        "hover:after:w-full hover:after:opacity-100",
+        'text-md relative cursor-pointer pb-2 text-(--color-neutral-100) transition duration-300 ease-in-out',
+        "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-[0px] after:rounded-[1px] after:bg-gradient-to-r after:from-[#ff6600] after:via-[#ff983f] after:to-[#ffffa1] after:opacity-0 after:transition-all after:duration-300 after:ease-in-out after:content-['']",
+        'hover:after:w-full hover:after:opacity-100',
         className,
       )}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </a>
   );

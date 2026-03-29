@@ -16,16 +16,17 @@
     "@deck.gl/layers": "^9.2.6",
     "@deck.gl/mapbox": "^9.2.6",
     "@deck.gl/react": "^9.2.6",
+    "@radix-ui/react-dialog": "^1.1.15",
     "axios": "^1.13.5",
     "h3-js": "^4.4.0",
     "maplibre-gl": "^5.17.0",
     "mapshaper": "^0.6.113",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "uuid": "^13.0.0",
     "zustand": "^5.0.9"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
     "@pandacss/dev": "^1.5.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
@@ -33,11 +34,8 @@
     "@vitejs/plugin-react": "^5.1.1",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.39.1",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
+    "mbc-eslint": "workspace:*",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
   }
 }

@@ -1,7 +1,11 @@
 import { H3HexagonData } from '@/types';
 import { polygonToCells } from 'h3-js';
 
-export const buildH3HexagonData = (h3Index: string, index: number): H3HexagonData => {
+export const buildH3HexagonData = (
+  h3Index: string,
+  feature: GeoJSON.Feature,
+  index: number,
+): H3HexagonData => {
   const base = toByte(index * 37 + 10);
   const color = [base, toByte(base + 85), toByte(base + 170), 140];
   const lineColor = [toByte(base + 20), toByte(base + 20), toByte(base + 20), 200];
@@ -10,6 +14,7 @@ export const buildH3HexagonData = (h3Index: string, index: number): H3HexagonDat
     h3Index,
     color,
     lineColor,
+    feature,
   };
 };
 

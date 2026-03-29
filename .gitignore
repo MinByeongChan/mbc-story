@@ -33,9 +33,11 @@ dist-ssr
 *.sw?
 */dist
 .vscode
-.cursor
 
 .env*
 ## Panda
+
+# Google Cloud SDK
+google-cloud-sdk/
 styled-system
 styled-system-studio

@@ -1,11 +1,11 @@
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { Button } from "../../atom/button/Button";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { Button } from '../../atom/button/Button';
 
 export const ButtonContainer = () => {
   useGSAP(() => {
-    gsap.from(".box", { opacity: 0, animationDuration: 1000, stagger: 0.1 });
-    gsap.to(".box", { opacity: 1, animationDuration: 1000, stagger: 0.1 });
+    gsap.from('.box', { opacity: 0, animationDuration: 1000, stagger: 0.1 });
+    gsap.to('.box', { opacity: 1, animationDuration: 1000, stagger: 0.1 });
   });
   return (
     <div>

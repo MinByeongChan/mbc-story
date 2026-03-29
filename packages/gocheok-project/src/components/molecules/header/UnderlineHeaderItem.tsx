@@ -1,9 +1,9 @@
-import { PropsWithChildren } from "react";
-import { UnderlineAnchor } from "../../../components/atom/anchor/UnderlineAnchor";
+import { PropsWithChildren } from 'react';
+import { UnderlineAnchor } from '../../../components/atom/anchor/UnderlineAnchor';
 
-interface UnderlineAnchorProps extends PropsWithChildren {}
+type UnderlineHeaderItemProps = PropsWithChildren;
 
-export const UnderlineHeaderItem = ({ children }: UnderlineAnchorProps) => {
+export const UnderlineHeaderItem = ({ children }: UnderlineHeaderItemProps) => {
   return (
     <li>
       <UnderlineAnchor>{children}</UnderlineAnchor>

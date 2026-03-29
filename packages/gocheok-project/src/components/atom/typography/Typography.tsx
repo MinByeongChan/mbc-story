@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, forwardRef } from "react";
-import { twMerge } from "tailwind-merge";
+import React, { PropsWithChildren, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export type TypographyProps = React.HTMLAttributes<
   HTMLSpanElement | HTMLParagraphElement | HTMLHeadingElement
@@ -11,13 +11,12 @@ export const Typography = forwardRef<HTMLSpanElement, TypographyProps>(
     return (
       <span
         ref={ref}
-        className={twMerge("text-md text-(--color-neutral-100)", className)}
-        {...props}
-      >
+        className={twMerge('text-md text-(--color-neutral-100)', className)}
+        {...props}>
         {children}
       </span>
     );
   },
 );
 
-Typography.displayName = "Typography";
+Typography.displayName = 'Typography';

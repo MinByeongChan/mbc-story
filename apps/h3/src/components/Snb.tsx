@@ -1,146 +1,70 @@
 import { css } from '@styled-system/css';
 
-import { useAreaInfo } from '@/stores/areaInfo';
-import { getPolygonCentroid } from '@/utils/utils';
-import { useMemo } from 'react';
 import maplibregl from 'maplibre-gl';
-import { H3HexagonData } from '@/types';
-import { useResolutionInfo } from '@/stores/resolutionInfo';
+import { PolygonType, usePolygonTypeInfo } from '@/stores/usePolygonType';
+import { SnbH3Info } from '@/components/snb/SnbH3Info';
+import { SnbS2Info } from '@/components/snb/SnbS2Info';
+import { RadioItem } from '@/components/ui/radio/RadioItem';
+import { RadioGroup } from '@/components/ui/radio/RadioGroup';
 
-interface SnbProps {
-  features: GeoJSON.Feature[];
-  overlayAllH3Data: H3HexagonData[];
-  mapRef: React.RefObject<maplibregl.Map | null>;
-}
-
-const overlayResolutionOptions = [6, 7];
-const resolutionOptions = [7, 8, 9, 10];
-
-const snbStyles = css({
+const wrapperStyles = css({
+  position: 'relative',
+  backgroundColor: 'white',
   width: '300px',
   height: '100%',
   padding: '16px',
   display: 'flex',
   flexDirection: 'column',
   gap: '4',
+  zIndex: 101,
 });
 
-const liStyles = css({
-  listStyle: 'none',
-  borderBottom: '1px solid #e0e0e0',
-  padding: '8px 0',
-});
+interface SnbProps {
+  features?: GeoJSON.Feature[];
+  mapRef: React.RefObject<maplibregl.Map | null>;
+}
 
-export const Snb = ({ features, overlayAllH3Data, mapRef }: SnbProps) => {
-  const { selectedAreaInfo } = useAreaInfo();
+export const Snb = ({ mapRef }: SnbProps) => {
+  const { polygonType, setPolygonType } = usePolygonTypeInfo();
 
-  const { resolution, overlayResolution, setResolution, setOverlayResolution } =
-    useResolutionInfo();
-
-  const getSigOptions = useMemo(() => {
-    return features.map((feature) => {
-      return {
-        id: feature.properties?.SIG_CD,
-        name: feature.properties?.SIG_ENG_NM,
-      };
-    });
-  }, [features]);
-
-  const numberOfCells = useMemo(() => {
-    return overlayAllH3Data.length;
-  }, [overlayAllH3Data]);
-
-  const handleChangeOverlayResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setOverlayResolution(Number(e.target.value));
-  };
-
-  const handleChangeSelectedResolution = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setResolution(Number(e.target.value));
-  };
-
-  const handleChangeSigSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSigCd = e.target.value;
-    const targetFeature = features.find((feature) => feature.properties?.SIG_CD === selectedSigCd);
-
-    if (targetFeature) {
-      const polygon = targetFeature.geometry as GeoJSON.Polygon;
-      const centroid = getPolygonCentroid(polygon.coordinates);
-      mapRef.current?.flyTo({ center: [centroid.lng, centroid.lat], zoom: 10 });
-    }
+  const handleChangePolygonType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPolygonType(e.target.value as PolygonType);
   };
 
   return (
-    <aside>
-      <ul className={snbStyles}>
-        <li className={liStyles}>
-          <h4>
-            <strong>Resolution</strong>
-          </h4>
-          <div>
-            <h4>Overlay H3 셀</h4>
-            <select value={overlayResolution} onChange={handleChangeOverlayResolution}>
-              {overlayResolutionOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <h4>시군구 영역 H3 해상도</h4>
-            <select value={resolution} onChange={handleChangeSelectedResolution}>
-              {resolutionOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-        </li>
+    <aside className={wrapperStyles}>
+      <div>
+        <h4 className={css({ fontSize: 'xl', fontWeight: 'bold' })}>폴리곤 타입</h4>
 
-        <li className={liStyles}>
-          <h4>
-            <strong>선택 영역</strong>
-          </h4>
-          <div>
-            {!selectedAreaInfo && <div>선택 영역이 없습니다.</div>}
-            {selectedAreaInfo && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div>
-                  <div>지역명</div>
-                  <div>{selectedAreaInfo.engName}</div>
-                </div>
-                <div>
-                  <div>중심좌표</div>
-                  <div>
-                    {selectedAreaInfo.center[0].toFixed(5)} ,{' '}
-                    {selectedAreaInfo.center[1].toFixed(5)}
-                  </div>
-                </div>
-              </div>
-            )}
+        <RadioGroup>
+          <RadioItem
+            id="h3"
+            value="h3"
+            checked={polygonType === 'h3'}
+            onChange={handleChangePolygonType}
+            label="H3 Cell"
+          />
+          <RadioItem
+            id="s2"
+            value="s2"
+            checked={polygonType === 's2'}
+            onChange={handleChangePolygonType}
+            label="S2 Cell"
+          />
+          <RadioItem
+            id="none"
+            value="none"
+            checked={polygonType === 'none'}
+            onChange={handleChangePolygonType}
+            label="None"
+          />
+        </RadioGroup>
+      </div>
 
-            <div>
-              <span>H3 셀 개수 : </span>
-              <strong>{numberOfCells}</strong>
-            </div>
-          </div>
-        </li>
+      <div className={css({ height: '1px', backgroundColor: 'token(colors.grey.300)' })} />
 
-        <li className={liStyles}>
-          <h4>
-            <strong>지역 선택</strong>
-          </h4>
-          <select onChange={handleChangeSigSelectBox}>
-            <option value="">지역 선택</option>
-            {getSigOptions.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.name || option.id}
-              </option>
-            ))}
-          </select>
-        </li>
-      </ul>
+      {polygonType === 'h3' && <SnbH3Info mapRef={mapRef} />}
+      {polygonType === 's2' && <SnbS2Info />}
     </aside>
   );
 };
