@@ -33,7 +33,6 @@ dist-ssr
 *.sw?
 */dist
 .vscode
-.cursor
 
 .env*
 ## Panda

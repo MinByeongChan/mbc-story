@@ -1,0 +1,13 @@
+---
+description: 커밋 메시지·PR 설명 규칙
+alwaysApply: false
+---
+# 커밋 메시지
+
+- 형식: Conventional Commits (예: `feat('featrue'를 제외한 현재 branch 명): 요약`)
+    - feat: 기능 추가
+    - fix: 버그 수정
+    - docs, style, refactor, test, chore 등
+    - 선택: feat(api): 로그인 API 추가처럼 스코프
+- 본문: 무엇을·왜 바꿨는지, 어떻게 테스트했는지, 개괄식
+- 작업한 코드 중 변경사항 분석
