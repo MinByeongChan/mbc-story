@@ -1,5 +1,3 @@
 export const Divider = () => {
-  return (
-    <div className="h-[1px] bg-(--color-neutral-100) w-full mt-20 mx-auto" />
-  );
+  return <div className="mx-auto mt-20 h-[1px] w-full bg-(--color-neutral-100)" />;
 };

@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
-    "@eslint/js": "^9.9.0",
     "@storybook/addon-docs": "^9.0.2",
     "@storybook/addon-onboarding": "^9.0.2",
     "@storybook/addon-vitest": "9.0.2",
@@ -37,8 +36,9 @@
     "@types/react": "catalog:react",
     "@types/react-dom": "catalog:react",
     "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.39.1",
     "eslint-plugin-storybook": "9.0.2",
-    "globals": "^15.9.0",
+    "mbc-eslint": "workspace:*",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
     "sass": "^1.89.1",
