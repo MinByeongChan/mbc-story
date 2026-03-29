@@ -46,34 +46,34 @@ export const Invite = () => {
   const { openModal } = useModal((state) => state);
   const groomItems: ContactDetailsItem[] = [
     {
-      name: '민병찬',
+      name: '신랑',
       relation: '신랑',
       tel: '010-1234-5678',
     },
     {
-      name: '민은식',
+      name: '신랑 아버지',
       relation: '신랑 아버지',
       tel: '010-1234-5678',
     },
     {
-      name: '이정옥',
+      name: '신랑 어머니',
       relation: '신랑 아버지',
       tel: '010-1234-5678',
     },
   ];
   const brideItems: ContactDetailsItem[] = [
     {
-      name: '김보영',
+      name: '신부',
       relation: '신부',
       tel: '010-1234-5678',
     },
     {
-      name: '김보영 아버지',
-      relation: '신랑 아버지',
+      name: '신부 아버지',
+      relation: '신부 아버지',
       tel: '010-1234-5678',
     },
     {
-      name: '김보영 어머니',
+      name: '신부 어머니',
       relation: '신부 어머니',
       tel: '010-1234-5678',
     },
@@ -115,12 +115,12 @@ export const Invite = () => {
         <p className={bottomIntroStyles}>
           <span className={css({ fontWeight: 'bold' })}>아버지 • 어머니</span>
           <span>의 아들</span>
-          <span className={css({ fontWeight: 'bold' })}>민병찬</span>
+          <span className={css({ fontWeight: 'bold' })}>신랑</span>
         </p>
         <p className={bottomIntroStyles}>
           <span className={css({ fontWeight: 'bold' })}>아버지 • 어머니</span>
           <span>의 &nbsp;딸</span>
-          <span className={css({ fontWeight: 'bold' })}>박보영</span>
+          <span className={css({ fontWeight: 'bold' })}>신부</span>
         </p>
       </div>
 
