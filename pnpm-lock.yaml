@@ -288,9 +288,6 @@ importers:
       mbc-eslint:
         specifier: workspace:*
         version: link:../../packages/mbc-eslint
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
       typescript:
         specifier: ~5.9.3
         version: 5.9.3
