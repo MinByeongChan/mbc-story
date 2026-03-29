@@ -1,3 +1,4 @@
+import { GalleryImageWithFallback } from '@components/gallery/GalleryImageWithFallback';
 import { GalleryImage } from '@components/gallery/type';
 import { css } from '@styled-system/css';
 
@@ -23,7 +24,7 @@ export const CarouselSlide = ({ id, src, alt }: CarouselSlideProps) => {
           userSelect: 'none',
         })}
       >
-        <img
+        <GalleryImageWithFallback
           src={src}
           alt={alt}
           className={css({

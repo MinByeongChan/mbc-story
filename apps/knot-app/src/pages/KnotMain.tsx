@@ -16,14 +16,14 @@ const KnotMain = () => {
     imageSrc: '/sample/introduction.jpg',
     title: (
       <span className={css({ display: 'flex', alignItems: 'center', gap: '1' })}>
-        병찬 <img src="/sample/favorite.svg" alt="heart" width={20} height={20} /> 보영
+        신랑 <img src="/sample/favorite.svg" alt="heart" width={20} height={20} /> 신부
       </span>
     ),
     subtitle: '2025년 11월 23일',
   };
 
   const calendar = {
-    weddingDay: '병찬 & 보영',
+    weddingDay: '신랑 & 신부',
     weddingDate: '2025-11-22 13:00:00',
     location: '명동 라루체 4층 루아르홀',
   };
@@ -164,37 +164,37 @@ const KnotMain = () => {
 
   const groomAccountItemList: AccountItem[] = [
     {
-      name: '민병찬',
-      number: '257-910629-82807',
-      bank: '하나은행',
+      name: '신랑',
+      number: '000-000000-00000',
+      bank: '서울은행',
     },
     {
-      name: '민은식',
-      number: '257-910629-82807',
-      bank: '하나은행',
+      name: '신랑 아버지',
+      number: '000-000000-00000',
+      bank: '서울은행',
     },
     {
-      name: '이정옥',
-      number: '257-910629-82807',
-      bank: '하나은행',
+      name: '신랑 어머니',
+      number: '000-000000-00000',
+      bank: '서울은행',
     },
   ];
 
   const brideAccountItemList: AccountItem[] = [
     {
-      name: '김보영',
-      number: '257-910629-82807',
+      name: '신부',
+      number: '000-000000-00000',
+      bank: '서울은행',
+    },
+    {
+      name: '신부 아버지',
+      number: '000-000000-00000',
       bank: '하나은행',
     },
     {
-      name: '민은식',
-      number: '257-910629-82807',
-      bank: '하나은행',
-    },
-    {
-      name: '이정옥',
-      number: '257-910629-82807',
-      bank: '하나은행',
+      name: '신부 어머니',
+      number: '000-000000-00000',
+      bank: '서울은행',
     },
   ];
 

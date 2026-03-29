@@ -5,6 +5,7 @@ import { GridTitle } from '@components/shared/gridTitle';
 import { css } from '@styled-system/css';
 import { useMemo, useState } from 'react';
 import { GalleryDetailsModal } from './GalleryDetailsModal';
+import { GalleryImageWithFallback } from './GalleryImageWithFallback';
 import { GalleryImage } from './type';
 
 interface GalleryProps {
@@ -54,7 +55,7 @@ export const Gallery = ({ imageList }: GalleryProps) => {
             })}
             onClick={() => handleClickImage(src)}
           >
-            <img
+            <GalleryImageWithFallback
               src={src.src}
               alt={src.alt}
               className={css({
