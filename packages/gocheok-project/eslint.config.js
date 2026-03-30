@@ -1,6 +1,7 @@
 import { defineConfig } from 'eslint/config';
-import storybook from 'eslint-plugin-storybook';
 import { mbcReactViteConfig } from 'mbc-eslint';
+
+// Storybook 9의 eslint-plugin-storybook은 ESLint 10과 호환되지 않음 (Storybook 10+에서 플러그인 재도입 가능).
 
 export default defineConfig([
   ...mbcReactViteConfig({
@@ -30,5 +31,4 @@ export default defineConfig([
       ],
     },
   },
-  ...storybook.configs['flat/recommended'],
 ]);
