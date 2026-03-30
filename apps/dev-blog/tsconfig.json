@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "lib": [
       "dom",
@@ -9,6 +10,9 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "emitDeclarationOnly": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",

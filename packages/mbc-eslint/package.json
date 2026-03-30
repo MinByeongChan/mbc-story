@@ -1,7 +1,7 @@
 {
   "name": "mbc-eslint",
   "version": "1.0.0",
-  "description": "Shared ESLint flat config for MBC monorepo (React + Vite + TypeScript)",
+  "description": "Shared ESLint flat config for MBC monorepo (React + Vite/Next + TypeScript)",
   "type": "module",
   "main": "./index.js",
   "exports": {

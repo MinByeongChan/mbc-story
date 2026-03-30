@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import styled from '@emotion/styled';
 
-interface PostDetailsLayoutProps extends PropsWithChildren {}
+type PostDetailsLayoutProps = PropsWithChildren;
 
 const LayoutMain = styled.main`
   min-height: 650px;

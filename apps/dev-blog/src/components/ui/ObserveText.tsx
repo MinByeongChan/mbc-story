@@ -1,7 +1,7 @@
 import TextDefault, { TextDefaultProps } from '@/components/ui/TextDefault';
 import React, { useEffect, useRef, useState } from 'react';
 
-interface ObserveTextProps extends TextDefaultProps {}
+type ObserveTextProps = TextDefaultProps;
 
 export const ObserveText = (props: ObserveTextProps) => {
   const ref = useRef<HTMLSpanElement | null>(null);

@@ -14,7 +14,7 @@ const Container = styled.div`
   padding: 50px 0;
 `;
 
-interface TagLayoutProps extends PropsWithChildren {}
+type TagLayoutProps = PropsWithChildren;
 
 export const TagLayout = ({ children }: TagLayoutProps) => {
   return (

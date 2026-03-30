@@ -11,7 +11,7 @@ const LayoutMain = styled.main`
   }
 `;
 
-interface PortfolioLayoutProps extends PropsWithChildren {}
+type PortfolioLayoutProps = PropsWithChildren;
 
 export const PortfolioLayout = ({ children }: PortfolioLayoutProps) => {
   return <LayoutMain className="portfolio-main">{children}</LayoutMain>;

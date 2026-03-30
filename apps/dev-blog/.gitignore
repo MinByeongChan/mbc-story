@@ -17,6 +17,7 @@
 /bundles
 
 # misc
+*.tsbuildinfo
 .DS_Store
 Thumbs.db
 next-env.d.ts

@@ -2,7 +2,6 @@ import { createRequire } from 'node:module';
 import { mbcReactTsPrettierConfig } from './index.js';
 
 const require = createRequire(import.meta.url);
-/** @type {typeof import('@next/eslint-plugin-next')['flatConfig']} */
 const { flatConfig } = require('@next/eslint-plugin-next');
 
 /**
@@ -24,8 +23,7 @@ export function mbcNextConfig(options = {}) {
     nextPreset = 'core-web-vitals',
   } = options;
 
-  const nextFlat =
-    nextPreset === 'recommended' ? flatConfig.recommended : flatConfig.coreWebVitals;
+  const nextFlat = nextPreset === 'recommended' ? flatConfig.recommended : flatConfig.coreWebVitals;
 
   return [
     ...mbcReactTsPrettierConfig({

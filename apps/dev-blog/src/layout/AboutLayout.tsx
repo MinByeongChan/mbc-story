@@ -27,7 +27,7 @@ const ContentLayout = styled.div(() => ({
   },
 }));
 
-interface AboutLayoutProps extends PropsWithChildren {}
+type AboutLayoutProps = PropsWithChildren;
 
 const AboutLayout = ({ children }: AboutLayoutProps) => (
   <LayoutMain className="about-main">
