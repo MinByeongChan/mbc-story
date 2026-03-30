@@ -86,7 +86,7 @@ export const NavigationBar = () => {
             </StyledLink>
           </NavLi>
           <NavLi initHeight={router.pathname === '/portfolio' ? '4px' : '0px'}>
-            <StyledLink href="/portfolio">
+            <StyledLink href="https://mbc-story-portfolio.vercel.app">
               <TextDefault>Portfolio</TextDefault>
             </StyledLink>
           </NavLi>
