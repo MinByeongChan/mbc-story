@@ -2,6 +2,11 @@
   "name": "mbc-stroy",
   "packageManager": "pnpm@10.30.0",
   "private": true,
+  "pnpm": {
+    "overrides": {
+      "@typescript-eslint/utils": "^8.57.2"
+    }
+  },
   "workspaces": {
     "packages": [
       "apps/*",
@@ -15,7 +20,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
-    "eslint": "^9.39.1",
+    "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.32.0",
