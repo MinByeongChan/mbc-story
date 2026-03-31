@@ -3,6 +3,7 @@ import globals from 'globals';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import storybook from 'eslint-plugin-storybook';
 import tseslint from 'typescript-eslint';
 import { globalIgnores } from 'eslint/config';
 
@@ -113,4 +114,14 @@ export function mbcReactViteConfig(options = {}) {
       },
     },
   ];
+}
+
+/**
+ * Storybook 10+용 `eslint-plugin-storybook` flat recommended 설정.
+ * 사용처 패키지에 `storybook`이 설치되어 있어야 합니다(peer).
+ *
+ * @returns {import('eslint').Linter.Config[]}
+ */
+export function mbcStorybookFlatRecommended() {
+  return [...storybook.configs['flat/recommended']];
 }

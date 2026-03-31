@@ -33,6 +33,7 @@ dist-ssr
 *.sw?
 */dist
 .vscode
+.pnpm-store/*
 
 .env*
 ## Panda
