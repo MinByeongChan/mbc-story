@@ -25,14 +25,14 @@ export const PrimaryHover: Story = {
   },
 };
 
-export const secondary: Story = {
+export const Secondary: Story = {
   args: {
     children: 'DETAILS',
     className: 'rounded-lg bg-(--color-secondary) py-2 px-4 text-sm text-(--color-neutral-100)',
   },
 };
 
-export const chipButton: Story = {
+export const ChipButton: Story = {
   args: {
     children: 'Chip Button',
     className:
