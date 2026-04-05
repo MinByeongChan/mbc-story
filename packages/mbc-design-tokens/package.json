@@ -1,0 +1,21 @@
+{
+  "name": "mbc-design-tokens",
+  "version": "0.1.0",
+  "description": "Shared design tokens (JSON) for MBC monorepo — single source for Tailwind, Panda, and Figma sync",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./primitives": "./primitives.json",
+    "./semantic": "./semantic.json"
+  },
+  "files": [
+    "primitives.json",
+    "semantic.json",
+    "README.md"
+  ],
+  "keywords": [
+    "design-tokens"
+  ],
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.30.0"
+}

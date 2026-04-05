@@ -1,13 +1,14 @@
-import storybook from "eslint-plugin-storybook";
-
 import { defineConfig } from 'eslint/config';
-import { mbcReactViteConfig } from 'mbc-eslint';
+import { mbcReactViteConfig, mbcStorybookFlatRecommended } from 'mbc-eslint';
 
 export default defineConfig([
-  { 
-    ignores: ['storybook-static/**', 'dist/**'] 
-  },
-  ...mbcReactViteConfig({ tsconfigRootDir: import.meta.dirname }),
+  ...mbcReactViteConfig({
+    tsconfigRootDir: import.meta.dirname,
+    ignores: ['dist', 'storybook-static'],
+    prettierOptions: {
+      plugins: ['prettier-plugin-tailwindcss'],
+    },
+  }),
   {
     files: ['**/*.{ts,tsx}'],
     rules: {
@@ -16,6 +17,6 @@ export default defineConfig([
         { allowConstantExport: true },
       ],
     },
-  }, 
-  ...storybook.configs["flat/recommended"],
+  },
+  ...mbcStorybookFlatRecommended(),
 ]);
