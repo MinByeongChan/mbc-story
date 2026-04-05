@@ -62,10 +62,12 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
       style={{
         overflow: 'hidden',
       }}
-      {...rest}>
+      {...rest}
+    >
       <Typography
         ref={downTypoRef}
-        className="absolute left-0 inline-block h-full w-full text-white">
+        className="absolute left-0 inline-block h-full w-full text-white"
+      >
         {children}
       </Typography>
       <Typography ref={upTypoRef} className="absolute left-0 inline-block h-full w-full text-white">

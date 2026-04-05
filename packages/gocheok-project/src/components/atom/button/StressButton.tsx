@@ -73,7 +73,8 @@ export const StressButton = ({
         className,
       )}
       {...restProps}
-      onMouseEnter={handleMouseEnterButton}>
+      onMouseEnter={handleMouseEnterButton}
+    >
       <div
         ref={hoverBackgroundRef}
         className={twMerge(
@@ -84,12 +85,14 @@ export const StressButton = ({
       />
       <Typography
         ref={typoRef}
-        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black">
+        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black"
+      >
         {children}
       </Typography>
       <Typography
         ref={typo2Ref}
-        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black">
+        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black"
+      >
         {children}
       </Typography>
     </button>

@@ -13,6 +13,15 @@ PR 초안·리뷰 요청 문구를 작성할 때는 `.github/pull_request_templa
 - Conventional Commits 형식 (`feat`, `fix`, `refactor`, `chore` 등). 필요 시 스코프: `feat(knot-app): 로그인 폼 검증 추가`
 - 한 줄로 **무엇이** 바뀌는지 드러나게 쓴다.
 
+## Assignee
+
+- MinByeongChan
+
+## Labels
+
+- 개발 내역 관련 레이블 선택
+- 최소 1개, 최대 3개
+
 ## 본문
 
 | 섹션 | 내용 |
