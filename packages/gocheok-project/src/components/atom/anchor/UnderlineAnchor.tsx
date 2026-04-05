@@ -12,7 +12,8 @@ export const UnderlineAnchor = ({ children, className, ...rest }: UnderlineAncho
         'hover:after:w-full hover:after:opacity-100',
         className,
       )}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </a>
   );

@@ -23,7 +23,8 @@ export const Button = ({ children, className, ...restProps }: ButtonProps) => {
         'border-transparent-[1px] cursor-pointer rounded-lg bg-(--color-primary-100) px-4 py-2 text-sm text-(--color-neutral-100) transition duration-300 ease-in-out',
         className,
       )}
-      {...restProps}>
+      {...restProps}
+    >
       {children}
     </button>
   );

@@ -12,7 +12,8 @@ export const Typography = forwardRef<HTMLSpanElement, TypographyProps>(
       <span
         ref={ref}
         className={twMerge('text-md text-(--color-neutral-100)', className)}
-        {...props}>
+        {...props}
+      >
         {children}
       </span>
     );
