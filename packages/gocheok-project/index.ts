@@ -1,13 +1,15 @@
-// atom
-export * from './src/components/atom/anchor';
-export * from './src/components/atom/button';
-export * from './src/components/atom/chip';
-export * from './src/components/atom/typography';
-export * from './src/components/atom/divider';
+// actions
+export * from './src/components/actions/anchor';
+export * from './src/components/actions/button';
+export * from './src/components/actions/buttonContainer';
 
-// molecules
-export * from './src/components/molecules/header';
-export * from './src/components/molecules/profile';
-export * from './src/components/molecules/buttonContainer';
+// layout
+export * from './src/components/layout/divider';
 
-// organisms
+// navigation
+export * from './src/components/navigation/header';
+
+// data-display
+export * from './src/components/data-display/chip';
+export * from './src/components/data-display/typography';
+export * from './src/components/data-display/profile';

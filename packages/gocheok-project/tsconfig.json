@@ -9,10 +9,10 @@
     "allowImportingTsExtensions": true,
     "paths": {
       "@/*": ["/*"],
+      "@gocheok/*": ["./*"],
       "@/ui/*": ["ui/*"],
       "@/assets/*": ["assets/*"],
-      "@/lib/*": ["lib/*"],
-      "components/*": ["components/*"]
+      "@/lib/*": ["lib/*"]
     }
   }
 }
