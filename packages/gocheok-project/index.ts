@@ -12,6 +12,11 @@ export * from './src/components/navigation/header';
 // forms
 export * from './src/components/forms/input';
 export * from './src/components/forms/textarea';
+export * from './src/components/forms/checkbox';
+export * from './src/components/forms/label';
+export * from './src/components/forms/radio';
+export * from './src/components/forms/switch';
+export * from './src/components/forms/select';
 
 // presenter
 export * from './src/components/presenter/chip';
