@@ -1,6 +1,6 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { fetchCategories } from "./fetchCategories";
-import { queryKeys } from "@/shared/queryKeys";
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { fetchCategories } from './fetchCategories';
+import { queryKeys } from '@/shared/queryKeys';
 
 export const useFetchCategories = () => {
   return useSuspenseQuery({
@@ -8,5 +8,3 @@ export const useFetchCategories = () => {
     queryFn: fetchCategories,
   });
 };
-
-

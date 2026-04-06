@@ -1,2 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
-export declare const AppRouter: ReturnType<typeof createBrowserRouter>;
+import type { QueryClient } from '@tanstack/react-query';
+export declare const createAppRouter: (queryClient: QueryClient) => {
+    path: string;
+    element: import("react/jsx-runtime").JSX.Element;
+    loader: ({ params }: {
+        params: {
+            id?: string;
+        };
+    }) => Promise<{}>;
+}[];

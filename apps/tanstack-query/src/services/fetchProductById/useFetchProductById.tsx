@@ -1,7 +1,7 @@
-import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { fetchProductById } from "./fetchProductById";
-import { ProductResponse } from "../types";
-import { queryKeys } from "@/shared/queryKeys";
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { fetchProductById } from './fetchProductById';
+import { ProductResponse } from '../types';
+import { queryKeys } from '@/shared/queryKeys';
 
 export const useFetchProductById = (id: string) => {
   const queryClient = useQueryClient();
@@ -17,7 +17,7 @@ export const useFetchProductById = (id: string) => {
       return targetProduct;
     },
     initialDataUpdatedAt: () => {
-      console.log("getQueryState", queryClient.getQueryState(queryKey));
+      console.log('getQueryState', queryClient.getQueryState(queryKey));
       return queryClient.getQueryState(queryKey)?.dataUpdatedAt;
     },
     staleTime: 1000 * 5,

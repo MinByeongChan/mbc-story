@@ -1,8 +1,8 @@
-import { useFetchProductById } from "@/services/fetchProductById/useFetchProductById";
-import { useParams } from "react-router-dom";
+import { useFetchProductById } from '@/services/fetchProductById/useFetchProductById';
+import { useParams } from 'react-router-dom';
 
 export const ProductDetails = () => {
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const { data, error } = useFetchProductById(String(id));
 
   if (!id || error) return <div>Error: {error?.message}</div>;
@@ -13,9 +13,9 @@ export const ProductDetails = () => {
       <p>{data.description}</p>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "100px",
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '100px',
         }}
       >
         <img src={data.image} alt={data.title} />

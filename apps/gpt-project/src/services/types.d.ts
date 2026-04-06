@@ -10,6 +10,17 @@ export interface CartResponse {
     id: number;
     userId: number;
     date: string;
-    products: Product[];
+    products: {
+        productId: number;
+        quantity: number;
+    }[];
 }
 export type ProductResponse = Product[];
+export interface AddProductRequest {
+    title: string;
+    price: number;
+    description: string;
+    image: string;
+    category: string;
+}
+export type AddProductResponse = Product;

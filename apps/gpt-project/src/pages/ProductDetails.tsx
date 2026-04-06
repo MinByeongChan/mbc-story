@@ -1,8 +1,8 @@
-import { useFetchProductById } from "@/services/fetchProductById/useFetchProductById";
-import { useParams, useLoaderData } from "react-router-dom";
+import { useFetchProductById } from '@/services/fetchProductById/useFetchProductById';
+import { useParams, useLoaderData } from 'react-router-dom';
 
 export const ProductDetails = () => {
-  const { id = "" } = useParams();
+  const { id = '' } = useParams();
   const _prefetched = useLoaderData();
   console.log('_prefetched', _prefetched);
   const { data, error } = useFetchProductById(String(id));
@@ -15,9 +15,9 @@ export const ProductDetails = () => {
       <p>{data.description}</p>
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "100px",
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '100px',
         }}
       >
         <img src={data.image} alt={data.title} />

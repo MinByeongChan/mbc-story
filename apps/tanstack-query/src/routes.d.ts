@@ -1,2 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
-export declare const AppRouter: ReturnType<typeof createBrowserRouter>;
+export declare const AppRouter: {
+    path: string;
+    element: import("react/jsx-runtime").JSX.Element;
+}[];

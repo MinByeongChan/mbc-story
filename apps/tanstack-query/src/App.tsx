@@ -1,15 +1,11 @@
-import "@/App.css";
+import '@/App.css';
 
-import { MainLayout } from "@/components/layout";
-import {
-  QueryCache,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AppRouter } from "./routes";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { MainLayout } from '@/components/layout';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AppRouter } from './routes';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient({
   defaultOptions: {

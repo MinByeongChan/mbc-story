@@ -1,7 +1,7 @@
-import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
-import { fetchProductById } from "./fetchProductById";
-import { ProductResponse } from "../types";
-import { queryKeys } from "@/shared/queryKeys";
+import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
+import { fetchProductById } from './fetchProductById';
+import { ProductResponse } from '../types';
+import { queryKeys } from '@/shared/queryKeys';
 
 export const useFetchProductById = (id: string) => {
   const queryClient = useQueryClient();

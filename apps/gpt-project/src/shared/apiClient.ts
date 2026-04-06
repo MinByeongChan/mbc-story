@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/services/utils";
+import { BASE_URL } from '@/services/utils';
 
 export async function apiGet<T>(path: string): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`);
@@ -8,10 +8,13 @@ export async function apiGet<T>(path: string): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-export async function apiPost<TBody extends object, TResponse>(path: string, body: TBody): Promise<TResponse> {
+export async function apiPost<TBody extends object, TResponse>(
+  path: string,
+  body: TBody,
+): Promise<TResponse> {
   const response = await fetch(`${BASE_URL}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
   if (!response.ok) {
@@ -19,5 +22,3 @@ export async function apiPost<TBody extends object, TResponse>(path: string, bod
   }
   return response.json() as Promise<TResponse>;
 }
-
-

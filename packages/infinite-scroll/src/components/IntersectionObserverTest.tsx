@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import axios from "axios";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import axios from 'axios';
 
 export const IntersectionObserverTest = () => {
   const endRef = useRef<HTMLLIElement | null>(null);
@@ -16,8 +16,8 @@ export const IntersectionObserverTest = () => {
   }, [recipeList, page]);
 
   const fetchPhotos = async () => {
-    const response = await axios("https://dummyjson.com/recipes", {
-      method: "get",
+    const response = await axios('https://dummyjson.com/recipes', {
+      method: 'get',
     });
     return response;
   };
@@ -40,7 +40,7 @@ export const IntersectionObserverTest = () => {
       {
         root: null,
         threshold: 1,
-      }
+      },
     );
 
     // 주시 시작
@@ -48,25 +48,25 @@ export const IntersectionObserverTest = () => {
   }, [endRef.current]);
 
   return (
-    <div style={{ maxWidth: 600, margin: "0 auto" }}>
+    <div style={{ maxWidth: 600, margin: '0 auto' }}>
       <h1>Lazy Load Test</h1>
       <ul>
         {currentData?.map((data, id) => (
           <li
             key={id}
             style={{
-              textAlign: "start",
-              marginBottom: "8px",
+              textAlign: 'start',
+              marginBottom: '8px',
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <img src={data.image} width="50px" height="50px" />
               <p>{data.name}</p>
             </div>
             <div>
               <ul>
                 {data.instructions.map((instruction: any) => (
-                  <li key={instruction} style={{ textAlign: "start" }}>
+                  <li key={instruction} style={{ textAlign: 'start' }}>
                     {instruction}
                   </li>
                 ))}
@@ -75,7 +75,7 @@ export const IntersectionObserverTest = () => {
               <p></p>
             </div>
 
-            <span>{data?.name ?? ""}</span>
+            <span>{data?.name ?? ''}</span>
           </li>
         ))}
         {currentData.length !== 0 && (

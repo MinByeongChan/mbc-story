@@ -2,6 +2,13 @@
   "name": "mbc-stroy",
   "packageManager": "pnpm@10.33.0",
   "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "lint:gocheok": "pnpm --filter gocheok-project run lint",
+    "build:gocheok": "pnpm --filter gocheok-project run build",
+    "lint:all": "pnpm -r --if-present run lint",
+    "build:all": "pnpm -r --if-present run build"
+  },
   "pnpm": {
     "overrides": {
       "@typescript-eslint/utils": "^8.58.0",
@@ -16,6 +23,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
     "@types/eslint": "^9.6.1",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",
@@ -29,9 +38,19 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4"
+  },
+  "lint-staged": {
+    "packages/gocheok-project/**/*.{js,jsx,mjs,cjs,ts,tsx}": [
+      "eslint --fix --max-warnings=0"
+    ],
+    "packages/gocheok-project/**/*.{json,md,css,scss}": [
+      "prettier --write"
+    ]
   }
 }
