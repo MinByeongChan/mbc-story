@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
+    "composite": false,
+    "noEmit": true,
+    "emitDeclarationOnly": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
