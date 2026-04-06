@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Profile } from '@gocheok/components/data-display/profile/Profile';
+import { Chip } from '@gocheok/components/presenter/chip/Chip';
 
-type Story = StoryObj<typeof Profile>;
+type Story = StoryObj<typeof Chip>;
 
-const meta: Meta<typeof Profile> = {
-  title: 'Data Display/Profile/Default',
-  component: Profile,
+const meta: Meta<typeof Chip> = {
+  title: 'Presenter/Chip/Default',
+  component: Chip,
   decorators: [
     (Story) => (
       <div className="h-[calc(100vh)] w-full bg-(--color-bg-100)">
@@ -19,5 +19,7 @@ const meta: Meta<typeof Profile> = {
 export default meta;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    children: 'hello',
+  },
 };

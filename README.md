@@ -45,14 +45,14 @@ mbc-story/
 
 **기술 스택**: React + TypeScript + Vite + TailwindCSS + Storybook
 
-재사용 가능한 UI 컴포넌트 라이브러리로, **역할별(actions, layout, navigation, data-display 등)** 폴더로 구성합니다.
+재사용 가능한 UI 컴포넌트 라이브러리로, **역할별(actions, layout, navigation, presenter 등)** 폴더로 구성합니다.
 
 **컴포넌트 구조 (예시)**:
 
 - **actions**: Button, Anchor, ButtonContainer
 - **layout**: Divider
 - **navigation**: Header
-- **data-display**: Typography, Chip, Profile
+- **presenter**: Typography, Chip, Profile
 
 **개발 도구**:
 

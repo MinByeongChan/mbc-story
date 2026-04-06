@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Typography } from '@gocheok/components/data-display/typography/Typography';
+import { Typography } from '@gocheok/components/presenter/typography/Typography';
 
 type Story = StoryObj<typeof Typography>;
 
 const meta: Meta<typeof Typography> = {
-  title: 'Data Display/Typography/Primary',
+  title: 'Presenter/Typography/Primary',
   component: Typography,
   decorators: [
     (Story) => (

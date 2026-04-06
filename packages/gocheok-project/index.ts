@@ -9,7 +9,7 @@ export * from './src/components/layout/divider';
 // navigation
 export * from './src/components/navigation/header';
 
-// data-display
-export * from './src/components/data-display/chip';
-export * from './src/components/data-display/typography';
-export * from './src/components/data-display/profile';
+// presenter
+export * from './src/components/presenter/chip';
+export * from './src/components/presenter/typography';
+export * from './src/components/presenter/profile';

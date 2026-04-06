@@ -3,7 +3,7 @@
 import gsap from 'gsap';
 import React, { PropsWithChildren, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Typography } from '@gocheok/components/data-display/typography/Typography';
+import { Typography } from '@gocheok/components/presenter/typography/Typography';
 import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 
