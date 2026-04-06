@@ -11,6 +11,7 @@ export * from './src/components/navigation/header';
 
 // forms
 export * from './src/components/forms/input';
+export * from './src/components/forms/textarea';
 
 // presenter
 export * from './src/components/presenter/chip';
