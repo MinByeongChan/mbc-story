@@ -16,11 +16,9 @@
     "react": "catalog:react",
     "react-dom": "catalog:react",
     "react-router": "^6.26.2",
-    "react-router-dom": "^6.26.2",
-    "typescript": "4.9.3"
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -28,9 +26,12 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^10.1.0",
     "globals": "^15.9.0",
+    "mbc-eslint": "workspace:*",
     "jsdom": "^26.1.0",
     "msw": "^2.8.3",
+    "typescript": "^5.9.3",
     "vite": "^5.4.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.3"

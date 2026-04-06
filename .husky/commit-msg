@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# gocheok-project 경로가 스테이징된 커밋에서만 Conventional Commits 검사
+if git diff --cached --name-only 2>/dev/null | grep -q '^packages/gocheok-project/'; then
+  pnpm exec commitlint --edit "$1"
+fi

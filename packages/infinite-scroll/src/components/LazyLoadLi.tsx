@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 type Props = {
   id: number;
@@ -20,9 +20,9 @@ export const LazyLoadLi = ({ id, src }: Props) => {
       },
       {
         root: null,
-        rootMargin: "0px 0px 30px 0px",
+        rootMargin: '0px 0px 30px 0px',
         threshold: 1,
-      }
+      },
     );
     intersectionObserver.observe(imgRef.current);
   }, [imgRef.current]);
@@ -31,18 +31,11 @@ export const LazyLoadLi = ({ id, src }: Props) => {
     <li
       key={id}
       style={{
-        width: "100px",
-        height: "100px",
+        width: '100px',
+        height: '100px',
       }}
     >
-      <img
-        ref={imgRef}
-        className="image"
-        src=""
-        width="100px"
-        height="100px"
-        alt={"image-" + id}
-      />
+      <img ref={imgRef} className="image" src="" width="100px" height="100px" alt={'image-' + id} />
     </li>
   );
 };

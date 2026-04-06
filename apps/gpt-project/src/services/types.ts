@@ -24,4 +24,4 @@ export interface AddProductRequest {
   category: string;
 }
 
-export interface AddProductResponse extends Product {}
+export type AddProductResponse = Product;

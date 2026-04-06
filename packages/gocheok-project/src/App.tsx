@@ -1,4 +1,4 @@
-import { Button } from 'components/atom/button/Button';
+import { Button } from '@gocheok/components/actions/button/Button';
 
 function App() {
   return (

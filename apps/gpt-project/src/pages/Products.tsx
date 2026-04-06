@@ -1,25 +1,23 @@
-import { useFetchProductList } from "@/services/fetchProductList/useFetchProductList";
-import { Product } from "@/components/product/Product";
-import { useMemo, useState } from "react";
-import { queryKeys } from "@/shared/queryKeys";
-import { useQueryClient } from "@tanstack/react-query";
-import { useLoaderData } from "react-router-dom";
-import { useFetchCategories } from "@/services/fetchCategories/useFetchCategories";
-import AddProductForm from "@/components/product/AddProductForm";
+import { useFetchProductList } from '@/services/fetchProductList/useFetchProductList';
+import { Product } from '@/components/product/Product';
+import { useMemo, useState } from 'react';
+import { queryKeys } from '@/shared/queryKeys';
+import { useQueryClient } from '@tanstack/react-query';
+import { useFetchCategories } from '@/services/fetchCategories/useFetchCategories';
+import AddProductForm from '@/components/product/AddProductForm';
 
 const Products = () => {
-  const prefetched = useLoaderData();
-  const [category, setCategory] = useState<string>("all");
+  const [category, setCategory] = useState<string>('all');
   const { data, error } = useFetchProductList(category);
   const queryClient = useQueryClient();
 
   const { data: categoryList } = useFetchCategories();
-  const categories = useMemo(() => ["all", ...(categoryList ?? [])], [categoryList]);
+  const categories = useMemo(() => ['all', ...(categoryList ?? [])], [categoryList]);
 
   const handleMouseEnter = (id: number) => {
     queryClient.prefetchQuery({
       queryKey: queryKeys.product.detail(id),
-      queryFn: () => fetch(`${"https://fakestoreapi.com"}/products/${id}`).then((r) => r.json()),
+      queryFn: () => fetch(`${'https://fakestoreapi.com'}/products/${id}`).then((r) => r.json()),
       staleTime: 1000 * 60 * 2,
     });
   };

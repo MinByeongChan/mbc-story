@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+pnpm run lint:gocheok
+pnpm run build:gocheok

@@ -1,14 +1,8 @@
-import { useInfiniteProducts } from "@/services/fetchProductList/useInfiniteProducts";
-import { Product } from "@/components/product/Product";
+import { useInfiniteProducts } from '@/services/fetchProductList/useInfiniteProducts';
+import { Product } from '@/components/product/Product';
 
 const ProductsInfinite = () => {
-  const {
-    data,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    error,
-  } = useInfiniteProducts();
+  const { data, hasNextPage, fetchNextPage, isFetchingNextPage, error } = useInfiniteProducts();
 
   if (error) return <div>Error: {(error as Error).message}</div>;
 
@@ -21,7 +15,7 @@ const ProductsInfinite = () => {
       </ul>
       {hasNextPage && (
         <button onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "Loading..." : "Load More"}
+          {isFetchingNextPage ? 'Loading...' : 'Load More'}
         </button>
       )}
     </div>
@@ -29,5 +23,3 @@ const ProductsInfinite = () => {
 };
 
 export default ProductsInfinite;
-
-

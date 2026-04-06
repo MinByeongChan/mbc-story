@@ -1,23 +1,23 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { IntersectionObserverTest } from "./components/IntersectionObserverTest";
-import { LazyLoad } from "./components/LazyLoad";
-import { MovieList } from "./components/MovieList";
+import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { IntersectionObserverTest } from './components/IntersectionObserverTest';
+import { LazyLoad } from './components/LazyLoad';
+import { MovieList } from './components/MovieList';
 
 function App() {
   return (
     <RouterProvider
       router={createBrowserRouter([
         {
-          path: "/",
+          path: '/',
           element: <IntersectionObserverTest />,
         },
         {
-          path: "/lazy-load",
+          path: '/lazy-load',
           element: <LazyLoad />,
         },
         {
-          path: "/movie",
+          path: '/movie',
           element: <MovieList />,
         },
       ])}

@@ -1,10 +1,10 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { apiPost } from "@/shared/apiClient";
-import { AddProductRequest, AddProductResponse, Product } from "@/services/types";
-import { queryKeys } from "@/shared/queryKeys";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { apiPost } from '@/shared/apiClient';
+import { AddProductRequest, AddProductResponse, Product } from '@/services/types';
+import { queryKeys } from '@/shared/queryKeys';
 
 async function addProduct(body: AddProductRequest) {
-  return apiPost<AddProductRequest, AddProductResponse>("/products", body);
+  return apiPost<AddProductRequest, AddProductResponse>('/products', body);
 }
 
 export function useAddProduct() {
@@ -36,5 +36,3 @@ export function useAddProduct() {
     },
   });
 }
-
-

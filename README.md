@@ -45,12 +45,14 @@ mbc-story/
 
 **기술 스택**: React + TypeScript + Vite + TailwindCSS + Storybook
 
-재사용 가능한 UI 컴포넌트 라이브러리로, 아토믹 디자인 패턴을 기반으로 구성되었습니다.
+재사용 가능한 UI 컴포넌트 라이브러리로, **역할별(actions, layout, navigation, data-display 등)** 폴더로 구성합니다.
 
-**컴포넌트 구조**:
+**컴포넌트 구조 (예시)**:
 
-- **Atoms**: Button, Typography, Chip, Anchor
-- **Molecules**: Header, Profile, ButtonContainer
+- **actions**: Button, Anchor, ButtonContainer
+- **layout**: Divider
+- **navigation**: Header
+- **data-display**: Typography, Chip, Profile
 
 **개발 도구**:
 
@@ -152,7 +154,7 @@ pnpm --filter gocheok-project build-storybook
 
 ### 재사용성
 
-- 아토믹 디자인 패턴 적용
+- 역할별 UI 컴포넌트 구조(actions, layout, navigation 등)
 - 공통 컴포넌트 라이브러리 구축
 - 설정 파일 공유를 통한 일관성 유지
 

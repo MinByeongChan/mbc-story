@@ -1,14 +1,15 @@
-import { lazy } from "react";
-const Products = lazy(() => import("@/pages/Products"));
-const ProductDetails = lazy(() => import("@/pages/ProductDetails"));
+/* eslint-disable react-refresh/only-export-components -- 라우트 정의; 페이지는 lazy 로 분리 */
+import { lazy } from 'react';
+const Products = lazy(() => import('@/pages/Products'));
+const ProductDetails = lazy(() => import('@/pages/ProductDetails'));
 
 export const AppRouter = [
   {
-    path: "/",
+    path: '/',
     element: <Products />,
   },
   {
-    path: "/product/:id",
+    path: '/product/:id',
     element: <ProductDetails />,
   },
 ];
