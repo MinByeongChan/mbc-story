@@ -22,14 +22,15 @@ export const SelectDialog = ({ children }: SelectDialogProps) => {
         <Dialog.Overlay
           data-state={state.isOpen ? 'open' : 'closed'}
           className={twMerge(
-            'animate-overlayShow 300ms cubic-bezier(0.16, 1, 0.3, 1) pointer-events-none fixed inset-0 z-200',
-            'data-[state=open]:animate-overlayShow data-[state=closed]:animate-overlayHide',
+            'pointer-events-none fixed inset-0 z-200',
+            'data-[state=closed]:animate-overlay-hide data-[state=open]:animate-overlay-show',
             isMobile && 'pointer-events-auto bg-black/50',
           )}
         />
         <Dialog.Content
           className={twMerge(
-            'max-w-440px animate-contentShow 300ms cubic-bezier(0.16, 1, 0.3, 1) fixed z-201 transform overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none',
+            'max-w-440px fixed z-201 transform overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none',
+            'data-[state=closed]:animate-select-dialog-out data-[state=open]:animate-select-dialog-in',
             isMobile && 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
           )}
           style={
