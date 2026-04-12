@@ -1,3 +1,5 @@
+'use client';
+
 import React, { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 
