@@ -18,7 +18,7 @@ globs:
 - **globs:** 소스·Storybook·패키지 설정만 포함한다. `dist/`, `dist-ssr/`, `storybook-static/`, `node_modules/`, 빌드·번들 캐시(예: `node_modules/.cache`, `*.vite*`)는 패턴에 넣지 않아 규칙 매칭에서 제외된다.
 - **역할:** Storybook 기반 디자인 시스템·UI 컴포넌트 패키지 (`packages/gocheok-project`).
 - **스택:** React, Vite, Tailwind. 전역 스타일·폰트는 `src/tailwind.css` 등 기존 파일을 따른다.
-- **컴포넌트 배치:** `src/components/` 아래 도메인 폴더(`actions`, `data-display`, `layout`, `navigation` 등)에 맞춰 추가·수정한다.
+- **컴포넌트 배치:** `src/components/` 아래 도메인 폴더(`actions`, `presenter`, `layout`, `navigation` 등)에 맞춰 추가·수정한다.
 - **import:** `src/` 내부에서는 상대 경로(`../`) 대신 `@gocheok/...` 절대 경로를 쓴다(예: `@gocheok/components/actions/button/Button`, `@gocheok/App`). 패키지 `tsconfig`의 `@gocheok/*`·`vite`의 `@gocheok` alias, 소비 앱(예: portfolio)의 `paths`에 동일 접두사를 맞춘다.
 - **스타일:** 유틸리티 클래스 우선, 변형은 기존 컴포넌트와 같이 `cva` 패턴을 재사용한다. 테마 값·토큰은 임의 값 남용 없이 맞춘다.
 - **문서:** 스토리 파일은 `*.stories.tsx` 네이밍과 기존 스토리 구조를 따른다.

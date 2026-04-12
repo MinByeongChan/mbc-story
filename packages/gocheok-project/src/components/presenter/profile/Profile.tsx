@@ -1,5 +1,5 @@
 import { twMerge } from 'tailwind-merge';
-import { Typography } from '@gocheok/components/data-display/typography/Typography';
+import { Typography } from '@gocheok/components/presenter/typography/Typography';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/all';
