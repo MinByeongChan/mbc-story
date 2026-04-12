@@ -31,29 +31,32 @@ export const Checked: Story = {
   },
 };
 
+const labelWithCheckboxClassName =
+  'inline-flex cursor-pointer items-center gap-2 text-(--color-foreground) select-none has-[input:disabled]:cursor-not-allowed has-[input:disabled]:text-(--color-muted-foreground)';
+
 export const WithLabel: Story = {
   render: (args) => (
-    <Label className="inline-flex cursor-pointer items-center gap-2 select-none">
+    <Label className={labelWithCheckboxClassName}>
       <Checkbox {...args} />
-      <span className="peer-disabled:text-(--color-muted-foreground)">약관에 동의합니다</span>
+      <span>약관에 동의합니다</span>
     </Label>
   ),
 };
 
 export const WithLabelDisabled: Story = {
   render: () => (
-    <Label className="inline-flex cursor-not-allowed items-center gap-2 select-none">
+    <Label className={labelWithCheckboxClassName}>
       <Checkbox disabled />
-      <span className="peer-disabled:text-(--color-muted-foreground)">약관에 동의합니다</span>
+      <span>약관에 동의합니다</span>
     </Label>
   ),
 };
 
 export const WithLabelDisabledChecked: Story = {
   render: () => (
-    <Label className="inline-flex cursor-not-allowed items-center gap-2 select-none">
+    <Label className={labelWithCheckboxClassName}>
       <Checkbox defaultChecked disabled />
-      <span className="peer-disabled:text-(--color-muted-foreground)">약관에 동의합니다</span>
+      <span>약관에 동의합니다</span>
     </Label>
   ),
 };
