@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Label } from '@gocheok/components/forms/label/Label';
 import { Select } from '@gocheok/components/forms/select/Select';
+import { SelectItem } from './SelectItem';
 
 const meta: Meta<typeof Select> = {
   title: 'Forms/Select/Default',
@@ -20,17 +21,16 @@ type Story = StoryObj<typeof Select>;
 
 const sampleOptions = (
   <>
-    <option value="">선택하세요</option>
-    <option value="a">옵션 A</option>
-    <option value="b">옵션 B</option>
-    <option value="c">옵션 C</option>
+    <SelectItem value="a">옵션 A</SelectItem>
+    <SelectItem value="b">옵션 B</SelectItem>
+    <SelectItem value="c">옵션 C</SelectItem>
   </>
 );
 
 export const Default: Story = {
   render: () => (
     <div className="max-w-xs">
-      <Select defaultValue="">{sampleOptions}</Select>
+      <Select value="a">{sampleOptions}</Select>
     </div>
   ),
 };
