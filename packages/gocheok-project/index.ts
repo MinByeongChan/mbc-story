@@ -5,6 +5,7 @@ export * from './src/components/actions/buttonContainer';
 
 // layout
 export * from './src/components/layout/divider';
+export * from './src/components/layout/table';
 
 // navigation
 export * from './src/components/navigation/header';
