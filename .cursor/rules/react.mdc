@@ -12,6 +12,11 @@ alwaysApply: false
 - **Hooks:** Call hooks at the top level of the component, before any conditional logic or return statements.
 - **Imports:** Order imports: React -> external libraries -> internal modules/components -> assets/styles.
 
+## Refs (React 19+)
+
+- Prefer **`ref` as a normal prop** on function components; avoid `forwardRef` unless legacy interop requires it.
+- Type the prop explicitly (e.g. `ref?: React.Ref<HTMLButtonElement>`) alongside other props; when extending DOM attribute types that already declare `ref`, use `Omit<..., 'ref'>` before intersecting your props if TypeScript reports a conflict.
+
 ## State Management
 
 - **Simple State:** Use `useState` for simple, local component state.
