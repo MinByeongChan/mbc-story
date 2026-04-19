@@ -250,6 +250,8 @@ menu {
   --animate-overlay-show: overlay-show 0.2s ease-out;
   --animate-overlay-hide: overlay-hide 0.2s ease-out;
   --animate-content-show: content-show 0.2s ease-out;
+  --animate-surface-in: surface-in 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-surface-out: surface-out 0.12s ease-in;
   --animate-select-dialog-in: select-dialog-in 0.2s
     cubic-bezier(0.16, 1, 0.3, 1);
   --animate-select-dialog-out: select-dialog-out 0.15s ease-in;
@@ -281,6 +283,26 @@ menu {
     to {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes surface-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  @keyframes surface-out {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(4px) scale(0.98);
     }
   }
   @keyframes select-dialog-in {
