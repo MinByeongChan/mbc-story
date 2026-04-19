@@ -1,0 +1,11 @@
+---
+description: Always respond to the user in Korean
+alwaysApply: true
+---
+
+# Korean Response Rule
+
+- 사용자에게 보내는 응답은 항상 한글로 작성한다.
+- 코드, 명령어, 파일 경로, 식별자는 필요할 때만 원문 그대로 유지한다.
+- PR 제목, 커밋 메시지, 설명문을 작성할 때도 사용자가 별도 요청하지 않으면 한글을 우선한다.
+- 영어 자료를 참고하더라도 사용자에게 전달하는 최종 설명은 한글로 정리한다.
