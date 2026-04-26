@@ -19,6 +19,7 @@
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "catalog:tailwindcss",
     "gsap": "^3.13.0",
+    "dayjs": "catalog:date",
     "react": "catalog:react",
     "react-confetti": "^6.4.0",
     "react-dom": "catalog:react",

@@ -22,6 +22,7 @@ export * from './src/components/forms/label';
 export * from './src/components/forms/radio';
 export * from './src/components/forms/switch';
 export * from './src/components/forms/select';
+export * from './src/components/forms/datepicker';
 
 // presenter
 export * from './src/components/presenter/avatar';
