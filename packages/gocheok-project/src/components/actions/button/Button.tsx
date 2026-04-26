@@ -1,6 +1,6 @@
 'use client';
 
-import React, { PropsWithChildren, useRef } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 /**
@@ -13,9 +13,12 @@ import { twMerge } from 'tailwind-merge';
  * info	정보 메시지, 중립 알림 (보통 blue)
  * success	성공 상태 (보통 green)
  */
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & PropsWithChildren;
-export const Button = ({ children, className, ...restProps }: ButtonProps) => {
-  const ref = useRef(null);
+export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'ref'> &
+  PropsWithChildren<{
+    ref?: React.Ref<HTMLButtonElement>;
+  }>;
+
+export const Button = ({ children, className, ref, ...restProps }: ButtonProps) => {
   return (
     <button
       ref={ref}

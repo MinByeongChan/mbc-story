@@ -1,12 +1,17 @@
 'use client';
 
 import React, {
+  Children,
+  cloneElement,
   useCallback,
   createContext,
   useContext,
   useEffect,
+  useId,
+  isValidElement,
   useLayoutEffect,
   useMemo,
+  type HTMLAttributes,
   useRef,
   useState,
 } from 'react';
@@ -18,9 +23,11 @@ type TooltipProviderContextValue = {
 };
 
 type TooltipContextValue = {
+  contentId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
-  triggerRef: React.MutableRefObject<HTMLElement | null>;
+  triggerElement: HTMLElement | null;
+  setTriggerElement: (element: HTMLElement | null) => void;
 };
 
 const TooltipProviderContext = createContext<TooltipProviderContextValue>({
@@ -36,6 +43,30 @@ const useTooltipContext = () => {
   }
 
   return context;
+};
+
+type SlottableElementProps = HTMLAttributes<HTMLElement> & {
+  ref?: React.Ref<HTMLElement>;
+  'aria-describedby'?: string;
+};
+
+const assignRef = <ElementType,>(
+  ref: React.Ref<ElementType> | undefined,
+  value: ElementType | null,
+) => {
+  if (typeof ref === 'function') {
+    ref(value);
+    return;
+  }
+
+  if (ref != null) {
+    (ref as React.MutableRefObject<ElementType | null>).current = value;
+  }
+};
+
+const mergeSpaceSeparatedValues = (...values: Array<string | undefined>) => {
+  const mergedValues = values.flatMap((value) => value?.split(' ').filter(Boolean) ?? []);
+  return mergedValues.length > 0 ? Array.from(new Set(mergedValues)).join(' ') : undefined;
 };
 
 type TooltipProviderProps = React.PropsWithChildren<{
@@ -62,8 +93,9 @@ export const Tooltip = ({
   open: controlledOpen,
   onOpenChange,
 }: TooltipProps) => {
+  const contentId = useId();
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const triggerRef = useRef<HTMLElement | null>(null);
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
   const open = controlledOpen ?? uncontrolledOpen;
 
   const setOpen = useCallback(
@@ -78,9 +110,11 @@ export const Tooltip = ({
   );
 
   const contextValue = {
+    contentId,
     open,
     setOpen,
-    triggerRef,
+    triggerElement,
+    setTriggerElement,
   };
 
   return <TooltipContext.Provider value={contextValue}>{children}</TooltipContext.Provider>;
@@ -101,21 +135,23 @@ export const TooltipTrigger = ({
   ...props
 }: TooltipTriggerProps) => {
   const { delayDuration } = useContext(TooltipProviderContext);
-  const { open, setOpen, triggerRef } = useTooltipContext();
-  const timerRef = useRef<number | null>(null);
+  const { contentId, open, setOpen, setTriggerElement } = useTooltipContext();
+  const [delayTimer, setDelayTimer] = useState<number | null>(null);
 
   const clearTimer = () => {
-    if (timerRef.current == null) return;
+    if (delayTimer == null) return;
 
-    window.clearTimeout(timerRef.current);
-    timerRef.current = null;
+    window.clearTimeout(delayTimer);
+    setDelayTimer(null);
   };
 
   const openWithDelay = () => {
     clearTimer();
-    timerRef.current = window.setTimeout(() => {
+    const nextTimer = window.setTimeout(() => {
       setOpen(true);
+      setDelayTimer(null);
     }, delayDuration);
+    setDelayTimer(nextTimer);
   };
 
   const closeTooltip = () => {
@@ -123,7 +159,18 @@ export const TooltipTrigger = ({
     setOpen(false);
   };
 
-  useEffect(() => clearTimer, []);
+  useEffect(() => {
+    return () => {
+      if (delayTimer != null) {
+        window.clearTimeout(delayTimer);
+      }
+    };
+  }, [delayTimer]);
+
+  const describedBy = mergeSpaceSeparatedValues(
+    props['aria-describedby'],
+    open ? contentId : undefined,
+  );
 
   const sharedProps = {
     className: asChild ? twMerge('inline-flex', className) : className,
@@ -151,27 +198,59 @@ export const TooltipTrigger = ({
         closeTooltip();
       }
     },
-    'aria-describedby': open ? 'tooltip-content' : undefined,
+    'aria-describedby': describedBy,
     ...props,
   };
 
   if (asChild) {
-    return (
-      <span
-        ref={(node) => {
-          triggerRef.current = node;
-        }}
-        {...sharedProps}
-      >
-        {children}
-      </span>
-    );
+    const child = Children.only(children);
+
+    if (!isValidElement<SlottableElementProps>(child)) {
+      throw new Error('TooltipTrigger의 asChild는 단일 React element 자식이 필요합니다.');
+    }
+
+    return cloneElement(child, {
+      ...sharedProps,
+      className: twMerge(child.props.className, sharedProps.className),
+      onMouseEnter: (event) => {
+        child.props.onMouseEnter?.(event);
+        if (!event.defaultPrevented) {
+          sharedProps.onMouseEnter(event);
+        }
+      },
+      onMouseLeave: (event) => {
+        child.props.onMouseLeave?.(event);
+        if (!event.defaultPrevented) {
+          sharedProps.onMouseLeave(event);
+        }
+      },
+      onFocus: (event) => {
+        child.props.onFocus?.(event);
+        if (!event.defaultPrevented) {
+          sharedProps.onFocus(event);
+        }
+      },
+      onBlur: (event) => {
+        child.props.onBlur?.(event);
+        if (!event.defaultPrevented) {
+          sharedProps.onBlur(event);
+        }
+      },
+      'aria-describedby': mergeSpaceSeparatedValues(
+        child.props['aria-describedby'],
+        sharedProps['aria-describedby'],
+      ),
+      ref: (node) => {
+        assignRef(child.props.ref, node);
+        setTriggerElement(node);
+      },
+    });
   }
 
   return (
     <button
       ref={(node) => {
-        triggerRef.current = node;
+        setTriggerElement(node);
       }}
       type="button"
       {...sharedProps}
@@ -186,16 +265,16 @@ type TooltipContentProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export const TooltipContent = ({ className, sideOffset = 8, ...props }: TooltipContentProps) => {
-  const { open, triggerRef } = useTooltipContext();
+  const { contentId, open, triggerElement } = useTooltipContext();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
 
   useLayoutEffect(() => {
-    if (!open || triggerRef.current == null || contentRef.current == null) {
+    if (!open || triggerElement == null || contentRef.current == null) {
       return;
     }
 
-    const triggerRect = triggerRef.current.getBoundingClientRect();
+    const triggerRect = triggerElement.getBoundingClientRect();
     const contentRect = contentRef.current.getBoundingClientRect();
 
     const left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
@@ -205,7 +284,7 @@ export const TooltipContent = ({ className, sideOffset = 8, ...props }: TooltipC
       top: Math.max(8, top),
       left: Math.min(Math.max(8, left), window.innerWidth - contentRect.width - 8),
     });
-  }, [open, sideOffset, triggerRef]);
+  }, [open, sideOffset, triggerElement]);
 
   if (!open || typeof document === 'undefined') {
     return null;
@@ -213,7 +292,7 @@ export const TooltipContent = ({ className, sideOffset = 8, ...props }: TooltipC
 
   return createPortal(
     <div
-      id="tooltip-content"
+      id={contentId}
       ref={contentRef}
       role="tooltip"
       data-state="open"
