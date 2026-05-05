@@ -5,7 +5,6 @@ import { Typography } from "gocheok-project";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
-import Image from "next/image";
 import Link from "next/link";
 import { StressButton } from "gocheok-project";
 
@@ -111,22 +110,14 @@ export const Profile = () => {
 
       <figure>
         <div
+          role="img"
+          aria-label="My Profile"
           className={twMerge(
             "profile-img relative w-[200px] h-[250px] rounded-[1rem] bg-white inset-shadow-[1px_1px_8px_rgba(0,0,0,0.8)]",
-            "sm:w-[400px] sm:h-[450px] sm:rounded-[2rem] sm:inset-shadow-[1px_1px_15px_rgba(0,0,0,0.8)]"
+            "sm:w-[400px] sm:h-[450px] sm:rounded-[2rem] sm:inset-shadow-[1px_1px_15px_rgba(0,0,0,0.8)]",
+            "bg-cover bg-center bg-[url('/my_profile.png')]"
           )}
-        >
-          <Image
-            src="/main_profile.png"
-            alt="main_profile"
-            width={300}
-            height={300}
-            className={twMerge(
-              "profile-img absolute w-[170px] bottom-0 left-[50%] translate-x-[-50%]",
-              "sm:w-[300px]"
-            )}
-          />
-        </div>
+        />
       </figure>
     </section>
   );
