@@ -42,3 +42,4 @@ dist-ssr
 google-cloud-sdk/
 styled-system
 styled-system-studio
+docs/*
