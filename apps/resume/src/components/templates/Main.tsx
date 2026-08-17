@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, ReactNode } from "react";
-import { Footer, NavigationBar } from "@/components/templates";
+import { Footer } from "@/components/templates";
 
 interface MainProps extends PropsWithChildren {
   meta: ReactNode;
@@ -7,15 +7,9 @@ interface MainProps extends PropsWithChildren {
   useFooter?: boolean;
 }
 
-const Main = ({
-  meta,
-  useNav = true,
-  useFooter = true,
-  children,
-}: MainProps) => (
-  <div className="min-h-screen bg-grey-50 text-grey-900">
+const Main = ({ meta, useFooter = true, children }: MainProps) => (
+  <div className="min-h-screen bg-[--color-background] text-grey-900">
     {meta}
-    {useNav && <NavigationBar />}
     {children}
     {useFooter && <Footer />}
   </div>

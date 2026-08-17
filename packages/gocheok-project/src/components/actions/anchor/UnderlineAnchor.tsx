@@ -7,7 +7,7 @@ export const UnderlineAnchor = ({ children, className, ...rest }: UnderlineAncho
   return (
     <a
       className={twMerge(
-        'text-md relative cursor-pointer pb-2 text-(--color-neutral-100) transition duration-300 ease-in-out',
+        'relative cursor-pointer pb-2 text-base text-(--color-neutral-100) transition duration-300 ease-in-out',
         "after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-[0px] after:rounded-[1px] after:bg-gradient-to-r after:from-[#ff6600] after:via-[#ff983f] after:to-[#ffffa1] after:opacity-0 after:transition-all after:duration-300 after:ease-in-out after:content-['']",
         'hover:after:w-full hover:after:opacity-100',
         className,

@@ -1,4 +1,3 @@
-export * from "./AboutEducation";
 export * from "./AboutExperience";
 export * from "./AboutIntroduction";
 export * from "./AboutProject";

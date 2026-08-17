@@ -1,7 +1,8 @@
 import { AppProps } from "next/app";
 
+import "../styles/fonts.scss";
 import "gocheok-project/src/tailwind.css";
-import "../styles/global.css";
+import "../styles/global.scss";
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <Component {...pageProps} />

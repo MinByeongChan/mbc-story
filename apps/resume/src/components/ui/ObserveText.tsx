@@ -1,11 +1,14 @@
-import TextDefault, { TextDefaultProps } from "@/components/ui/TextDefault";
-import React, { useEffect, useRef, useState } from "react";
+import React, { HTMLAttributes, useEffect, useRef, useState } from "react";
 
-type ObserveTextProps = TextDefaultProps;
+type ObserveTextElement = "p" | "h3" | "h4";
+type ObserveTextProps = HTMLAttributes<HTMLElement> & {
+  as?: ObserveTextElement;
+};
 
-export const ObserveText = (props: ObserveTextProps) => {
-  const ref = useRef<HTMLSpanElement | null>(null);
+export const ObserveText = ({ as, style, ...props }: ObserveTextProps) => {
+  const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState<boolean>(false);
+  const Component = as ?? "p";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,10 +38,13 @@ export const ObserveText = (props: ObserveTextProps) => {
   }, []);
 
   return (
-    <TextDefault
-      ref={ref}
+    <Component
       {...props}
+      ref={(element) => {
+        ref.current = element;
+      }}
       style={{
+        ...style,
         opacity: visible ? "1" : "0",
         transition: "0.6s cubic-bezier(0.36, 0, 0.66, -0.56)",
       }}
