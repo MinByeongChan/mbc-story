@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pull Request 생성"
+  short_description: "변경사항을 검토하고 GitHub PR을 생성합니다"
+  default_prompt: "Use $pull-request to review the branch changes and open a GitHub pull request."
