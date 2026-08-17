@@ -3,7 +3,6 @@ import React, { CSSProperties, forwardRef, ReactNode } from "react";
 
 export interface TextDefaultProps {
   size?: string;
-  color?: string;
   weight?: "300" | "500" | "normal" | "700";
   lineHeight?: string;
   letterSpacing?: string;
@@ -20,13 +19,6 @@ const sizeClassNames: Record<string, string> = {
   md: "text-base sm:text-lg",
   sm: "text-sm sm:text-base",
   xs: "text-xs sm:text-sm",
-};
-
-const colorClassNames: Record<string, string> = {
-  orange: "text-blue-600",
-  lightBlue: "text-blue-600",
-  white: "text-white",
-  black: "text-grey-900",
 };
 
 const weightClassNames: Record<string, string> = {
@@ -48,7 +40,6 @@ const TextDefault = forwardRef<HTMLSpanElement, TextDefaultProps>(
     {
       children,
       size = "md",
-      color,
       weight,
       lineHeight = "md",
       letterSpacing,
@@ -63,7 +54,6 @@ const TextDefault = forwardRef<HTMLSpanElement, TextDefaultProps>(
         className={[
           "text-grey-800",
           sizeClassNames[size],
-          color ? colorClassNames[color] : "",
           weight ? weightClassNames[weight] : "",
           lineHeightClassNames[lineHeight],
           className,

@@ -11,7 +11,6 @@ import {
   AboutSkill,
 } from "@/components/about";
 import TextDefault from "@/components/ui/TextDefault";
-import { fontWeight } from "@/utils/StyleTheme";
 import { ContentTitle } from "@/layout";
 
 const About = () => (
@@ -22,7 +21,7 @@ const About = () => (
           <li className="mb-3">
             <TextDefault
               size="h1"
-              weight={fontWeight.bold}
+              weight="700"
               lineHeight="h1"
               letterSpacing="13"
             >
@@ -32,8 +31,8 @@ const About = () => (
           <li>
             <TextDefault
               size="lg"
-              weight={fontWeight.bold}
-              color="orange"
+              weight="700"
+              className="text-blue-600"
               lineHeight="lg"
             >
               Frontend Developer
