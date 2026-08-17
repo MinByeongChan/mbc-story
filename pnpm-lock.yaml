@@ -542,24 +542,9 @@ importers:
 
   apps/resume:
     dependencies:
-      "@emotion/react":
-        specifier: ^11.13.3
-        version: 11.14.0(@types/react@19.2.5)(react@19.2.4)
-      "@emotion/styled":
-        specifier: ^11.13.0
-        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.5)(react@19.2.4))(@types/react@19.2.5)(react@19.2.4)
-      "@fortawesome/fontawesome-svg-core":
-        specifier: ^6.6.0
-        version: 6.7.2
-      "@fortawesome/free-brands-svg-icons":
-        specifier: ^6.6.0
-        version: 6.7.2
-      "@fortawesome/free-solid-svg-icons":
-        specifier: ^6.6.0
-        version: 6.7.2
-      "@fortawesome/react-fontawesome":
-        specifier: ^0.2.2
-        version: 0.2.6(@fortawesome/fontawesome-svg-core@6.7.2)(react@19.2.4)
+      gocheok-project:
+        specifier: workspace:*
+        version: link:../../packages/gocheok-project
       next:
         specifier: ^16.2.1
         version: 16.2.1(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.89.2)
@@ -570,6 +555,9 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
     devDependencies:
+      "@tailwindcss/postcss":
+        specifier: ^4.1.10
+        version: 4.1.10
       "@types/node":
         specifier: ^22.0.0
         version: 22.19.15
@@ -579,6 +567,9 @@ importers:
       "@types/react-dom":
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.5)
+      tailwindcss:
+        specifier: ^4.1.10
+        version: 4.1.10
       typescript:
         specifier: ^6.0.2
         version: 6.0.2

@@ -1,28 +1,21 @@
-import React from 'react';
-import styled from '@emotion/styled';
+import React, { AnchorHTMLAttributes, PropsWithChildren } from 'react';
 import { ObserveText } from '@/components/ui';
 import { fontWeight } from '@/utils/StyleTheme';
 import TextDefault from '@/components/ui/TextDefault';
 
-const ProjTop = styled.div`
-  margin-top: 50px;
-`;
-const OrderedListItems = styled.ol`
-  list-style: decimal;
-`;
-const ListItem = styled.li`
-  align-items: start;
-`;
-const ListItems = styled.ul`
-  list-style: inherit;
-  margin-left: 24px;
-`;
-const HoverLink = styled.a`
-  transition: 0.1s linear;
-  &:hover {
-    box-shadow: 0px 1px 0px;
-  }
-`;
+const ProjTop = ({ children }: PropsWithChildren) => <div className="mt-12">{children}</div>;
+const OrderedListItems = ({ children }: PropsWithChildren) => (
+  <ol className="ml-6 list-decimal space-y-1">{children}</ol>
+);
+const ListItem = ({ children }: PropsWithChildren) => <li>{children}</li>;
+const ListItems = ({ children }: PropsWithChildren) => (
+  <ul className="ml-6 list-disc space-y-1 py-2">{children}</ul>
+);
+const HoverLink = ({ children, ...props }: AnchorHTMLAttributes<HTMLAnchorElement>) => (
+  <a className="underline decoration-blue-300 underline-offset-4 hover:text-blue-700" {...props}>
+    {children}
+  </a>
+);
 
 export const AboutProject = () => (
   <>

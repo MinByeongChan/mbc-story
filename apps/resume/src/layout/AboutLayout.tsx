@@ -1,41 +1,18 @@
-import React, { PropsWithChildren } from 'react';
-import styled from '@emotion/styled';
-import { AboutNavigation } from '@/components/about';
-
-const LayoutMain = styled.main`
-  min-height: 650px;
-  grid-column: 3 / span 8;
-  @container section-container (max-width: 480px) {
-    &.about-main {
-      grid-column: 2 / span 10;
-    }
-  }
-`;
-const AboutArticle = styled.article({
-  width: '100%',
-  height: '100%',
-  padding: '50px 0',
-});
-const ContentLayout = styled.div(() => ({
-  width: '100%',
-  margin: '0 auto',
-  '@media screen and (min-width: 0px) and (max-width: 1080px)': {
-    minWidth: '300px',
-  },
-  '@media screen and (min-width: 0px) and (max-width: 480px)': {
-    minWidth: '300px',
-  },
-}));
+import React, { PropsWithChildren } from "react";
+import { Container } from "gocheok-project";
 
 type AboutLayoutProps = PropsWithChildren;
 
 const AboutLayout = ({ children }: AboutLayoutProps) => (
-  <LayoutMain className="about-main">
-    <AboutArticle>
-      <AboutNavigation />
-      <ContentLayout>{children}</ContentLayout>
-    </AboutArticle>
-  </LayoutMain>
+  <main className="py-8 sm:py-12">
+    <Container size="lg" padding="md">
+      <div className="grid grid-cols-12 gap-4 sm:gap-6">
+        <article className="col-span-12 min-w-0 sm:col-span-10 sm:col-start-2 xl:col-span-8 xl:col-start-3">
+          {children}
+        </article>
+      </div>
+    </Container>
+  </main>
 );
 
 export default AboutLayout;

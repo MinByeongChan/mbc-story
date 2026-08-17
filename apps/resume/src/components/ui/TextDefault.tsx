@@ -1,59 +1,84 @@
-import React, { CSSProperties, forwardRef, ReactNode } from 'react';
-import styled from '@emotion/styled';
-import { color as fontColor, fontSize, lineHeight as lh } from '../../utils/StyleTheme';
+import { Typography } from "gocheok-project";
+import React, { CSSProperties, forwardRef, ReactNode } from "react";
 
 export interface TextDefaultProps {
   size?: string;
   color?: string;
-  weight?: '300' | '500' | 'normal' | '700';
+  weight?: "300" | "500" | "normal" | "700";
   lineHeight?: string;
   letterSpacing?: string;
   children?: ReactNode;
+  className?: string;
   style?: CSSProperties;
 }
 
-const Text = styled.span`
-  font-size: ${(props: TextDefaultProps) => props.size};
-  color: ${(props: TextDefaultProps) => props.color};
-  font-weight: ${(props: TextDefaultProps) => props.weight};
-  line-height: ${(props: TextDefaultProps) => props.lineHeight};
-  letter-spacing: ${(props: TextDefaultProps) => props.letterSpacing}px;
+const sizeClassNames: Record<string, string> = {
+  h1: "text-4xl sm:text-5xl",
+  xxg: "text-2xl sm:text-3xl",
+  xg: "text-xl sm:text-2xl",
+  lg: "text-lg sm:text-xl",
+  md: "text-base sm:text-lg",
+  sm: "text-sm sm:text-base",
+  xs: "text-xs sm:text-sm",
+};
 
-  @media (min-width: 500px) and (max-width: 820px) {
-    font-size: ${(props: TextDefaultProps) =>
-      (props.size === 'h1' && fontSize.xxg) ||
-      (props.size === 'xxg' && fontSize.xg) ||
-      (props.size === 'xg' && fontSize.lg) ||
-      (props.size === 'lg' && fontSize.lg) ||
-      (props.size === 'md' && fontSize.md)};
-  }
-  @media (min-width: 0px) and (max-width: 499px) {
-    font-size: ${(props: TextDefaultProps) =>
-      (props.size === 'h1' && fontSize.xxg) ||
-      (props.size === 'xxg' && fontSize.xg) ||
-      (props.size === 'xg' && fontSize.lg) ||
-      (props.size === 'lg' && fontSize.md) ||
-      (props.size === 'md' && fontSize.sm) ||
-      (props.size === 'sm' && fontSize.xs)};
-  }
-`;
+const colorClassNames: Record<string, string> = {
+  orange: "text-blue-600",
+  lightBlue: "text-blue-600",
+  white: "text-white",
+  black: "text-grey-900",
+};
 
-const TextDefault = forwardRef<HTMLSpanElement, TextDefaultProps>(function TextDefault(
-  { children, size, color, weight, lineHeight, letterSpacing, style }: TextDefaultProps,
-  ref,
-) {
-  return (
-    <Text
-      ref={ref}
-      size={size ? fontSize[`${size}`] : fontSize[`${fontSize.md}`]}
-      color={color ? fontColor[`${color}`] : ''}
-      weight={weight}
-      lineHeight={lineHeight ? lh[`${lineHeight}`] : lh[`${lh.md}`]}
-      letterSpacing={letterSpacing}
-      style={style}>
-      {children}
-    </Text>
-  );
-});
+const weightClassNames: Record<string, string> = {
+  "300": "font-light",
+  "500": "font-medium",
+  normal: "font-normal",
+  "700": "font-bold",
+};
+
+const lineHeightClassNames: Record<string, string> = {
+  h1: "leading-tight",
+  xg: "leading-relaxed",
+  lg: "leading-relaxed",
+  md: "leading-relaxed",
+};
+
+const TextDefault = forwardRef<HTMLSpanElement, TextDefaultProps>(
+  function TextDefault(
+    {
+      children,
+      size = "md",
+      color,
+      weight,
+      lineHeight = "md",
+      letterSpacing,
+      className,
+      style,
+    },
+    ref,
+  ) {
+    return (
+      <Typography
+        ref={ref}
+        className={[
+          "text-grey-800",
+          sizeClassNames[size],
+          color ? colorClassNames[color] : "",
+          weight ? weightClassNames[weight] : "",
+          lineHeightClassNames[lineHeight],
+          className,
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        style={{
+          ...style,
+          letterSpacing: letterSpacing ? `${letterSpacing}px` : undefined,
+        }}
+      >
+        {children}
+      </Typography>
+    );
+  },
+);
 
 export default TextDefault;
