@@ -17,7 +17,7 @@ import { ContentTitle } from "@/layout";
 const About = () => (
   <Main meta={<AboutMeta />}>
     <AboutLayout>
-      <div className="flex flex-col-reverse items-start justify-between gap-8 border-b border-grey-200 pb-10 sm:flex-row sm:items-center">
+      <div className="flex flex-col-reverse items-start justify-between gap-8 pb-10 sm:flex-row sm:items-center">
         <ul className="space-y-2">
           <li className="mb-3">
             <TextDefault
@@ -78,7 +78,6 @@ const About = () => (
         />
       </div>
 
-      <ContentTitle title="소개" id="introduction" />
       <AboutIntroduction />
 
       <ContentTitle title="기술스택" id="skill" />
