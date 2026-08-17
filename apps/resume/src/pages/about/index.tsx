@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 import AboutLayout from "@/layout/AboutLayout";
 import { Main } from "@/components/templates";
@@ -70,10 +71,12 @@ const About = () => (
             </TextDefault>
           </li>
         </ul>
-        <img
+        <Image
           alt="민병찬 프로필"
           className="size-40 shrink-0 rounded-full border-4 border-blue-50 object-cover shadow-sm sm:size-52"
+          height={208}
           src="/assets/images/portfolio/profile_circle_img.png"
+          width={208}
         />
       </div>
 

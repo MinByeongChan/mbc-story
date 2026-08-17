@@ -1,5 +1,5 @@
-import TextDefault, { TextDefaultProps } from '@/components/ui/TextDefault';
-import React, { useEffect, useRef, useState } from 'react';
+import TextDefault, { TextDefaultProps } from "@/components/ui/TextDefault";
+import React, { useEffect, useRef, useState } from "react";
 
 type ObserveTextProps = TextDefaultProps;
 
@@ -16,18 +16,20 @@ export const ObserveText = (props: ObserveTextProps) => {
       },
       {
         root: null,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 0.3,
       },
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, []);
@@ -37,8 +39,8 @@ export const ObserveText = (props: ObserveTextProps) => {
       ref={ref}
       {...props}
       style={{
-        opacity: visible ? '1' : '0',
-        transition: '0.6s cubic-bezier(0.36, 0, 0.66, -0.56)',
+        opacity: visible ? "1" : "0",
+        transition: "0.6s cubic-bezier(0.36, 0, 0.66, -0.56)",
       }}
     />
   );

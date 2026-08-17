@@ -1,6 +1,6 @@
 export const useAnchor = (id: string) => {
   const handleClickAnchor = () => {
-    const element = document.querySelector('.' + id);
+    const element = document.querySelector("." + id);
     if (element) {
       const refRect = element.getBoundingClientRect().top;
       const bodyRect = document.body.getBoundingClientRect().top;
@@ -9,7 +9,7 @@ export const useAnchor = (id: string) => {
 
       window.scrollTo({
         top,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
