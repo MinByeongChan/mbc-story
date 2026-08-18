@@ -11,6 +11,20 @@
 - 사용자가 만들었거나 현재 작업 범위와 무관한 변경을 수정하거나 커밋하지 않는다.
 - 새 production dependency를 추가하기 전에 사용자에게 확인한다.
 
+## 브랜치
+
+- 새 브랜치는 Angular/Conventional Commits의 type을 접두사로 사용해 `<type>/<내용>` 형식으로 만든다.
+- 허용 type은 `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`다.
+- `<내용>`은 작업 목적이 드러나는 소문자 kebab-case로 작성한다. 예: `feat/resume-download`, `fix/mobile-grid`, `refactor/resume-components`.
+- `feature/*`처럼 허용 type을 풀어 쓴 접두사나 type만 있는 브랜치명은 사용하지 않는다.
+
+## 커밋
+
+- 사용자가 커밋을 요청하면 `.agents/skills/commit/SKILL.md`의 절차를 따른다.
+- 커밋 제목은 Angular Commit Message 형식인 `<type>(<scope>): <요약>` 또는 `<type>: <요약>`을 사용한다.
+- branch와 동일한 type 목록을 사용하고, scope는 변경 영역이 명확할 때만 소문자로 작성한다.
+- 하나의 커밋에는 하나의 목적만 담고 제목만으로 변경 의도가 드러나게 작성한다.
+
 ## Next.js App Router
 
 - `app/`에서는 폴더 기반 라우팅을 사용하고 `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`의 역할을 지킨다.
@@ -42,3 +56,5 @@
 
 - 사용자가 PR 생성을 요청하면 `.agents/skills/pull-request/SKILL.md`의 절차를 따른다.
 - PR에 필요한 커밋은 사용자가 커밋까지 명시적으로 요청한 경우에만 생성한다.
+- PR 제목은 커밋과 동일한 Angular 형식을 사용한다.
+- PR 본문은 `수정내용`, `영향범위`, 선택 항목인 `주의사항` 순서로 작성한다.
