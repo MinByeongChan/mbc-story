@@ -1,8 +1,11 @@
-import { AppProps } from 'next/app';
+import { AppProps } from "next/app";
 
-import '../styles/global.css';
-import '../styles/prism-a11y-dark.css';
+import "../styles/fonts.scss";
+import "gocheok-project/src/tailwind.css";
+import "../styles/global.scss";
 
-const MyApp = ({ Component, pageProps }: AppProps) => <Component {...pageProps} />;
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <Component {...pageProps} />
+);
 
 export default MyApp;

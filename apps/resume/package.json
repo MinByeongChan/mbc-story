@@ -2,26 +2,30 @@
   "name": "resume",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@emotion/react": "^11.13.3",
-    "@emotion/styled": "^11.13.0",
-    "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "@fortawesome/free-brands-svg-icons": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "gocheok-project": "workspace:*",
     "next": "^16.2.1",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^15.5.14",
+    "@tailwindcss/postcss": "^4.1.10",
     "@types/node": "^22.0.0",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
+    "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^10.1.0",
+    "mbc-eslint": "workspace:*",
+    "tailwindcss": "^4.1.10",
     "typescript": "^6.0.2"
   }
 }
