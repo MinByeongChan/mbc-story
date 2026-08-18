@@ -21,7 +21,7 @@ const SkillDetailItems = ({ children }: PropsWithChildren) => (
   <ul className="ml-5 list-disc space-y-2">{children}</ul>
 );
 
-export const AboutSkill = () => (
+export const Skills = () => (
   <div>
     <ul className="p-0">
       <SkillItem>

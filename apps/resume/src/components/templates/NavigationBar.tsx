@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Container } from "gocheok-project";
 
 const navItems = [
-  { href: "/about", label: "Resume" },
+  { href: "/", label: "Resume" },
   { href: "https://mbc-story-portfolio.vercel.app", label: "Portfolio" },
   { href: "https://github.com/MinByeongChan", label: "GitHub" },
 ];
@@ -14,10 +14,7 @@ export const NavigationBar = () => (
       size="lg"
       padding="md"
     >
-      <Link
-        className="text-lg font-bold tracking-tight text-grey-900"
-        href="/about"
-      >
+      <Link className="text-lg font-bold tracking-tight text-grey-900" href="/">
         Min Byeongchan
       </Link>
       <ul className="flex items-center gap-1 sm:gap-3">

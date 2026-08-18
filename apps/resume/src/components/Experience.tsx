@@ -9,7 +9,7 @@ const ComponyItem = ({ children }: PropsWithChildren) => (
   <div className="mt-1 flex items-center gap-2">{children}</div>
 );
 
-export const AboutExperience = () => (
+export const Experience = () => (
   <>
     <div>
       <p>2021. 09 - 현재</p>

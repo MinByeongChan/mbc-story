@@ -23,7 +23,7 @@ const HoverLink = ({
   </a>
 );
 
-export const AboutProject = () => (
+export const Projects = () => (
   <>
     <ProjTop>
       <ObserveText>2024.04 – 현재</ObserveText>

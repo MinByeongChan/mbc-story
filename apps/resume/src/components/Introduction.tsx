@@ -1,6 +1,6 @@
 import React from "react";
 
-export const AboutIntroduction = () => {
+export const Introduction = () => {
   return (
     <div>
       <p>
