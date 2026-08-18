@@ -56,5 +56,7 @@
 
 - 사용자가 PR 생성을 요청하면 `.agents/skills/pull-request/SKILL.md`의 절차를 따른다.
 - PR에 필요한 커밋은 사용자가 커밋까지 명시적으로 요청한 경우에만 생성한다.
+- PR의 base branch는 `main`으로 설정한다. 사용자가 다른 base를 명시한 경우에만 변경한다.
 - PR 제목은 커밋과 동일한 Angular 형식을 사용한다.
 - PR 본문은 `수정내용`, `영향범위`, 선택 항목인 `주의사항` 순서로 작성한다.
+- 관련 GitHub Issue가 있으면 PR 본문에 `Closes #<이슈 번호>`를 추가해 연동한다.
