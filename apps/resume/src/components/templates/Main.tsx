@@ -1,5 +1,5 @@
-import React, { PropsWithChildren, ReactNode } from "react";
-import { Footer } from "@/components/templates";
+import React, { PropsWithChildren, ReactNode } from 'react';
+import { Footer } from '@/components/templates';
 
 interface MainProps extends PropsWithChildren {
   meta: ReactNode;
