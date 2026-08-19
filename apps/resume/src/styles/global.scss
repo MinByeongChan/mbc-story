@@ -171,3 +171,20 @@
     outline-offset: 2px;
   }
 }
+
+// Tailwind Preflight의 목록 초기화보다 우선하는 이력서 본문 전용 목록 스타일입니다.
+.resume-bullet-list {
+  margin: 1rem 0 0;
+  padding-left: 1.5rem;
+  color: color-mix(in srgb, var(--foreground) 76%, transparent);
+  list-style-position: outside;
+  list-style-type: disc;
+}
+
+.resume-bullet-list > li {
+  display: list-item;
+}
+
+.resume-bullet-list > li + li {
+  margin-top: 0.5rem;
+}

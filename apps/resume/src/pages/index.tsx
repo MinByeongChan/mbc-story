@@ -7,7 +7,7 @@ import { Main } from "@/components/templates";
 import {
   Experience,
   Introduction,
-  Projects,
+  OtherExperience,
   ResumeMeta,
   Skills,
 } from "@/components";
@@ -70,16 +70,16 @@ const ResumePage = () => (
 
       <Introduction />
 
-      <SectionTitle title="경력" id="experience" />
+      <SectionTitle title="Work Experiences." id="experience" />
       <Experience />
 
-      <SectionTitle title="프로젝트" id="project" />
-      <Projects />
+      <SectionTitle title="Other Experience." id="other-experience" />
+      <OtherExperience />
 
-      <SectionTitle title="Skills" id="skill" />
+      <SectionTitle title="Skills." id="skill" />
       <Skills />
 
-      <SectionTitle title="학력사항" id="education" />
+      <SectionTitle title="Education." id="education" />
       <p>2020.02 성결대학교 정보통신공학부 졸업</p>
     </ResumeLayout>
   </Main>
