@@ -1,29 +1,20 @@
 import React from 'react';
 
-type SkillGroup = SkillGroupText | SkillGroupList;
-type SkillGroupCommon = {
+interface SkillGroup {
   title: string;
-};
-
-type SkillGroupText = {
-  type: 'TEXT';
-  skills: string;
-} & SkillGroupCommon;
-
-type SkillGroupList = {
-  type: 'LIST';
   skills: string[];
-} & SkillGroupCommon;
+}
 
 const skillGroups: SkillGroup[] = [
   {
-    type: 'TEXT',
     title: 'Frontend',
-    skills:
-      'Next.js, TanStack Query, Tailwind CSS, Styled Components, Sass/SCSS, Storybook, Cypress, Sentry, Datadog(RUM, Dashboard, APM)',
+    skills: [
+      'Next.js, TanStack Query',
+      'Tailwind CSS, Styled Components, Sass/SCSS, Storybook',
+      'Cypress, Sentry, Datadog(RUM, Dashboard, APM)',
+    ],
   },
   {
-    type: 'LIST',
     title: 'React',
     skills: [
       '재사용성 높은 컴포넌트 생성과 컴포지션으로 관심사 분리를 준수합니다.',
@@ -32,7 +23,6 @@ const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    type: 'LIST',
     title: 'Typescript',
     skills: [
       '타입을 활용하여 빌드 및 컴파일 에러를 사전에 방지합니다.',
@@ -40,9 +30,11 @@ const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    type: 'LIST',
     title: 'Infra',
-    skills: ['AWS (EC2, CloudFront, S3)'],
+    skills: [
+      'AWS S3, CloudFront, Lambda를 활용할 수 있습니다.',
+      'CloudFront를 통해 내/외부망 연결 및 커스텀 헤더를 통해 캐싱제어 등 경험이 있습니다.',
+    ],
   },
 ];
 
@@ -52,21 +44,16 @@ export const Skills = () => (
     <dl className="grid grid-cols-1 border-t border-grey-200 sm:grid-cols-[minmax(140px,180px)_minmax(0,1fr)]">
       {skillGroups.map((group) => (
         <React.Fragment key={group.title}>
-          <dt className="border-b border-grey-200 py-5">
+          <dt className="border-b border-grey-200 py-5 sm:py-2">
             <h3>{group.title}</h3>
           </dt>
-          {group.type === 'TEXT' && (
-            <dd className="border-b border-grey-200 pb-5 sm:py-5">{group.skills}</dd>
-          )}
-          {group.type === 'LIST' && (
-            <dd className="border-b border-grey-200 pb-5 sm:py-5">
-              <ul className="m-0">
-                {group.skills.map((data) => (
-                  <li>{data}</li>
-                ))}
-              </ul>
-            </dd>
-          )}
+          <dd className="border-b border-grey-200 pb-5 sm:py-2">
+            <ul className="resume-bullet-list resume-bullet-list--flush">
+              {group.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+          </dd>
         </React.Fragment>
       ))}
     </dl>
