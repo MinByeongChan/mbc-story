@@ -59,7 +59,7 @@ const experiences: CompanyExperience[] = [
         achievements: [
           '에어컨, 소파, 모션 매트리스 등 신제품 배정 정책을 반영한 운영 화면 개발.',
           'Datadog RUM 대시보드와 모니터링 체계를 구축해 운영 판단 기준 마련.',
-          '화면설계서, 회의록과 인수인계 문서를 벡터화한 RAG로 업무 히스토리와 정책 변경 이력을 빠르게 파악해 약 1개월로 예상한 지역설정제 5개 화면 개발을 10일 일정으로 단축해 진행 중.',
+          '화면설계서, 회의록과 인수인계 문서에 대한 업무 히스토리 및 정책 변경 이력을 빠르게 파악하기 위해 벡터화한 로컬 DB RAG 환경 구축.',
         ],
         skills: 'React, TypeScript, TanStack Query, Datadog RUM, Vite, MCP, ChromaDB',
       },
