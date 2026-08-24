@@ -34,7 +34,7 @@ const experiences: CompanyExperience[] = [
           '작업자, 일정, 이관과 배정 현황을 지도/목록/캘린더로 확인하고 조정하는 내부 운영 도구.',
         achievements: [
           '배정 시스템의 실시간 모니터링 화면과 서비스 매니저의 작업 현황/이관/구간 설정 기능 개발.',
-          'DevTools Heap Snapshot으로 지도 조회 5회 실측, 지도 인스턴스를 싱글턴 방식으로 전환해 조회당 약 290개씩 누적되던 detached DOM을 0개로 줄여 메모리 누수 개선.',
+          'DevTools Heap Snapshot으로 지도 조회 5회 실측, 지도 인스턴스를 싱글턴 방식으로 전환해 조회당 약 290개씩 누적되던 detached DOM을 0개로 줄여 반복 누적 제거.',
           'Recoil Selector를 기능별 Zustand Store로 재구성하고 서버 상태를 TanStack Query로 분리, 유닛 테스트와 MSW로 기존 동작을 검증해 마이그레이션 완료.',
         ],
         skills: 'React, TypeScript, Zustand, Recoil, TanStack Query',
