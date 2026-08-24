@@ -1,134 +1,61 @@
-import React, { PropsWithChildren } from "react";
+import React from 'react';
 
-const SkillItem = ({ children }: PropsWithChildren) => (
-  <li className="mt-4 flex flex-col items-start gap-2 sm:flex-row sm:gap-4">
-    {children}
-  </li>
-);
-const SubItems = ({ children }: PropsWithChildren) => (
-  <ul className="min-w-0 pl-1">{children}</ul>
-);
-const SubItemGridWrapper = ({ children }: PropsWithChildren) => (
-  <div className="grid grid-cols-[minmax(72px,100px)_minmax(0,1fr)] gap-x-4 gap-y-2">
-    {children}
-  </div>
-);
-const ContentItemLeft = ({ children }: PropsWithChildren) => (
-  <div className="min-w-36">{children}</div>
-);
-const SkillDetailItems = ({ children }: PropsWithChildren) => (
-  <ul className="ml-5 list-disc space-y-2">{children}</ul>
-);
+interface SkillGroup {
+  title: string;
+  skills: string[];
+}
+
+const skillGroups: SkillGroup[] = [
+  {
+    title: 'Frontend',
+    skills: [
+      'Next.js, TanStack Query',
+      'Tailwind CSS, Styled Components, Sass/SCSS, Storybook',
+      'Cypress, Sentry, Datadog(RUM, Dashboard, APM)',
+    ],
+  },
+  {
+    title: 'React',
+    skills: [
+      '재사용성 높은 컴포넌트 생성과 컴포지션으로 관심사 분리를 준수합니다.',
+      'UI는 스토어, 서버 데이터는 Tanstack Query를 활용하여 스토어 처리를 최소화합니다.',
+      'Atomic, Composition, FSD 등 다양한 디자인패턴 경험을 통해 최적의 디자인패턴을 활용하려고 합니다.',
+    ],
+  },
+  {
+    title: 'Typescript',
+    skills: [
+      '타입을 활용하여 빌드 및 컴파일 에러를 사전에 방지합니다.',
+      '유니온, 인터섹션 등 유틸리티를 활용하여 타입 구성을 합니다.',
+    ],
+  },
+  {
+    title: 'Infra',
+    skills: [
+      'AWS S3, CloudFront, Lambda를 활용할 수 있습니다.',
+      'CloudFront를 통해 내/외부망 연결 및 커스텀 헤더를 통해 캐싱제어 등 경험이 있습니다.',
+    ],
+  },
+];
 
 export const Skills = () => (
   <div>
-    <ul className="p-0">
-      <SkillItem>
-        <ContentItemLeft>
-          <h3>프론트엔드</h3>
-        </ContentItemLeft>
-        <SubItems>
-          <SubItemGridWrapper>
-            <div>
-              <p>언어</p>
-            </div>
-            <div>
-              <p>JavaScript(ES6+) / Typescript / HTML5 / CSS / SCSS</p>
-            </div>
-            <div>
-              <p>퍼블리싱</p>
-            </div>
-            <div>
-              <p>HTML5 / CSS / SCSS / emotion / styled-component</p>
-            </div>
-            <div>
-              <p>개발환경</p>
-            </div>
-            <div>
-              <p>
-                React18 / jotai / Recoil / TanStack Query / Redux(RTK) /
-                Redux-Thunk / Vue3 / pinia
-              </p>
-            </div>
-            <div>
-              <p>Bundler</p>
-            </div>
-            <div>
-              <p>Webpack / vite</p>
-            </div>
-            <div>
-              <p>Package</p>
-            </div>
-            <div>
-              <p>npm / yarn</p>
-            </div>
-          </SubItemGridWrapper>
-        </SubItems>
-      </SkillItem>
-
-      <SkillItem>
-        <ContentItemLeft>
-          <h3>데브옵스</h3>
-        </ContentItemLeft>
-        <SubItems>
-          <li>
-            <p>AWS EC2 / CloudFront / S3</p>
-          </li>
-        </SubItems>
-      </SkillItem>
-
-      <SkillItem>
-        <ContentItemLeft>
-          <h3>그 외</h3>
-        </ContentItemLeft>
-        <SubItems>
-          <li>
-            <p>Github / Jira</p>
-          </li>
-        </SubItems>
-      </SkillItem>
-    </ul>
-
-    <div style={{ marginTop: "16px" }}>
-      <SkillDetailItems>
-        <li>
-          <p>
-            <b>React</b> 사용하는 것을 선호합니다.
-            <b>컴포넌트 공통화 및 재활용</b> 하는 것에 능숙합니다.{" "}
-            <b>상태관리</b>, <b>비동기 처리</b>, 컴포넌트 로직 제어,{" "}
-            <b>다양한 디자인 패턴</b>을 익히고 적용하며 개발합니다.
-          </p>
-        </li>
-        <li>
-          <p>
-            재귀함수, <b>함수형 프로그래밍</b>을 사용하여 개발하려고 합니다.
-            SRP원칙을 준수하려고 하며 <b>가독성있는 코드</b>를 작성하려고
-            노력합니다.
-          </p>
-        </li>
-        <li>
-          <p>
-            타입스크립트 타입 재활용 및 <b>유틸리티 타입</b>을 활용하여 타입을
-            작성하고, <b>유니온</b>, <b>인터섹션</b> 타입 등 활용할 수 있습니다.
-          </p>
-        </li>
-        <li>
-          <p>
-            유틸성 함수는 <b>jest를 사용</b>하여 테스트코드를 작성하며, QA에
-            많이 잡히는 이슈들에 대해서는 <b>cypress</b>를 사용하여 이슈
-            재발하는 것을 방지하려합니다.
-          </p>
-        </li>
-        <li>
-          <p>
-            최근에는 비즈니스 로직을 <b>스토어 및 셀렉터</b>를 사용하여 로직을
-            구성합니다.
-          </p>
-        </li>
-        <li>
-          <p>웹접근성 및 시맨틱 태그를 고려하여 개발합니다.</p>
-        </li>
-      </SkillDetailItems>
-    </div>
+    <p className="mb-6 text-grey-700">현재 업무 또는 사이드 프로젝트에서 사용했던 기술들입니다.</p>
+    <dl className="grid grid-cols-1 border-t border-grey-200 sm:grid-cols-[minmax(140px,180px)_minmax(0,1fr)]">
+      {skillGroups.map((group) => (
+        <React.Fragment key={group.title}>
+          <dt className="border-b border-grey-200 py-5 sm:py-2">
+            <h3>{group.title}</h3>
+          </dt>
+          <dd className="border-b border-grey-200 pb-5 sm:py-2">
+            <ul className="resume-bullet-list resume-bullet-list--flush">
+              {group.skills.map((skill) => (
+                <li key={skill}>{skill}</li>
+              ))}
+            </ul>
+          </dd>
+        </React.Fragment>
+      ))}
+    </dl>
   </div>
 );

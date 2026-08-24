@@ -1,2 +1,2 @@
-export { default as ResumeLayout } from "./ResumeLayout";
-export * from "./SectionTitle";
+export { default as ResumeLayout } from './ResumeLayout';
+export * from './SectionTitle';

@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react";
-import { Container } from "gocheok-project";
+import React, { PropsWithChildren } from 'react';
+import { Container } from 'gocheok-project';
 
 type ResumeLayoutProps = PropsWithChildren;
 
