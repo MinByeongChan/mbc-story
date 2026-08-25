@@ -192,3 +192,39 @@
 .resume-bullet-list--flush {
   margin: 0;
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    text-rendering: geometricPrecision;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-inside: avoid;
+  }
+
+  footer {
+    margin-top: 2rem !important;
+    padding-top: 1rem !important;
+    padding-bottom: 0 !important;
+    break-inside: avoid;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+}
