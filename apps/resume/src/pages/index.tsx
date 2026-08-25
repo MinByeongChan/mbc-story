@@ -33,7 +33,7 @@ const contactLinks = [
 const ResumePage = () => (
   <Main meta={<ResumeMeta />}>
     <ResumeLayout>
-      <div className="flex flex-col-reverse items-start justify-between gap-8 pb-10 sm:flex-row sm:items-center">
+      <div className="pb-10">
         <ul className="space-y-2">
           <li className="mb-3 ">
             <h1 className="tracking-widest">민병찬</h1>
@@ -46,19 +46,12 @@ const ResumePage = () => (
               <UnderlineAnchor
                 href={href}
                 className="inline-flex w-fit items-center gap-2 pb-1 text-sm leading-relaxed text-grey-800 after:from-blue-600 after:via-blue-600 after:to-blue-600 sm:text-sm">
-                <Image aria-hidden alt="" height={20} src={icon} width={20} />
+                <Image aria-hidden alt="" height={20} src={icon} unoptimized width={20} />
                 {label}
               </UnderlineAnchor>
             </li>
           ))}
         </ul>
-        <Image
-          alt="민병찬 프로필"
-          className="size-40 shrink-0 rounded-full border-4 border-blue-50 object-cover shadow-sm sm:size-52"
-          height={208}
-          src="/assets/images/portfolio/profile_circle_img.png"
-          width={208}
-        />
       </div>
 
       <Introduction />
