@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/all";
 import Link from "next/link";
 import { StressButton } from "gocheok-project";
+import { portfolioPath } from "@/constants/portfolio";
 
 export const Profile = () => {
   gsap.registerPlugin(SplitText);
@@ -43,7 +44,7 @@ export const Profile = () => {
       className={twMerge(
         "flex w-full gap-16 items-center justify-between text-(--color-neutral-100)",
         "text-md flex-col-reverse p-6",
-        "sm:text-md sm:p-0 sm:flex-row"
+        "sm:text-md sm:p-0 sm:flex-row",
       )}
     >
       <article>
@@ -64,7 +65,7 @@ export const Profile = () => {
             <Typography
               className={twMerge(
                 "split text-4xl font-semibold text-(--color-primary)",
-                "sm:text-8xl"
+                "sm:text-8xl",
               )}
             >
               Frontend Developer
@@ -115,8 +116,11 @@ export const Profile = () => {
           className={twMerge(
             "profile-img relative w-[200px] h-[250px] rounded-[1rem] bg-white inset-shadow-[1px_1px_8px_rgba(0,0,0,0.8)]",
             "sm:w-[400px] sm:h-[450px] sm:rounded-[2rem] sm:inset-shadow-[1px_1px_15px_rgba(0,0,0,0.8)]",
-            "bg-cover bg-center bg-[url('/my_profile.png')]"
+            "bg-cover bg-center",
           )}
+          style={{
+            backgroundImage: `url(${portfolioPath("/my_profile.png")})`,
+          }}
         />
       </figure>
     </section>

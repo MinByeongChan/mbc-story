@@ -1,15 +1,18 @@
 import { MetadataRoute } from "next";
+import { PORTFOLIO_ORIGIN, portfolioPath } from "@/constants/portfolio";
+import { baseUrl } from "./constant";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://mbc-story-portfolio.vercel.app/";
-
   return {
     rules: {
       userAgent: "*",
-      allow: "/",
-      disallow: ["/private/", "/admin/"],
+      allow: `${portfolioPath()}/`,
+      disallow: [
+        `${portfolioPath("/private")}/`,
+        `${portfolioPath("/admin")}/`,
+      ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    host: PORTFOLIO_ORIGIN,
   };
 }

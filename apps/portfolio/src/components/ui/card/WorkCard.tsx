@@ -5,6 +5,7 @@ import { twMerge } from "tailwind-merge";
 import { Typography } from "gocheok-project";
 import Link from "next/link";
 import Image from "next/image";
+import { portfolioPath } from "@/constants/portfolio";
 
 export interface WorkCardProps {
   className?: string;
@@ -38,11 +39,11 @@ export const WorkCard = ({
             <Image
               width={imgSrc ? 500 : 50}
               height={imgSrc ? 500 : 100}
-              src={imgSrc || "/portfolio/work/no_data.png"}
+              src={imgSrc || portfolioPath("/work/no_data.png")}
               alt={imgAlt || "No Data"}
               className={twMerge(
                 "max-h-full max-w-full object-cover mx-auto transition-all duration-300",
-                "group-hover:scale-105"
+                "group-hover:scale-105",
               )}
             />
           </div>
@@ -52,7 +53,7 @@ export const WorkCard = ({
             <Typography
               className={twMerge(
                 "text-xl font-bold text-white transition-all duration-300",
-                "group-hover:text-primary"
+                "group-hover:text-primary",
               )}
             >
               {title}

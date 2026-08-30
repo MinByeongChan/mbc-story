@@ -2,7 +2,7 @@
 
 2025.06 – 2025.07
 
-[Portfolio](https://mbc-story-portfolio.vercel.app)
+[Portfolio](https://byeongchan.space/portfolio)
 [Github Repository](https://github.com/MinByeongChan/mbc-story)
 
 ## 서비스 내용

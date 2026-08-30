@@ -142,12 +142,12 @@ pnpm lint
 
 이 프로젝트는 Vercel을 통해 배포되어 있습니다:
 
-- **Production**: https://mbc-story-portfolio.vercel.app
+- **Production**: https://byeongchan.space/portfolio
 
 ### 배포 설정
 
 - **Platform**: Vercel
-- **Domain**: mbc-story-portfolio.vercel.app
+- **Domain**: byeongchan.space/portfolio
 - **Build Command**: `pnpm build`
 - **Output Directory**: `.next`
 

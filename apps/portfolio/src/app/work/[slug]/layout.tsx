@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import React from "react";
 import { twMerge } from "tailwind-merge";
+import { portfolioPath } from "@/constants/portfolio";
 
 export default function WorkSlugLayout({
   children,
@@ -19,12 +20,17 @@ export default function WorkSlugLayout({
           "lg:mx-24 lg:mt-8",
           "md:mx-16 md:mt-8",
           "sm:mt-8",
-          "mt-16"
+          "mt-16",
         )}
       >
         <Link href="/work">
           <span className="text-md flex items-center gap-2 text-neutral-200">
-            <Image src="/left-arrow.png" alt="Back" width={24} height={24} />
+            <Image
+              src={portfolioPath("/left-arrow.png")}
+              alt="Back"
+              width={24}
+              height={24}
+            />
             Back
           </span>
         </Link>
