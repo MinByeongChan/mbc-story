@@ -9,6 +9,7 @@ import {
 import { Typography } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
+import { BLOG_URL, SITE_ORIGIN, blogPath } from '@/constants/blog';
 
 export const Introduction = () => {
   return (
@@ -16,7 +17,7 @@ export const Introduction = () => {
       <IntroductionFlexContainer>
         <Image
           alt="소개 이미지"
-          src="/assets/images/portfolio/introduction_me.png"
+          src={blogPath('/assets/images/portfolio/introduction_me.png')}
           width={250}
           height={250}
         />
@@ -54,10 +55,8 @@ export const Introduction = () => {
             </Typography>
           </IntroductionDescListItem>
           <IntroductionAnchorListItem>
-            <IntroductionAnchor href="https://mbc-dev-blog.vercel.app">Blog</IntroductionAnchor>
-            <IntroductionAnchor href="https://mbc-dev-blog.vercel.app/about">
-              Resume
-            </IntroductionAnchor>
+            <IntroductionAnchor href={BLOG_URL}>Blog</IntroductionAnchor>
+            <IntroductionAnchor href={`${SITE_ORIGIN}/resume`}>Resume</IntroductionAnchor>
             <IntroductionAnchor href="https://github.com/MinByeongChan">Github</IntroductionAnchor>
           </IntroductionAnchorListItem>
         </IntroductionDescList>

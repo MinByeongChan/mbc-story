@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { BLOG_URL, blogPath } from '@/constants/blog';
 import { Config } from '@/utils/Config';
 
 export const AboutMeta = () => {
@@ -8,10 +9,22 @@ export const AboutMeta = () => {
       <Head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="apple-touch-icon" href={`/apple-touch-icon.png`} key="apple" />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/favicon-32x32.png`} key="icon32" />
-        <link rel="icon" type="image/png" sizes="16x16" href={`/favicon-16x16.png`} key="icon16" />
-        <link rel="icon" href={`/favicon.ico`} key="favicon" />
+        <link rel="apple-touch-icon" href={blogPath('/apple-touch-icon.png')} key="apple" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href={blogPath('/favicon-32x32.png')}
+          key="icon32"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href={blogPath('/favicon-16x16.png')}
+          key="icon16"
+        />
+        <link rel="icon" href={blogPath('/favicon.ico')} key="favicon" />
         <title>{`이력서 프론트엔드 민병찬 | ${Config.title}`}</title>
         <meta
           name="description"
@@ -19,7 +32,7 @@ export const AboutMeta = () => {
           key="description"
         />
         <meta name="author" content={Config.author} key="author" />
-        <link rel="canonical" href="https://mbc-dev-blog.vercel.app/about" />
+        <link rel="canonical" href={`${BLOG_URL}/about`} />
 
         <meta
           property="og:title"

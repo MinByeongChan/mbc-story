@@ -5,27 +5,28 @@ import { UnderlineAnchor } from 'gocheok-project';
 import ResumeLayout from '@/layout/ResumeLayout';
 import { Main } from '@/components/templates';
 import { Experience, Introduction, OtherExperience, ResumeMeta, Skills } from '@/components';
+import { resumePath } from '@/constants/resume';
 import { SectionTitle } from '@/layout';
 
 const contactLinks = [
   {
     href: 'tel:01077020481',
-    icon: '/assets/icons/contact/phone.svg',
+    icon: resumePath('/assets/icons/contact/phone.svg'),
     label: '(+82) 010-7702-0481',
   },
   {
     href: 'mailto:mbc0481@naver.com',
-    icon: '/assets/icons/contact/mail.svg',
+    icon: resumePath('/assets/icons/contact/mail.svg'),
     label: 'mbc0481@naver.com',
   },
   // {
-  //   href: "https://mbc-dev-blog.vercel.app",
+  //   href: "https://byeongchan.space/blog",
   //   icon: "/assets/icons/contact/website.svg",
-  //   label: "mbc-dev-blog.vercel.app",
+  //   label: "byeongchan.space/blog",
   // },
   {
     href: 'https://github.com/MinByeongChan',
-    icon: '/assets/icons/contact/github.svg',
+    icon: resumePath('/assets/icons/contact/github.svg'),
     label: 'MinByeongChan',
   },
 ] as const;

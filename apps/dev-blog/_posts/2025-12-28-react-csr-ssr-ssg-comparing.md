@@ -104,11 +104,11 @@ vite를 이용하여 CSR, SSR, pre-rendering을 이용한 SSG를 테스트한다
 전통적인 React 기반으로한 CSR을 구현했다.
 렌더링을 확인하기 위해 index.html의 root에 엘리먼트에 background-color, width, height를 설정해놓았다.
 
-<img src="https://mbc-dev-blog.vercel.app/assets/images/posts/image_20251227170553.png" alt="CSR지표" width="100%" />
+<img src="https://byeongchan.space/blog/assets/images/posts/image_20251227170553.png" alt="CSR지표" width="100%" />
 
 먼저 초반에 흰화면은 index.html을 받아오는 과정이다. localhost:3000의 index.html을 받아오는데 약 600ms정도 소요되었다.
 
-<img src="https://mbc-dev-blog.vercel.app/assets/images/posts/image_20251227171035.png" alt="CSR_렌더링_지표" width="100%" />
+<img src="https://byeongchan.space/blog/assets/images/posts/image_20251227171035.png" alt="CSR_렌더링_지표" width="100%" />
 
 LCP 측정결과 1,200ms 가량 소요됐다. html을 받으면 바로 load되는 것을 기대했는데, 1150ms 시점에서 로드된걸로 보아 load되는데 생각보다 시간이 소요되는것을 알 수 있다. 총 렌더링 시간은 1,196ms만큼 소요되었다. 이후 js가 로드되고 react로부터 로드되는 컨텐츠가 보인다.
 
@@ -118,7 +118,7 @@ SSR은 서버에서 미리 React 코드를 로드하여 document 에 string 형�
 
 사용자는 path에 접근하게 되면, 리소스를 받는다. 이때, 서버에서 미리 만들어준 리액트 document를 내려받는다.
 
-<img src="https://mbc-dev-blog.vercel.app/assets/images/posts/image_20251227171824.png" alt="SSR지표" width="100%" />
+<img src="https://byeongchan.space/blog/assets/images/posts/image_20251227171824.png" alt="SSR지표" width="100%" />
 
 서버에서 미리 만들어준 문서를 받기 때문에 첫 진입할 할때 보이는 화면(FCP)이 CSR보다 빠르게 보인다. 625ms로 리소스를 받자마자 곧바로 확인할 수 있는 것을 확인할 수 있다. 이후 js를 통해 컨텐츠가 로드되는 화면(LCP)는 1,283ms 으로 좀 더 느리다. 네트워크 상황으로 약간의 오차가 발생할 수 있지만, CSR과 비교하면 64ms 가량 조금 늦어졌다.
 
@@ -132,7 +132,7 @@ SSG란 Static Site Generation 으로 서버에서 fetching할 데이터나 이�
 
 서버에서 데이터를 사전에 미리 생성하고 클라이언트를 로드하기 때문에 사용자 입장에서 초기 진입시, 데이터가 로딩중이거나, 폰트깨짐(로드되는 과정중 변화하는 현상) 과 같이 전반적인 화면의 재구성 과정을 볼 필요가 없다. 단, 그만큼 페이지 로드가 늦어지는 단점이 있다. SSG 역시, 필요한 데이터만 사전 렌더를 하고 나머지는 클라이언트에서 진행하는 것이 좋다.
 
-<img src="https://mbc-dev-blog.vercel.app/assets/images/posts/image_20251228144557.png" alt="SSG지표" width="100%" />
+<img src="https://byeongchan.space/blog/assets/images/posts/image_20251228144557.png" alt="SSG지표" width="100%" />
 
 위 결과는 사전에 https://jsonplaceholder.typicode.com/posts 를 호출하였다. 호출 결과를 App.tsx에 데이터를 전달하여 페이지는 그리도록 예제를 작성했다.
 

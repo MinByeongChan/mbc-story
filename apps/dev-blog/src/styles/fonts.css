@@ -1,31 +1,30 @@
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: 700;
-  src: url('/fonts/MaruBuri-Bold.otf');
+  src: url("/blog/fonts/MaruBuri-Bold.otf");
 }
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: 600;
-  src: url('/fonts/MaruBuri-SemiBold.otf');
+  src: url("/blog/fonts/MaruBuri-SemiBold.otf");
 }
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: 500;
-  src: url('/fonts/MaruBuri-Regular.otf');
+  src: url("/blog/fonts/MaruBuri-Regular.otf");
 }
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: normal;
-  src: url('/fonts/MaruBuri-Regular.otf');
+  src: url("/blog/fonts/MaruBuri-Regular.otf");
 }
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: 400;
-  src: url('/fonts/MaruBuri-Light.otf');
+  src: url("/blog/fonts/MaruBuri-Light.otf");
 }
 @font-face {
-  font-family: 'MaruBuri';
+  font-family: "MaruBuri";
   font-weight: 300;
- src: url('/fonts/MaruBuri-ExtraLight.otf');
+  src: url("/blog/fonts/MaruBuri-ExtraLight.otf");
 }
-

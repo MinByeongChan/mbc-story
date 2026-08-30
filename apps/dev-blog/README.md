@@ -2,6 +2,8 @@
 
 개발했던 자료를 정리하기 위한 기술블로그
 
+운영 주소는 `https://byeongchan.space/blog`이며, Next.js `basePath`도 `/blog`로 설정합니다.
+
 ## 1.	개요
 - 배운 기술 정리, React.js, Next.js를 향상, 포트폴리오를 위해 블로그를 개설 하려함 
 - SEO를 개선하기 위해 SSR 프레임워크인 Next.js 사용 

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import TextDefault from '../ui/TextDefault';
 import { fontWeight } from '@/utils/StyleTheme';
 import Image from 'next/image';
+import { blogPath } from '@/constants/blog';
 
 const ListItems = styled.ul`
   padding-left: 10px;
@@ -25,7 +26,12 @@ export const AboutExperience = () => (
     </div>
     <div>
       <ComponyItem>
-        <Image alt="coway" src="/assets/images/about/coway_logo.png" width={26} height={26} />
+        <Image
+          alt="coway"
+          src={blogPath('/assets/images/about/coway_logo.png')}
+          width={26}
+          height={26}
+        />
         <TextDefault size="xg" weight={fontWeight.bold} lineHeight="lg">
           코웨이
         </TextDefault>
@@ -113,7 +119,12 @@ export const AboutExperience = () => (
     </div>
 
     <ComponyItem>
-      <Image alt="coway" src="/assets/images/about/ksnet_logo.png" width={26} height={26} />
+      <Image
+        alt="coway"
+        src={blogPath('/assets/images/about/ksnet_logo.png')}
+        width={26}
+        height={26}
+      />
       <TextDefault size="xg" weight={fontWeight.bold} lineHeight="lg">
         KSNET
       </TextDefault>

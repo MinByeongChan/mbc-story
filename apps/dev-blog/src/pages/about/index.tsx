@@ -17,6 +17,7 @@ import {
 import TextDefault from '@/components/ui/TextDefault';
 import { fontWeight } from '@/utils/StyleTheme';
 import { ContentTitle } from '@/layout';
+import { BLOG_URL, blogPath } from '@/constants/blog';
 
 const IntroWrapper = styled.div`
   display: flex;
@@ -90,7 +91,7 @@ const About = () => (
           </IntroItem>
           <IntroItem>
             <TextDefault size="lg" lineHeight="md">
-              🏠&nbsp; <a href="https://mbc-dev-blog.vercel.app">https://mbc-dev-blog.vercel.app</a>
+              🏠&nbsp; <a href={BLOG_URL}>{BLOG_URL}</a>
             </TextDefault>
           </IntroItem>
           <IntroItem>
@@ -100,7 +101,7 @@ const About = () => (
             </TextDefault>
           </IntroItem>
         </ul>
-        <ProfileImg alt="" src="/assets/images/portfolio/profile_circle_img.png" />
+        <ProfileImg alt="" src={blogPath('/assets/images/portfolio/profile_circle_img.png')} />
       </IntroWrapper>
 
       <ContentTitle title="소개" id="introduction" />

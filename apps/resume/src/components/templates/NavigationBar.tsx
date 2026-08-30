@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { Container } from 'gocheok-project';
+import { PORTFOLIO_URL } from '@/constants/resume';
 
 const navItems = [
   { href: '/', label: 'Resume' },
-  { href: 'https://mbc-story-portfolio.vercel.app', label: 'Portfolio' },
+  { href: PORTFOLIO_URL, label: 'Portfolio' },
   { href: 'https://github.com/MinByeongChan', label: 'GitHub' },
 ];
 
