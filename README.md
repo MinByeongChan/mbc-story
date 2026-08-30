@@ -41,6 +41,14 @@ mbc-story/
 
 **배포**: https://byeongchan.space/portfolio
 
+### 🧾 Resume (apps/resume)
+
+**배포**: https://byeongchan.space/resume
+
+### ✍️ Blog (apps/dev-blog)
+
+**배포**: https://byeongchan.space/blog
+
 ### 🎨 Gocheok Project (packages/gocheok-project)
 
 **기술 스택**: React + TypeScript + Vite + TailwindCSS + Storybook
@@ -208,6 +216,8 @@ pnpm --filter gocheok-project build-storybook
 - **이메일**: mbc0481@naver.com
 - **GitHub**: https://github.com/minbyeongchan
 - **포트폴리오**: https://byeongchan.space/portfolio
+- **이력서**: https://byeongchan.space/resume
+- **블로그**: https://byeongchan.space/blog
 
 ## 📄 라이선스
 

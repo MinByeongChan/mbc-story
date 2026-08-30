@@ -10,6 +10,7 @@ import { AccordionDetails, AccordionSummary, ListItem, Typography } from '@mui/m
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import React from 'react';
 import { TooltipButton } from '@/components/portfolio/Stack/TooltipButton';
+import { blogPath } from '@/constants/blog';
 
 export const Stack = () => {
   return (
@@ -26,27 +27,27 @@ export const Stack = () => {
               <StackCardImageBox>
                 <TooltipButton
                   title="Typescript"
-                  src="/assets/images/portfolio/ts_icon.png"
+                  src={blogPath('/assets/images/portfolio/ts_icon.png')}
                   alt="ts_icon"
                 />
                 <TooltipButton
                   title="Javascript"
-                  src="/assets/images/portfolio/js_icon.png"
+                  src={blogPath('/assets/images/portfolio/js_icon.png')}
                   alt="js_icon"
                 />
                 <TooltipButton
                   title="HTML5"
-                  src="/assets/images/portfolio/html_icon.png"
+                  src={blogPath('/assets/images/portfolio/html_icon.png')}
                   alt="html_icon"
                 />
                 <TooltipButton
                   title="Scss/Sass"
-                  src="/assets/images/portfolio/sass_icon.png"
+                  src={blogPath('/assets/images/portfolio/sass_icon.png')}
                   alt="sass_icon"
                 />
                 <TooltipButton
                   title="Emotion"
-                  src="/assets/images/portfolio/emotion_icon.png"
+                  src={blogPath('/assets/images/portfolio/emotion_icon.png')}
                   alt="emotion_icon"
                 />
               </StackCardImageBox>
@@ -72,17 +73,17 @@ export const Stack = () => {
               <StackCardImageBox>
                 <TooltipButton
                   title="React"
-                  src="/assets/images/portfolio/react_icon.png"
+                  src={blogPath('/assets/images/portfolio/react_icon.png')}
                   alt="react_icon"
                 />
                 <TooltipButton
                   title="NextJS"
-                  src="/assets/images/portfolio/next_icon.png"
+                  src={blogPath('/assets/images/portfolio/next_icon.png')}
                   alt="nextjs_icon"
                 />
                 <TooltipButton
                   title="Material UI"
-                  src="/assets/images/portfolio/mui_icon.png"
+                  src={blogPath('/assets/images/portfolio/mui_icon.png')}
                   alt="mui_icon"
                 />
               </StackCardImageBox>
@@ -106,17 +107,17 @@ export const Stack = () => {
               <StackCardImageBox>
                 <TooltipButton
                   title="EC2"
-                  src="/assets/images/portfolio/aws_ec2_icon.png"
+                  src={blogPath('/assets/images/portfolio/aws_ec2_icon.png')}
                   alt="aws_ec2_icon"
                 />
                 <TooltipButton
                   title="S3"
-                  src="/assets/images/portfolio/aws_s3_icon.png"
+                  src={blogPath('/assets/images/portfolio/aws_s3_icon.png')}
                   alt="aws_s3_icon"
                 />
                 <TooltipButton
                   title="Cloud Front"
-                  src="/assets/images/portfolio/aws_cloud_front_icon.png"
+                  src={blogPath('/assets/images/portfolio/aws_cloud_front_icon.png')}
                   alt="aws_cloud_front_icon"
                 />
               </StackCardImageBox>

@@ -15,6 +15,7 @@ import { FrontMatter } from '@/types';
 import { Email, Instagram } from '@mui/icons-material';
 import Link from 'next/link';
 import 'github-markdown-css/github-markdown-light.css';
+import { blogPath } from '@/constants/blog';
 
 type PostUrl = {
   slug: string;
@@ -68,7 +69,7 @@ function PostDetails({
         <SubTitleContainer>
           <Avatar
             alt="Min Byeong Chan Profile Icon"
-            src="/assets/images/mbc_img.png"
+            src={blogPath('/assets/images/mbc_img.png')}
             sx={{ width: 48, height: 48 }}
           />
           <Box>

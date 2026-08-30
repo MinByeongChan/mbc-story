@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { color, spacing } from '@/utils/StyleTheme';
 import TextDefault from '@/components/ui/TextDefault';
+import { PORTFOLIO_URL } from '@/constants/blog';
 import { useRouter } from 'next/router';
 
 const NavLayout = styled.nav({
@@ -86,7 +87,7 @@ export const NavigationBar = () => {
             </StyledLink>
           </NavLi>
           <NavLi initHeight={router.pathname === '/portfolio' ? '4px' : '0px'}>
-            <StyledLink href="https://mbc-story-portfolio.vercel.app">
+            <StyledLink href={PORTFOLIO_URL}>
               <TextDefault>Portfolio</TextDefault>
             </StyledLink>
           </NavLi>

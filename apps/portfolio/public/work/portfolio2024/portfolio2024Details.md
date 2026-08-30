@@ -2,7 +2,7 @@
 
 2024.12
 
-[Portfolio](https://mbc-dev-blog.vercel.app/portfolio)
+[Portfolio](https://byeongchan.space/portfolio)
 [Github Repository](https://github.com/MinByeongChan/mbc-devBlog)
 
 ## 서비스 내용

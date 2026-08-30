@@ -2,7 +2,7 @@
 
 2022.01 – 현재
 
-[Blog](https://mbc-dev-blog.vercel.app)
+[Blog](https://byeongchan.space/blog)
 [Github Repository](https://github.com/MinByeongChan/mbc-devBlog)
 
 ## 서비스 내용

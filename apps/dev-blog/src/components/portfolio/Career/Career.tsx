@@ -14,6 +14,7 @@ import dayjs from 'dayjs';
 import { CareerServiceInfo } from '@/components/portfolio/Career/CareerServiceInfo';
 import { ModalContent, PortfolioDetails } from '@/types';
 import { CareerDetailsModal } from '@/components/portfolio/Career/CareerDetailsModal/CareerDetailsModal';
+import { blogPath } from '@/constants/blog';
 
 interface CareerProps {
   careerDetails: PortfolioDetails[];
@@ -58,18 +59,29 @@ export const Career = ({ careerDetails }: CareerProps) => {
       <CareerBackGroundContainer className="career">
         <CareerContentTitle>Career.</CareerContentTitle>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            marginTop: '16px',
+          }}>
           <CareerFlexContainer>
             <CareerLogoBox>
               <Image
                 width={181}
                 height={184}
-                src="/assets/images/portfolio/coway_logo.png"
+                src={blogPath('/assets/images/portfolio/coway_logo.png')}
                 alt="coway_logo"
               />
             </CareerLogoBox>
             <CareerLogoRemarkStack>
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
                 <Typography variant="h5" fontWeight="bold">
                   (주) 코웨이
                 </Typography>
@@ -147,7 +159,7 @@ export const Career = ({ careerDetails }: CareerProps) => {
               <Image
                 width={181}
                 height={184}
-                src="/assets/images/portfolio/ksnet_logo.png"
+                src={blogPath('/assets/images/portfolio/ksnet_logo.png')}
                 alt="ksnet_logo"
               />
             </CareerLogoBox>

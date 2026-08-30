@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { color, fontWeight } from '@/utils/StyleTheme';
 import TextDefault from '../ui/TextDefault';
+import { blogPath } from '@/constants/blog';
 
 const CardContainer = styled.div`
   width: 100%;
@@ -31,7 +32,7 @@ const CardItem = styled.div`
   background-position: 5% 100%;
   align-content: center;
   background-repeat: no-repeat;
-  background-image: url('/assets/images/portfolio/myblog.png');
+  background-image: url('${blogPath('/assets/images/portfolio/myblog.png')}');
 
   @media screen and (min-width: 0px) and (max-width: 768px) {
     min-height: 550px;
@@ -39,7 +40,7 @@ const CardItem = styled.div`
     background-size: 87%;
     background-position: top;
     align-content: flex-end;
-    background-image: url('/assets/images/portfolio/myblog.png');
+    background-image: url('${blogPath('/assets/images/portfolio/myblog.png')}');
   }
 `;
 const CardItemContent = styled.div`
@@ -53,7 +54,7 @@ const CardItemContent = styled.div`
     background-position: top;
     background-repeat: no-repeat;
     align-content: flex-end;
-    background-image: url('/assets/images/portfolio/myblog.png');
+    background-image: url('${blogPath('/assets/images/portfolio/myblog.png')}');
     background: linear-gradient(180deg, rgba(40, 35, 135, 0), #8e8e8e 12%, #8e8e8e);
   }
 `;
