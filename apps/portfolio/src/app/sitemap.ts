@@ -1,8 +1,7 @@
 import { MetadataRoute } from "next";
+import { baseUrl } from "./constant";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mbc-story-portfolio.vercel.app/";
-
   // 작업 프로젝트 목록
   const workProjects = [
     "abcAdmin",

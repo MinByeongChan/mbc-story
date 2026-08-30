@@ -1,6 +1,7 @@
 import { ProjectInfoRecord } from "@/components/work/MarkdownRenderer/type";
+import { baseUrl } from "@/app/constant";
 
-export const baseUrl = "https://mbc-story-portfolio.vercel.app/";
+export { baseUrl };
 
 // 프로젝트 정보 매핑
 export const projectInfo: ProjectInfoRecord = {

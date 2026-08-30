@@ -1,4 +1,6 @@
-export const baseUrl = "https://mbc-story-portfolio.vercel.app";
+import { PORTFOLIO_URL } from "@/constants/portfolio";
+
+export const baseUrl = PORTFOLIO_URL;
 
 export const metaInfo = {
   name: "민병찬",

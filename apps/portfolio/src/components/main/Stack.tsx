@@ -5,6 +5,7 @@ import { Typography } from "gocheok-project";
 import { useGSAP } from "@gsap/react";
 import gsap, { ScrollTrigger } from "gsap/all";
 import { StackItem } from "./StackItem";
+import { portfolioPath } from "@/constants/portfolio";
 
 export const Stack = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +13,7 @@ export const Stack = () => {
   const setGsapScrollTrigger = (
     className: string,
     start: string,
-    end: string
+    end: string,
   ) => {
     gsap.set(className, { opacity: 0 });
     gsap.to(className, {
@@ -39,55 +40,55 @@ export const Stack = () => {
     {
       index: 1,
       label: "TypeScript",
-      imageSrc: "/portfolio/main/typescript-icon.svg",
+      imageSrc: portfolioPath("/main/typescript-icon.svg"),
     },
     {
       index: 2,
       label: "JavaScript",
-      imageSrc: "/portfolio/main/javascript-icon.svg",
+      imageSrc: portfolioPath("/main/javascript-icon.svg"),
     },
     {
       index: 3,
       label: "React",
-      imageSrc: "/portfolio/main/react-icon.svg",
+      imageSrc: portfolioPath("/main/react-icon.svg"),
     },
     {
       index: 4,
       label: "Next.js",
-      imageSrc: "/portfolio/main/nextjs-icon.svg",
+      imageSrc: portfolioPath("/main/nextjs-icon.svg"),
       isBackground: true,
     },
     {
       index: 5,
       label: "Tailwind CSS",
-      imageSrc: "/portfolio/main/tailwind-icon.png",
+      imageSrc: portfolioPath("/main/tailwind-icon.png"),
     },
     {
       index: 6,
       label: "Emotion",
-      imageSrc: "/portfolio/main/emotion-icon.png",
+      imageSrc: portfolioPath("/main/emotion-icon.png"),
     },
 
     {
       index: 7,
       label: "Jotai",
-      imageSrc: "/portfolio/main/jotai-icon.png",
+      imageSrc: portfolioPath("/main/jotai-icon.png"),
     },
     {
       index: 8,
       label: "Recoil",
-      imageSrc: "/portfolio/main/recoil-logo.svg",
+      imageSrc: portfolioPath("/main/recoil-logo.svg"),
       isBackground: true,
     },
     {
       index: 9,
       label: "Sass/Scss",
-      imageSrc: "/portfolio/main/sass.png",
+      imageSrc: portfolioPath("/main/sass.png"),
     },
     {
       index: 10,
       label: "Styled Components",
-      imageSrc: "/portfolio/main/styled-components-icon.png",
+      imageSrc: portfolioPath("/main/styled-components-icon.png"),
       isBackground: true,
     },
   ];
@@ -96,17 +97,17 @@ export const Stack = () => {
     {
       index: 11,
       label: "AWS EC2",
-      imageSrc: "/portfolio/main/ec2-icon.png",
+      imageSrc: portfolioPath("/main/ec2-icon.png"),
     },
     {
       index: 12,
       label: "AWS CloudFront",
-      imageSrc: "/portfolio/main/cloudfront-icon.webp",
+      imageSrc: portfolioPath("/main/cloudfront-icon.webp"),
     },
     {
       index: 13,
       label: "AWS S3",
-      imageSrc: "/portfolio/main/s3-icon.webp",
+      imageSrc: portfolioPath("/main/s3-icon.webp"),
     },
   ];
 
@@ -114,12 +115,12 @@ export const Stack = () => {
     {
       index: 14,
       label: "Jira",
-      imageSrc: "/portfolio/main/jira-icon.svg",
+      imageSrc: portfolioPath("/main/jira-icon.svg"),
     },
     {
       index: 15,
       label: "Github",
-      imageSrc: "/portfolio/main/github-icon.png",
+      imageSrc: portfolioPath("/main/github-icon.png"),
     },
   ];
 

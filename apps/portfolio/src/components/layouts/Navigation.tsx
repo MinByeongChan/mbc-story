@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
 import Link from "next/link";
+import { portfolioPath } from "@/constants/portfolio";
 
 export const Navigation = () => {
   gsap.registerPlugin(Observer);
@@ -36,7 +37,7 @@ export const Navigation = () => {
     <nav className="nav-container w-full z-1000 h-16 flex items-center justify-between px-8 fixed">
       <div className="w-full h-full flex items-center justify-between">
         <div className="w-1/2 h-full flex items-center justify-start">
-          <Anchor className="w-24 h-8 text-lg font-bold" href="/">
+          <Anchor className="w-24 h-8 text-lg font-bold" href={portfolioPath()}>
             B.C Min
           </Anchor>
         </div>
@@ -48,7 +49,7 @@ export const Navigation = () => {
           </Link>
         </StressButton>
         <StressButton className="w-25 h-7" noneBorder>
-          <Link className="text-lg" href="/portfolio/Resume.pdf" download>
+          <Link className="text-lg" href="/Resume.pdf" download>
             Resume
           </Link>
         </StressButton>

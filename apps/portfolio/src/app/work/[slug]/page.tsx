@@ -10,6 +10,7 @@ import { Metadata } from "next";
 import { MarkdownRenderer } from "@/components/work/MarkdownRenderer/MarkdownRenderer";
 import { getProjectMetadata } from "./utils";
 import { baseUrl, projectInfo } from "./constant";
+import { portfolioPath } from "@/constants/portfolio";
 
 export async function generateMetadata({
   params,
@@ -35,7 +36,7 @@ export default async function WorkSlug({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const dirPath = path.join(process.cwd(), `/public/portfolio/work/${slug}`);
+  const dirPath = path.join(process.cwd(), `/public/work/${slug}`);
   const filePath = path.join(dirPath, `${slug}Details.md`);
 
   // htmlContent 대신 markdownContent 사용
@@ -52,7 +53,7 @@ export default async function WorkSlug({
     // .png 파일만 필터링
     images = files
       .filter((file) => file.toLowerCase().endsWith(".png"))
-      .map((file) => `/portfolio/work/${slug}/${file}`);
+      .map((file) => portfolioPath(`/work/${slug}/${file}`));
   } catch (error) {
     console.error("Error:", error);
     return <div>Content not found.</div>;

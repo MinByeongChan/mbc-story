@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { AsideLink } from "@/components/layouts/AsideLink";
 import { Navigation } from "@/components/layouts/Navigation";
 import { twMerge } from "tailwind-merge";
+import { portfolioPath } from "@/constants/portfolio";
 import { keywords, metaInfo } from "./constant";
 
 const poppins = Poppins({
@@ -30,10 +31,10 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL(metaInfo.url),
   alternates: {
-    canonical: "/",
+    canonical: metaInfo.url,
     languages: {
-      "ko-KR": "/",
-      "en-US": "/en",
+      "ko-KR": metaInfo.url,
+      "en-US": `${metaInfo.url}/en`,
     },
   },
   openGraph: {
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     description: metaInfo.description,
     images: [
       {
-        url: "/favicon-large.png",
+        url: `${metaInfo.url}/favicon-large.png`,
         width: 1200,
         height: 630,
         alt: "민병찬 프론트엔드 개발자 포트폴리오",
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: metaInfo.title,
     description: metaInfo.description,
-    images: ["/favicon-large.png"],
+    images: [`${metaInfo.url}/favicon-large.png`],
     creator: metaInfo.twitter,
     site: metaInfo.twitter,
   },
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
   other: {
     "theme-color": "#4ECDC4",
     "msapplication-TileColor": "#4ECDC4",
-    "msapplication-config": "/browserconfig.xml",
+    "msapplication-config": `${metaInfo.url}/browserconfig.xml`,
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
     "apple-mobile-web-app-title": "민병찬 Portfolio",
@@ -115,27 +116,31 @@ export const metadata: Metadata = {
   generator: "Next.js",
   abstract:
     "민병찬 프론트엔드 개발자의 포트폴리오 웹사이트. React, TypeScript, Next.js를 활용한 프로젝트 경험과 기술 스택을 소개합니다.",
-  archives: [`${metaInfo.url}/work`, `${metaInfo.url}/portfolio/Resume.pdf`],
+  archives: [`${metaInfo.url}/work`, `${metaInfo.url}/Resume.pdf`],
   assets: [metaInfo.url],
-  manifest: "/manifest.json",
+  manifest: portfolioPath("/manifest.json"),
   icons: {
     icon: [
-      { url: "/favicon.png", type: "image/png" },
-      { url: "/favicon-large.png", sizes: "192x192", type: "image/png" },
-    ],
-    apple: [
+      { url: portfolioPath("/favicon.png"), type: "image/png" },
       {
-        url: "/favicon.png",
-        sizes: "40x40",
-        type: "image/png",
-      },
-      {
-        url: "/favicon-large.png",
+        url: portfolioPath("/favicon-large.png"),
         sizes: "192x192",
         type: "image/png",
       },
     ],
-    shortcut: [{ url: "/favicon.png", type: "image/png" }],
+    apple: [
+      {
+        url: portfolioPath("/favicon.png"),
+        sizes: "40x40",
+        type: "image/png",
+      },
+      {
+        url: portfolioPath("/favicon-large.png"),
+        sizes: "192x192",
+        type: "image/png",
+      },
+    ],
+    shortcut: [{ url: portfolioPath("/favicon.png"), type: "image/png" }],
   },
 };
 
@@ -205,7 +210,7 @@ export default function RootLayout({
             className={twMerge(
               "text-md p-6",
               "lg:p-18 sm:text-md",
-              "sm:p-12 sm:text-md"
+              "sm:p-12 sm:text-md",
             )}
           >
             {children}

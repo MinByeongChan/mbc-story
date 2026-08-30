@@ -39,7 +39,7 @@ mbc-story/
 - 프로젝트 상세 페이지 (마크다운 기반)
 - PWA 지원
 
-**배포**: https://mbc-story-portfolio.vercel.app
+**배포**: https://byeongchan.space/portfolio
 
 ### 🎨 Gocheok Project (packages/gocheok-project)
 
@@ -207,7 +207,7 @@ pnpm --filter gocheok-project build-storybook
 - **개발자**: 민병찬 (MinByeongChan)
 - **이메일**: mbc0481@naver.com
 - **GitHub**: https://github.com/minbyeongchan
-- **포트폴리오**: https://mbc-story-portfolio.vercel.app
+- **포트폴리오**: https://byeongchan.space/portfolio
 
 ## 📄 라이선스
 
