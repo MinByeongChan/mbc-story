@@ -1,25 +1,14 @@
 import { ProjectInfoRecord } from "@/components/work/MarkdownRenderer/type";
 import { portfolioPath } from "@/constants/portfolio";
+import { getProject, getProjectThumbnailPath } from "@/content/projects";
 
 export const getImageUrl = (slug: string) => {
-  switch (slug) {
-    case "abcAdmin":
-      return portfolioPath(`/work/${slug}/abc_admin_홈화면.png`);
-    case "accountService":
-      return portfolioPath(`/work/${slug}/통합회원_서비스이용관리.png`);
-    case "codyMatching":
-      return portfolioPath(`/work/${slug}/코디매칭_메인_mobile.png`);
-    case "accountAdmin":
-      return portfolioPath(`/work/${slug}/통합회원_로그인.png`);
-    case "portfolio2025":
-      return portfolioPath(`/work/${slug}/포트폴리오2025_메인.png`);
-    case "techBlog":
-      return portfolioPath(`/work/${slug}/블로그_메인.png`);
-    case "portfolio2024":
-      return portfolioPath(`/work/${slug}/포트폴리오2024_메인.png`);
-    default:
-      return portfolioPath(`/work/${slug}/default.png`);
-  }
+  const project = getProject(slug);
+
+  return (
+    (project && getProjectThumbnailPath(project)) ??
+    portfolioPath(`/work/${slug}/default.png`)
+  );
 };
 
 export const getProjectMetadata = (

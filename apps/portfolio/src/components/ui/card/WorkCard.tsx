@@ -15,6 +15,7 @@ export interface WorkCardProps {
   description?: string;
   skills?: string[];
   projectType?: string;
+  period?: string;
   slug: string;
 }
 
@@ -26,6 +27,7 @@ export const WorkCard = ({
   description = "",
   skills = [],
   projectType = "",
+  period = "",
   slug,
 }: WorkCardProps) => {
   return (
@@ -62,6 +64,11 @@ export const WorkCard = ({
               {projectType}
             </Typography>
           </div>
+          {period && (
+            <Typography className="text-xs text-(--color-accent-200)">
+              {period}
+            </Typography>
+          )}
           <Typography className="text-sm text-(--color-accent-200)">
             {skills.join(", ")}
           </Typography>
