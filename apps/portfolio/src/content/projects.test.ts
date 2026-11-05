@@ -1,7 +1,13 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
-import { getProjectsUsingSkill, projects, projectSlugs } from "./projects";
+import {
+  formatYearRange,
+  getProjectsUsingSkill,
+  getTimelineProjects,
+  projects,
+  projectSlugs,
+} from "./projects";
 
 const workDir = path.join(process.cwd(), "public/work");
 
@@ -69,5 +75,25 @@ describe("getProjectsUsingSkill", () => {
     expect(
       getProjectsUsingSkill("TypeScript").filter((p) => p.kind === "Coway"),
     ).toHaveLength(coway.length);
+  });
+});
+
+describe("timeline", () => {
+  it("기간 문자열을 연도 범위로 줄여야 함", () => {
+    expect(formatYearRange("2024.04 – 2025.10")).toBe("2024 – 2025");
+    expect(formatYearRange("2026.01 – 현재")).toBe("2026 – 현재");
+    expect(formatYearRange("2022.10 – 2024.01, 2026.04 – 현재")).toBe(
+      "2022 – 2024",
+    );
+    expect(formatYearRange("2024.12")).toBe("2024");
+    expect(formatYearRange("2025.06 – 2025.07")).toBe("2025");
+  });
+
+  it("타임라인은 headline이 있는 프로젝트를 최신순으로 반환해야 함", () => {
+    const timeline = getTimelineProjects();
+    expect(timeline.length).toBeGreaterThanOrEqual(3);
+    expect(timeline.every((project) => project.headline)).toBe(true);
+    const starts = timeline.map((project) => project.period.slice(0, 7));
+    expect([...starts].sort().reverse()).toEqual(starts);
   });
 });

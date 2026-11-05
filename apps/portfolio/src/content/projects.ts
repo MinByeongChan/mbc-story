@@ -7,6 +7,12 @@ export interface ProjectLink {
   href: string;
 }
 
+export interface ProjectHeadline {
+  /** 굵게 보여줄 핵심 수치 */
+  value: string;
+  label: string;
+}
+
 export interface Project {
   /** URL slug. `public/work/<slug>/<slug>Details.md` 파일과 1:1로 대응한다. */
   slug: string;
@@ -22,6 +28,8 @@ export interface Project {
   /** `public/work/<slug>/` 아래 대표 이미지 파일명. 없으면 no_data 이미지를 쓴다. */
   thumbnail?: string;
   links?: ProjectLink[];
+  /** 메인 Experience 타임라인에 노출할 대표 수치. 지정한 프로젝트만 타임라인에 나온다. */
+  headline?: ProjectHeadline;
 }
 
 export const COMPANY_LABEL: Record<ProjectKind, string> = {
@@ -75,6 +83,7 @@ export const projects: Project[] = [
       "Datadog RUM 대시보드와 모니터링 체계를 구축해 운영 판단 기준을 만들었습니다.",
       "화면설계서, 회의록, 인수인계 문서를 벡터화한 로컬 RAG 환경을 구축해 정책 변경 이력을 빠르게 찾을 수 있게 했습니다.",
     ],
+    headline: { value: "피크 30K뷰", label: "설치 배정 플랫폼 모니터링 구축" },
   },
   {
     slug: "accountMigration",
@@ -102,6 +111,7 @@ export const projects: Project[] = [
       "약관, CSRF/XSRF 토큰 대응과 로그인 예외 케이스를 테스트와 문서로 남겨 전환 이후 운영 안정성을 확보했습니다.",
     ],
     links: [{ label: "코웨이몰", href: "https://www.coway.com/" }],
+    headline: { value: "30만 회원", label: "인증 흐름을 React로 전환" },
   },
   {
     slug: "abcAdmin",
@@ -130,6 +140,7 @@ export const projects: Project[] = [
       "출고·배차·창고이동·재고 추적과 전표·원장·시산표·반제 기능을 개발해 물류와 회계 프로세스를 어드민에서 제어할 수 있게 했습니다.",
     ],
     thumbnail: "abc_admin_홈화면.png",
+    headline: { value: "3초 → 1초", label: "미국 법인 어드민 화면 지연 단축" },
   },
   {
     slug: "newsletter",
@@ -182,6 +193,7 @@ export const projects: Project[] = [
     ],
     thumbnail: "통합회원_서비스이용관리.png",
     links: [{ label: "코웨이몰", href: "https://www.coway.com/" }],
+    headline: { value: "DAU 약 5K", label: "통합 인증 서비스 구축과 운영" },
   },
   {
     slug: "codyMatching",
@@ -208,6 +220,7 @@ export const projects: Project[] = [
     ],
     thumbnail: "코디매칭_메인_mobile.png",
     links: [{ label: "코디매칭 서비스", href: "https://matching.coway.com/" }],
+    headline: { value: "영업직원 약 2만 명", label: "매칭 서비스를 Vue에서 React로 전환" },
   },
   {
     slug: "accountAdmin",
@@ -331,3 +344,18 @@ export const getProjectsUsingSkill = (skill: string) => {
     project.skills.some((item) => normalizeSkill(item) === target),
   );
 };
+
+/** "2024.04 – 2025.10" 같은 기간 문자열을 "2024 – 2025"로 줄인다. */
+export const formatYearRange = (period: string) => {
+  const [start, end] = period.split(",")[0].split("–").map((part) => part.trim());
+  const startYear = start.slice(0, 4);
+  if (!end) return startYear;
+  const endYear = end === "현재" ? "현재" : end.slice(0, 4);
+  return startYear === endYear ? startYear : `${startYear} – ${endYear}`;
+};
+
+/** headline이 있는 프로젝트를 시작 시점 최신순으로 반환한다. */
+export const getTimelineProjects = () =>
+  projects
+    .filter((project) => project.headline)
+    .sort((a, b) => b.period.localeCompare(a.period));
