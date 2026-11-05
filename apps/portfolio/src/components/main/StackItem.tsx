@@ -10,9 +10,17 @@ import { useGSAP } from "@gsap/react";
 interface StackItemProps {
   index: number;
   label: string;
-  imageSrc: string;
+  imageSrc?: string;
   isBackground?: boolean;
 }
+
+const getInitials = (label: string) =>
+  label
+    .split(/[\s/]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word[0].toUpperCase())
+    .join("");
 
 export const StackItem = ({
   index,
@@ -45,14 +53,21 @@ export const StackItem = ({
         <div
           className={twMerge(
             "w-12 h-12 rounded relative",
-            isBackground && "bg-white"
+            isBackground && "bg-white",
+            !imageSrc &&
+              "flex items-center justify-center bg-neutral-800 text-base font-bold text-(--color-neutral-100)"
           )}
+          aria-hidden={!imageSrc}
         >
-          <img
-            src={imageSrc}
-            alt={label}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10"
-          />
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={label}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10"
+            />
+          ) : (
+            getInitials(label)
+          )}
         </div>
         <div>
           <Typography className=" text-2xl text-(--color-neutral-100)">

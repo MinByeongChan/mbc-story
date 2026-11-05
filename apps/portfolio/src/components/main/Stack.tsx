@@ -7,6 +7,83 @@ import gsap, { ScrollTrigger } from "gsap/all";
 import { StackItem } from "./StackItem";
 import { portfolioPath } from "@/constants/portfolio";
 
+interface StackGroup {
+  id: string;
+  title: string;
+  items: { label: string; imageSrc?: string; isBackground?: boolean }[];
+}
+
+const icon = (file: string) => portfolioPath(`/main/${file}`);
+
+const stackGroups: StackGroup[] = [
+  {
+    id: "frontend",
+    title: "Frontend",
+    items: [
+      { label: "TypeScript", imageSrc: icon("typescript-icon.svg") },
+      { label: "JavaScript", imageSrc: icon("javascript-icon.svg") },
+      { label: "React", imageSrc: icon("react-icon.svg") },
+      { label: "Next.js", imageSrc: icon("nextjs-icon.svg"), isBackground: true },
+      { label: "Vue 3" },
+      { label: "Tailwind CSS", imageSrc: icon("tailwind-icon.png") },
+      { label: "Emotion", imageSrc: icon("emotion-icon.png") },
+      { label: "Sass/Scss", imageSrc: icon("sass.png") },
+      {
+        label: "Styled Components",
+        imageSrc: icon("styled-components-icon.png"),
+        isBackground: true,
+      },
+    ],
+  },
+  {
+    id: "state",
+    title: "State & Data",
+    items: [
+      { label: "TanStack Query", imageSrc: icon("tanstack-icon.png") },
+      { label: "Zustand" },
+      { label: "Jotai", imageSrc: icon("jotai-icon.png") },
+      { label: "Recoil", imageSrc: icon("recoil-logo.svg"), isBackground: true },
+      { label: "Redux Toolkit" },
+      { label: "React Hook Form" },
+      { label: "Zod" },
+    ],
+  },
+  {
+    id: "quality",
+    title: "Quality & Monitoring",
+    items: [
+      { label: "Vitest" },
+      { label: "Jest" },
+      { label: "Cypress" },
+      { label: "Storybook" },
+      { label: "MSW" },
+      { label: "Sentry" },
+      { label: "Datadog RUM" },
+    ],
+  },
+  {
+    id: "devops",
+    title: "DevOps",
+    items: [
+      { label: "AWS EC2", imageSrc: icon("ec2-icon.png") },
+      { label: "AWS CloudFront", imageSrc: icon("cloudfront-icon.webp") },
+      { label: "AWS S3", imageSrc: icon("s3-icon.webp") },
+      { label: "GitHub Actions" },
+    ],
+  },
+  {
+    id: "collaboration",
+    title: "Collaboration & AI",
+    items: [
+      { label: "Jira", imageSrc: icon("jira-icon.svg") },
+      { label: "Github", imageSrc: icon("github-icon.png") },
+      { label: "Claude Code" },
+      { label: "MCP" },
+      { label: "ChromaDB" },
+    ],
+  },
+];
+
 export const Stack = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -31,98 +108,21 @@ export const Stack = () => {
 
   useGSAP(() => {
     setGsapScrollTrigger(".scroll-trigger-my-stack", "top 90%", "+=200");
-    setGsapScrollTrigger(".scroll-trigger-frontend", "top 90%", "+=200");
-    setGsapScrollTrigger(".scroll-trigger-collaboration", "top 90%", "+=200");
-    setGsapScrollTrigger(".scroll-trigger-devops", "top 90%", "+=200");
+    stackGroups.forEach((group) => {
+      setGsapScrollTrigger(`.scroll-trigger-${group.id}`, "top 90%", "+=200");
+    });
   });
 
-  const frontendStackItems = [
-    {
-      index: 1,
-      label: "TypeScript",
-      imageSrc: portfolioPath("/main/typescript-icon.svg"),
+  const firstIndexByGroup = stackGroups.reduce<Record<string, number>>(
+    (acc, group, groupIndex) => {
+      const previous = stackGroups[groupIndex - 1];
+      acc[group.id] = previous
+        ? acc[previous.id] + previous.items.length
+        : 1;
+      return acc;
     },
-    {
-      index: 2,
-      label: "JavaScript",
-      imageSrc: portfolioPath("/main/javascript-icon.svg"),
-    },
-    {
-      index: 3,
-      label: "React",
-      imageSrc: portfolioPath("/main/react-icon.svg"),
-    },
-    {
-      index: 4,
-      label: "Next.js",
-      imageSrc: portfolioPath("/main/nextjs-icon.svg"),
-      isBackground: true,
-    },
-    {
-      index: 5,
-      label: "Tailwind CSS",
-      imageSrc: portfolioPath("/main/tailwind-icon.png"),
-    },
-    {
-      index: 6,
-      label: "Emotion",
-      imageSrc: portfolioPath("/main/emotion-icon.png"),
-    },
-
-    {
-      index: 7,
-      label: "Jotai",
-      imageSrc: portfolioPath("/main/jotai-icon.png"),
-    },
-    {
-      index: 8,
-      label: "Recoil",
-      imageSrc: portfolioPath("/main/recoil-logo.svg"),
-      isBackground: true,
-    },
-    {
-      index: 9,
-      label: "Sass/Scss",
-      imageSrc: portfolioPath("/main/sass.png"),
-    },
-    {
-      index: 10,
-      label: "Styled Components",
-      imageSrc: portfolioPath("/main/styled-components-icon.png"),
-      isBackground: true,
-    },
-  ];
-
-  const devOpsStackItems = [
-    {
-      index: 11,
-      label: "AWS EC2",
-      imageSrc: portfolioPath("/main/ec2-icon.png"),
-    },
-    {
-      index: 12,
-      label: "AWS CloudFront",
-      imageSrc: portfolioPath("/main/cloudfront-icon.webp"),
-    },
-    {
-      index: 13,
-      label: "AWS S3",
-      imageSrc: portfolioPath("/main/s3-icon.webp"),
-    },
-  ];
-
-  const collaborationStackItems = [
-    {
-      index: 14,
-      label: "Jira",
-      imageSrc: portfolioPath("/main/jira-icon.svg"),
-    },
-    {
-      index: 15,
-      label: "Github",
-      imageSrc: portfolioPath("/main/github-icon.png"),
-    },
-  ];
+    {},
+  );
 
   return (
     <div className="my-50 flex flex-col gap-16">
@@ -132,38 +132,24 @@ export const Stack = () => {
         </Typography>
       </div>
 
-      <article>
-        <Typography className="scroll-trigger-frontend text-2xl font-bold text-(--color-neutral-100)">
-          Frontend
-        </Typography>
-        <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
-          {frontendStackItems.map((item) => (
-            <StackItem key={item.label} {...item} index={Number(item.index)} />
-          ))}
-        </ul>
-      </article>
-
-      <article>
-        <Typography className="scroll-trigger-collaboration text-2xl font-bold text-(--color-neutral-100)">
-          Collaboration Tools
-        </Typography>
-        <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
-          {collaborationStackItems.map((item) => (
-            <StackItem key={item.label} {...item} index={Number(item.index)} />
-          ))}
-        </ul>
-      </article>
-
-      <article>
-        <Typography className="scroll-trigger-devops text-2xl font-bold text-(--color-neutral-100)">
-          DevOps
-        </Typography>
-        <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
-          {devOpsStackItems.map((item) => (
-            <StackItem key={item.label} {...item} index={Number(item.index)} />
-          ))}
-        </ul>
-      </article>
+      {stackGroups.map((group) => (
+        <article key={group.id}>
+          <Typography
+            className={`scroll-trigger-${group.id} text-2xl font-bold text-(--color-neutral-100)`}
+          >
+            {group.title}
+          </Typography>
+          <ul className="flex flex-row flex-wrap items-center justify-center gap-8 mt-10 mx-4">
+            {group.items.map((item, index) => (
+              <StackItem
+                key={item.label}
+                {...item}
+                index={firstIndexByGroup[group.id] + index}
+              />
+            ))}
+          </ul>
+        </article>
+      ))}
     </div>
   );
 };

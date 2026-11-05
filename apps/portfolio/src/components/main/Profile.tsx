@@ -75,26 +75,22 @@ export const Profile = () => {
         <div className="max-w-xl mt-8 text-sm">
           <div>
             <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              즉각적인 UI 개발에 매료되어 프론트엔드 개발을 시작하게 되었습니다.
-              현재는 Coway 에서 대내 및 대외 서비스를 개발 및 운영대응을 하고
-              있습니다. 프로젝트의 안정성을 확보하기위해 렌더링 이슈 및 운영
-              이슈를 대응하고 해결한 경험이 다수 있습니다.
+              React와 TypeScript 기반으로 6년 넘게 일한 프론트엔드 엔지니어입니다.
+              코웨이에서 통합회원, 실시간 코디매칭, 미국 신사업 어드민, 배정
+              시스템 등 7개 서비스를 구축하고 운영했습니다.
             </Typography>
           </div>
           <div className="mt-2">
             <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              React 환경과 Javascript/Typescript 언어를 선호합니다.
+              화면 지연과 메모리 누수 같은 문제를 수치로 확인하고 해결하는 것,
+              기획과 백엔드와 먼저 소통해 병목을 찾아내는 것을 중요하게
+              생각합니다.
             </Typography>
           </div>
           <div className="mt-2">
             <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              쉬는 날엔 운동을하거나, 정적인 환경에서 쉬며 자기개발하는 것을
-              좋아합니다.
-            </Typography>
-          </div>
-          <div className="mt-2">
-            <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              자기 발전을 위해 행동하는 것을 추구합니다.
+              최근에는 업무 문서를 벡터화한 로컬 RAG와 에이전트 스킬을 팀 개발
+              과정에 적용해 AI 기반 개발의 정확도를 높이고 있습니다.
             </Typography>
           </div>
         </div>
