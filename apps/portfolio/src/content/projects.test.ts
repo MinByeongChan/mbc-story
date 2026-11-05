@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
-import { projects, projectSlugs } from "./projects";
+import { getProjectsUsingSkill, projects, projectSlugs } from "./projects";
 
 const workDir = path.join(process.cwd(), "public/work");
 
@@ -48,5 +48,26 @@ describe("projects content", () => {
       expect(project.skills.length, project.slug).toBeGreaterThan(0);
       expect(project.highlights.length, project.slug).toBeGreaterThanOrEqual(2);
     }
+  });
+});
+
+describe("getProjectsUsingSkill", () => {
+  it("괄호 표기를 무시하고 같은 기술로 집계해야 함", () => {
+    const awsProjects = getProjectsUsingSkill("AWS");
+    expect(awsProjects.map((p) => p.slug)).toContain("codyMatching");
+    expect(awsProjects.map((p) => p.slug)).toContain("accountMigration");
+  });
+
+  it("스킬 섹션 주력 기술의 프로젝트 수가 콘텐츠 모델과 일치해야 함", () => {
+    expect(getProjectsUsingSkill("TypeScript")).toHaveLength(projects.length);
+    expect(getProjectsUsingSkill("React").length).toBeGreaterThanOrEqual(9);
+    expect(getProjectsUsingSkill("TanStack Query").length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("TypeScript는 모든 회사 프로젝트에서 사용되어야 함", () => {
+    const coway = projects.filter((p) => p.kind === "Coway");
+    expect(
+      getProjectsUsingSkill("TypeScript").filter((p) => p.kind === "Coway"),
+    ).toHaveLength(coway.length);
   });
 });

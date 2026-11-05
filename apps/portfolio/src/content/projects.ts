@@ -319,3 +319,15 @@ export const getProjectThumbnailPath = (project: Project) =>
   project.thumbnail
     ? portfolioPath(`/work/${project.slug}/${project.thumbnail}`)
     : undefined;
+
+/** "AWS (S3, CloudFront)" 같은 표기를 "AWS"로 맞춰 기술 이름을 비교한다. */
+export const normalizeSkill = (skill: string) =>
+  skill.replace(/\s*\(.*\)\s*$/, "").trim();
+
+/** 해당 기술을 사용한 프로젝트 목록 */
+export const getProjectsUsingSkill = (skill: string) => {
+  const target = normalizeSkill(skill);
+  return projects.filter((project) =>
+    project.skills.some((item) => normalizeSkill(item) === target),
+  );
+};
