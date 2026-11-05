@@ -77,11 +77,11 @@ export const ContactMe = () => {
       <header className="contact-reveal max-w-2xl">
         <h2
           id="contact-heading"
-          className="text-5xl font-bold text-white sm:text-7xl"
+          className="text-3xl font-bold text-white sm:text-5xl"
         >
           Contact Me
         </h2>
-        <p className="mt-6 text-sm font-semibold text-(--color-accent-200) sm:text-base">
+        <p className="mt-5 text-base break-keep text-neutral-300 leading-relaxed sm:text-lg">
           저에 대해 더 궁금하거나 함께 이야기하고 싶다면 편하게 연락 주세요.
           이메일과 아래 채널 모두 열려 있습니다.
         </p>

@@ -59,7 +59,7 @@ export const ExperienceHighlights = () => {
         >
           Experience
         </h2>
-        <p className="mt-5 text-sm font-semibold text-(--color-accent-200) sm:text-base">
+        <p className="mt-5 text-base break-keep text-neutral-300 leading-relaxed sm:text-lg">
           2020년 KSNET에서 시작해 2021년부터 코웨이에서 대내외 서비스를 만들고
           운영하고 있습니다. 프로젝트마다 가장 분명한 결과 한 가지를 함께
           적었습니다.
@@ -91,7 +91,7 @@ export const ExperienceHighlights = () => {
               <p className="mt-1 text-sm text-neutral-500">{entry.company}</p>
             </div>
             {entry.headline && (
-              <p className="text-sm leading-relaxed text-neutral-400 sm:col-start-2 lg:col-start-3">
+              <p className="text-base leading-relaxed text-neutral-400 sm:col-start-2 lg:col-start-3">
                 <span className="font-semibold text-white">
                   {entry.headline.value}
                 </span>

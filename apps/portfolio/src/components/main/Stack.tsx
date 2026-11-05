@@ -129,7 +129,7 @@ export const Stack = () => {
         >
           Stack
         </h2>
-        <p className="mt-5 text-sm font-semibold text-(--color-accent-200) sm:text-base">
+        <p className="mt-5 text-base break-keep text-neutral-300 leading-relaxed sm:text-lg">
           가장 많이 쓴 기술을 근거와 함께 먼저 소개하고, 함께 다뤄 온 도구는
           영역별로 정리했습니다. 프로젝트 수는 아래 Work에 소개한 프로젝트
           기준입니다.
@@ -152,11 +152,11 @@ export const Stack = () => {
               <span className="text-sm text-neutral-500 tabular-nums">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <p className="text-3xl font-bold text-white sm:text-5xl">
+              <p className="text-2xl font-bold text-white sm:text-4xl">
                 {skill.name}
               </p>
-              <p className="col-start-2 text-sm leading-relaxed text-neutral-400 lg:col-start-3">
-                <span className="font-semibold text-(--color-accent-200)">
+              <p className="col-start-2 text-base leading-relaxed text-neutral-400 lg:col-start-3">
+                <span className="font-semibold text-white">
                   {projectCount}개 프로젝트
                 </span>
                 <span aria-hidden="true"> · </span>
@@ -184,7 +184,7 @@ export const Stack = () => {
                 {group.items.map((item) => (
                   <li
                     key={item}
-                    className="rounded-full border border-neutral-800 px-3 py-1 text-sm text-neutral-200"
+                    className="rounded-full border border-neutral-800 px-3 py-1 text-sm text-neutral-200 sm:text-base"
                   >
                     {item}
                   </li>

@@ -17,7 +17,14 @@ export const metadata: Metadata = {
 
 export default function Main() {
   return (
-    <section className={twMerge("mx-0", "sm:mx-16", "md:mx-16", "lg:mx-32")}>
+    <section
+      className={twMerge(
+        "mx-0",
+        "sm:mx-16",
+        "lg:mx-32",
+        "2xl:mx-auto 2xl:max-w-6xl",
+      )}
+    >
       <div className="mt-16">
         <Profile />
       </div>
