@@ -1,18 +1,8 @@
 import { MetadataRoute } from "next";
 import { baseUrl } from "./constant";
+import { projectSlugs } from "@/content/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // 작업 프로젝트 목록
-  const workProjects = [
-    "abcAdmin",
-    "accountService",
-    "codyMatching",
-    "accountAdmin",
-    "portfolio2025",
-    "techBlog",
-    "portfolio2024",
-  ];
-
   // 기본 페이지들
   const routes = [
     {
@@ -30,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // 작업 프로젝트 페이지들 추가
-  const workRoutes = workProjects.map((project) => ({
+  const workRoutes = projectSlugs.map((project) => ({
     url: `${baseUrl}/work/${project}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,

@@ -1,128 +1,103 @@
 "use client";
 
-import { twMerge } from "tailwind-merge";
-import { Typography } from "gocheok-project";
-import gsap from "gsap";
+import React, { useRef } from "react";
+import Image from "next/image";
 import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import Link from "next/link";
-import { StressButton } from "gocheok-project";
+import { twMerge } from "tailwind-merge";
 import { portfolioPath } from "@/constants/portfolio";
 
 export const Profile = () => {
+  const sectionRef = useRef<HTMLElement>(null);
   gsap.registerPlugin(SplitText);
 
-  useGSAP(() => {
-    gsap.set(".split", { opacity: 1 });
-    let split;
-    SplitText.create(".split", {
-      type: "words,lines",
-      linesClass: "line",
-      autoSplit: true,
-      mask: "lines",
-      onSplit: (self) => {
-        split = gsap.from(self.lines, {
-          duration: 1,
-          yPercent: 100,
-          opacity: 0,
-          stagger: 0.3,
-          ease: "expo.out",
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        SplitText.create(".hero-title", {
+          type: "lines",
+          mask: "lines",
+          autoSplit: true,
+          onSplit: (self) =>
+            gsap.from(self.lines, {
+              yPercent: 100,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: "expo.out",
+            }),
         });
-        return split;
-      },
-    });
-    gsap.from(".profile-img", {
-      duration: 1,
-      opacity: 0,
-      scale: 0.8,
-      ease: "expo.out",
-    });
-  });
+
+        gsap.from(".hero-fade", {
+          opacity: 0,
+          y: 12,
+          duration: 0.8,
+          delay: 0.3,
+          stagger: 0.1,
+          ease: "power3.out",
+        });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef },
+  );
 
   return (
     <section
+      ref={sectionRef}
+      aria-labelledby="hero-heading"
       className={twMerge(
-        "flex w-full gap-16 items-center justify-between text-(--color-neutral-100)",
-        "text-md flex-col-reverse p-6",
-        "sm:text-md sm:p-0 sm:flex-row",
+        "flex w-full flex-col justify-center text-(--color-neutral-100)",
+        "pt-10 pb-16 sm:pt-16 lg:min-h-[70svh] lg:pt-0 lg:pb-0",
       )}
     >
-      <article>
-        <div>
-          <Typography
-            className={twMerge("split text-2xl font-bold", "sm:text-6xl")}
-          >
-            안녕하세요.
-          </Typography>
-          <div className="mt-2">
-            <Typography
-              className={twMerge("split text-4xl font-bold", "sm:text-8xl")}
-            >
-              민병찬 입니다.
-            </Typography>
-          </div>
-          <div className="mt-4">
-            <Typography
-              className={twMerge(
-                "split text-4xl font-semibold text-(--color-primary)",
-                "sm:text-8xl",
-              )}
-            >
-              Frontend Developer
-            </Typography>
-          </div>
-        </div>
-        <div className="max-w-xl mt-8 text-sm">
-          <div>
-            <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              즉각적인 UI 개발에 매료되어 프론트엔드 개발을 시작하게 되었습니다.
-              현재는 Coway 에서 대내 및 대외 서비스를 개발 및 운영대응을 하고
-              있습니다. 프로젝트의 안정성을 확보하기위해 렌더링 이슈 및 운영
-              이슈를 대응하고 해결한 경험이 다수 있습니다.
-            </Typography>
-          </div>
-          <div className="mt-2">
-            <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              React 환경과 Javascript/Typescript 언어를 선호합니다.
-            </Typography>
-          </div>
-          <div className="mt-2">
-            <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              쉬는 날엔 운동을하거나, 정적인 환경에서 쉬며 자기개발하는 것을
-              좋아합니다.
-            </Typography>
-          </div>
-          <div className="mt-2">
-            <Typography className="split text-md text-(--color-accent-200) font-semibold">
-              자기 발전을 위해 행동하는 것을 추구합니다.
-            </Typography>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <StressButton
-            className="w-48 h-10 text-xl text-bold border-[2px]"
-            noneRadius
-          >
-            <Link href="/work">VIEW MY WORK</Link>
-          </StressButton>
-        </div>
-      </article>
-
-      <figure>
-        <div
-          role="img"
-          aria-label="My Profile"
-          className={twMerge(
-            "profile-img relative w-[200px] h-[250px] rounded-[1rem] bg-white inset-shadow-[1px_1px_8px_rgba(0,0,0,0.8)]",
-            "sm:w-[400px] sm:h-[450px] sm:rounded-[2rem] sm:inset-shadow-[1px_1px_15px_rgba(0,0,0,0.8)]",
-            "bg-cover bg-center",
-          )}
-          style={{
-            backgroundImage: `url(${portfolioPath("/my_profile.png")})`,
-          }}
+      <div className="hero-fade flex items-center gap-3">
+        <Image
+          src={portfolioPath("/my_profile.png")}
+          alt=""
+          width={48}
+          height={48}
+          priority
+          className="h-10 w-10 shrink-0 rounded-full object-cover sm:h-12 sm:w-12"
         />
-      </figure>
+        <p className="text-sm text-neutral-400 sm:text-base">
+          <span className="font-semibold text-white">민병찬</span>
+          <span aria-hidden="true"> · </span>
+          Frontend Engineer at Coway
+          <span className="hidden sm:inline">
+            <span aria-hidden="true"> · </span>
+            서울
+          </span>
+        </p>
+      </div>
+
+      <h1
+        id="hero-heading"
+        className={twMerge(
+          "hero-title mt-8 max-w-5xl font-bold text-balance break-keep text-white",
+          "text-4xl leading-tight sm:text-5xl lg:text-7xl lg:leading-[1.1]",
+        )}
+      >
+        느린 화면을 숫자로 찾아 고치는{" "}
+        <span className="text-(--color-primary) sm:whitespace-nowrap">
+          프론트엔드 엔지니어
+        </span>
+        입니다.
+      </h1>
+
+      <p
+        className={twMerge(
+          "hero-fade mt-8 max-w-2xl break-keep text-base leading-relaxed text-neutral-300",
+          "sm:text-lg",
+        )}
+      >
+        React와 TypeScript로 6년 넘게 일하며, 기획과 백엔드와 먼저 이야기해
+        병목을 찾는 방식을 중요하게 여깁니다. 요즘은 업무 문서를 벡터화한 로컬
+        RAG와 에이전트 스킬로 팀의 AI 기반 개발 정확도를 높이고 있습니다.
+      </p>
     </section>
   );
 };

@@ -8,7 +8,7 @@ URL: [https://www.coway.com/](https://www.coway.com/)
 
 ---
 
-코웨이 구 서비스 및 신규 서비스 회원을 통합하기 위한 서비스 입니다.
+레거시와 신규 서비스의 회원을 통합하는 30만 회원, DAU 약 5K 규모의 B2C 인증 플랫폼입니다.
 
 - 코웨이 서비스인 코웨이몰, iocare(코웨이 IoT APP)에 대한 회원을 보유 및 통합하여 관리합니다.
 - 회원가입, 계정찾기, 마이페이지, 회원 로그인 서비스 관련된 기본적인 기능을 제공합니다.
@@ -18,7 +18,7 @@ URL: [https://www.coway.com/](https://www.coway.com/)
 
 ---
 
-- Vue3, Typescript, Pinia, Vite, SCSS, AWS(S3, CloudFront), Jest, Storybook, Cypress
+- Vue 3, TypeScript, Pinia, Vite, SCSS, Datadog, Jest, Storybook, Cypress, AWS (S3, CloudFront)
 
 ## 개발내용
 
@@ -38,9 +38,13 @@ URL: [https://www.coway.com/](https://www.coway.com/)
 - feature 별 유닛 테스트부터 통합 테스트까지 개발팀 내부에서 진행하여 버그 발생률 최소화
 - QA에서 발생하는 버그들을 스크립트로 작성하여 재발하는 것을 방지
 
-**웹 접근성 준수**
+**도메인 단위 구조 설계**
 
-- WCAG 2.1을 준수하여 웹 서비스의 접근성을 고려한 화면 구성을 진행하여 다양한 사용자가 편리하게 이용할 수 있도록 함
+- DDD 패턴을 적용해 회원가입, OTP, 계정 모델과 Hook을 도메인 단위로 분리하여 신규 기능 추가 시 변경 영향 범위를 줄임
+
+**웹 접근성과 호환성**
+
+- WCAG 2.1 기준을 반영하고 디바이스/브라우저별 예외 처리를 추가해 고객용 인증 화면의 접근성과 호환성을 개선
 
 **점유인증 및 본인인증 로직 개발**
 
@@ -48,9 +52,10 @@ URL: [https://www.coway.com/](https://www.coway.com/)
 - NICE 본인인증을 위한 SDK를 개발하여 통합회원을 이용하는 서비스에 제공
 - npm 패키지를 통해 CDN으로 제공
 
-**다국어 이슈 대응**
+**Datadog 기반 오류 추적**
 
-- 데이터독 모니터링을 통해 각 서비스별 다국어 이슈를 신속하게 대응하여 사용자 경험 향상
+- Datadog으로 디바이스/OS/언어별 런타임 오류를 추적하고 각 서비스의 다국어 이슈를 신속하게 대응
+- QA에서 발견된 예외 케이스를 Jest/Cypress 테스트로 전환해 재발 방지
 
 ## 성장경험
 

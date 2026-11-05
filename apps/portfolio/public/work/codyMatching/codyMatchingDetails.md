@@ -8,7 +8,7 @@ URL: [https://matching.coway.com/request](https://matching.coway.com/request)
 
 ---
 
-코디(영업사원)가 직접 방문판매를 하는것이 아닌, 매칭 서비스를 사용하여 이전보다 쉬운 영업서비스를 제공합니다.
+약 2만 명의 코디(영업직원)와 고객을 연결하는 비대면 매칭 플랫폼입니다. 신청·대기·수락·실패·재시도 상태를 Polling으로 처리합니다.
 
 - 서비스 지역 내에서 고객의 코디 매칭 요청이 있을 경우 코디에게 알림톡(또는 SMS 메세지)이 발송됩니다.
 - 코디는 알림톡을 받고 1분 내 매칭을 승인합니다.
@@ -18,7 +18,7 @@ URL: [https://matching.coway.com/request](https://matching.coway.com/request)
 
 ---
 
-- React, Typescript, TanStack Query, jotai, vite, AWS (S3, CloudFront)
+- React, TypeScript, TanStack Query, Jotai, Datadog RUM, Cypress, Vite, AWS (S3, CloudFront)
 
 ## 개발내용
 
@@ -26,8 +26,8 @@ URL: [https://matching.coway.com/request](https://matching.coway.com/request)
 
 **레거시 시스템 성공적 전환**
 
-- 기존 Vue.js로 개발된 서비스를 React 환경으로 성공적으로 마이그레이션
-- 코드베이스의 복잡도를 낮추고 유지보수성을 향상.
+- 기존 Vue.js로 개발된 서비스를 React 환경으로 마이그레이션하고 반복 UI와 비즈니스 로직을 공통 컴포넌트/Custom Hook으로 재구성
+- TanStack Query의 서버 상태와 Jotai의 화면 상태를 분리하고 API 응답/호출 순서를 조정해 상태 불일치 구간 개선
 
 **시스템 안정성 및 정확성 확보**
 

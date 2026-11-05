@@ -29,6 +29,21 @@ describe("getImageUrl", () => {
     );
   });
 
+  it("신규 프로젝트 slug에 대해서도 콘텐츠 모델의 대표 이미지를 반환해야 함", () => {
+    expect(getImageUrl("newsletter")).toBe(
+      "/portfolio/work/newsletter/뉴스레터 메인화면.png"
+    );
+  });
+
+  it("대표 이미지가 없는 프로젝트는 기본 이미지 URL을 반환해야 함", () => {
+    expect(getImageUrl("accountAdmin")).toBe(
+      "/portfolio/work/accountAdmin/default.png"
+    );
+    expect(getImageUrl("assignmentAdmin")).toBe(
+      "/portfolio/work/assignmentAdmin/default.png"
+    );
+  });
+
   it("존재하지 않는 slug에 대해 기본 이미지 URL을 반환해야 함", () => {
     const result = getImageUrl("nonexistent");
     expect(result).toBe("/portfolio/work/nonexistent/default.png");
