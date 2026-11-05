@@ -4,7 +4,6 @@ import {
   Profile,
   Stack,
 } from "@/components/main";
-import { Divider } from "gocheok-project";
 import { twMerge } from "tailwind-merge";
 import { Metadata } from "next";
 
@@ -26,8 +25,6 @@ export default function Main() {
       <ExperienceHighlights />
 
       <Stack />
-
-      <Divider />
 
       <ContactMe />
     </section>
