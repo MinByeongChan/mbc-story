@@ -81,7 +81,9 @@ export const Profile = () => {
           "text-4xl leading-tight sm:text-5xl lg:text-7xl lg:leading-[1.1]",
         )}
       >
-        느린 화면을 숫자로 찾아 고치는{" "}
+        <span className="whitespace-nowrap">화면의 속도와</span>{" "}
+        <span className="whitespace-nowrap">팀의 개발 품질을</span>{" "}
+        <span className="whitespace-nowrap">함께 높이는</span>{" "}
         <span className="text-(--color-primary) sm:whitespace-nowrap">
           프론트엔드 엔지니어
         </span>
@@ -94,9 +96,10 @@ export const Profile = () => {
           "sm:text-lg",
         )}
       >
-        React와 TypeScript로 6년 넘게 일하며, 기획과 백엔드와 먼저 이야기해
-        병목을 찾는 방식을 중요하게 여깁니다. 요즘은 업무 문서를 벡터화한 로컬
-        RAG와 에이전트 스킬로 팀의 AI 기반 개발 정확도를 높이고 있습니다.
+        React와 TypeScript로 6년 넘게 일하며 느린 화면을 측정하고 개선해
+        왔습니다. 병목은 코드보다 대화에서 먼저 보인다고 믿어서 기획·백엔드와
+        초기에 이야기합니다. 요즘은 업무 문서 기반 로컬 RAG와 에이전트 스킬로
+        팀의 AI 개발 정확도를 높이고 있습니다.
       </p>
     </section>
   );
