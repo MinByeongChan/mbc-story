@@ -83,7 +83,7 @@ describe("timeline", () => {
     expect(formatYearRange("2024.04 – 2025.10")).toBe("2024 – 2025");
     expect(formatYearRange("2026.01 – 현재")).toBe("2026 – 현재");
     expect(formatYearRange("2022.10 – 2024.01, 2026.04 – 현재")).toBe(
-      "2022 – 2024",
+      "2022 – 현재",
     );
     expect(formatYearRange("2024.12")).toBe("2024");
     expect(formatYearRange("2025.06 – 2025.07")).toBe("2025");
