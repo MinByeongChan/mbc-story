@@ -1,10 +1,9 @@
-import { WorkCardList } from "@/components/work/WorkCardList";
 import { WorkIntroduce } from "@/components/work/WorkIntroduce";
+import { WorkList } from "@/components/work/WorkList";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Metadata } from "next";
 import { portfolioPath } from "@/constants/portfolio";
-import { getProjectThumbnailPath, projects } from "@/content/projects";
 import { baseUrl } from "../constant";
 
 export const metadata: Metadata = {
@@ -48,29 +47,19 @@ export const metadata: Metadata = {
 };
 
 export default function Work() {
-  const list = projects.map((project) => ({
-    slug: project.slug,
-    title: project.title,
-    projectType: project.kind,
-    period: project.period,
-    description: project.summary,
-    skills: project.skills,
-    imgSrc: getProjectThumbnailPath(project),
-    imgAlt: project.thumbnail ? `${project.title} 대표 화면` : undefined,
-  }));
-
   return (
-    <div
+    <section
+      aria-labelledby="work-heading"
       className={twMerge(
-        "my-24",
-        "xl:mx-36 xl:grid-cols-3",
-        "lg:mx-24 lg:grid-cols-2",
-        "md:mx-24 md:grid-cols-2",
-        "sm:mx-0 sm:grid-cols-2",
+        "my-24 text-(--color-neutral-100) sm:my-32",
+        "mx-0",
+        "sm:mx-16",
+        "lg:mx-32",
+        "2xl:mx-auto 2xl:max-w-6xl",
       )}
     >
       <WorkIntroduce />
-      <WorkCardList list={list} />
-    </div>
+      <WorkList />
+    </section>
   );
 }
