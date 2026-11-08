@@ -1,18 +1,17 @@
 import React from "react";
 import { promises as fs } from "fs";
 import path from "path";
-import "swiper/css";
-import "swiper/scss";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
-import { Swiper } from "@/components/work/Swiper";
 import { Metadata } from "next";
 import { MarkdownRenderer } from "@/components/work/MarkdownRenderer/MarkdownRenderer";
 import { ProjectDetailHeader } from "@/components/work/ProjectDetailHeader";
+import { ProjectGallery } from "@/components/work/ProjectGallery";
 import { getProjectMetadata } from "./utils";
 import { baseUrl, projectInfo } from "./constant";
-import { portfolioPath } from "@/constants/portfolio";
-import { getProject } from "@/content/projects";
+import {
+  getProject,
+  getProjectImagePath,
+  isMobileScreenshot,
+} from "@/content/projects";
 
 const markdownClassName = [
   "prose prose-sm prose-neutral prose-invert max-w-none break-keep md:prose-base",
@@ -54,40 +53,39 @@ export default async function WorkSlug({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const dirPath = path.join(process.cwd(), `/public/work/${slug}`);
-  const filePath = path.join(dirPath, `${slug}Details.md`);
+  const filePath = path.join(
+    process.cwd(),
+    `/public/work/${slug}/${slug}Details.md`,
+  );
 
-  // htmlContent 대신 markdownContent 사용
   let markdownContent = "";
-  let images: string[] = [];
 
   try {
-    // 마크다운 파일 읽기 (HTML 변환 제거)
     markdownContent = await fs.readFile(filePath, "utf-8");
-    // htmlContent = await marked(markdownContent); // 이 줄 제거
-
-    // 디렉토리 내 모든 파일 읽기
-    const files = await fs.readdir(dirPath);
-    // .png 파일만 필터링
-    images = files
-      .filter((file) => file.toLowerCase().endsWith(".png"))
-      .map((file) => portfolioPath(`/work/${slug}/${file}`));
   } catch (error) {
     console.error("Error:", error);
     return <div>Content not found.</div>;
   }
 
   const project = getProject(slug);
+  const images = project?.images ?? [];
 
   return (
     <>
       {project && <ProjectDetailHeader project={project} />}
+      {project && images.length > 0 && (
+        <ProjectGallery
+          images={images.map((image) => ({
+            src: getProjectImagePath(project, image.file),
+            caption: image.caption,
+          }))}
+          mobile={images.every((image) => isMobileScreenshot(image.file))}
+        />
+      )}
       <MarkdownRenderer
         content={markdownContent}
         className={markdownClassName}
       />
-
-      {images.length > 0 && <Swiper images={images} />}
     </>
   );
 }

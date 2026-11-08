@@ -13,6 +13,13 @@ export interface ProjectHeadline {
   label: string;
 }
 
+export interface ProjectImage {
+  /** `public/work/<slug>/` 아래 파일명. 세로형 모바일 화면은 `_mobile.png`로 끝낸다. */
+  file: string;
+  /** 갤러리 캡션과 대체 텍스트로 함께 쓴다. */
+  caption: string;
+}
+
 export interface Project {
   /** URL slug. `public/work/<slug>/<slug>Details.md` 파일과 1:1로 대응한다. */
   slug: string;
@@ -27,6 +34,8 @@ export interface Project {
   highlights: string[];
   /** `public/work/<slug>/` 아래 대표 이미지 파일명. 없으면 no_data 이미지를 쓴다. */
   thumbnail?: string;
+  /** 상세 페이지 갤러리에 배열 순서대로 보여줄 화면 */
+  images?: ProjectImage[];
   links?: ProjectLink[];
   /** 메인 Experience 타임라인에 노출할 대표 수치. 지정한 프로젝트만 타임라인에 나온다. */
   headline?: ProjectHeadline;
@@ -152,6 +161,38 @@ export const projects: Project[] = [
       "재고실사 4단계 워크플로우, 출고·배차, 창고이동과 Shopify-OMS-AR 대사, 전표·원장·시산표 기능을 개발했습니다.",
     ],
     thumbnail: "abc_admin_홈화면.png",
+    images: [
+      {
+        file: "abc_admin_홈화면.png",
+        caption: "홈 — 당일 업무 현황, 재고, 작업자 출근, 고객 만족도 요약",
+      },
+      {
+        file: "abc_admin_주문현황.png",
+        caption: "주문 대시보드 — 지역별 주문, 주문 추이, 렌탈 약정 기간 지표",
+      },
+      {
+        file: "abc_admin_주문지표.png",
+        caption: "주문 유형 분석 — 제품 유형별 주문건수 추이와 일자별 상세",
+      },
+      {
+        file: "abc_admin_주문목록.png",
+        caption: "주문 목록 — 기간·상태·유형 조건 검색과 주문 상세 진입",
+      },
+      {
+        file: "abc_admin_작업현황.png",
+        caption: "작업 모니터링 — 지점별 실시간 처리율을 지도로 확인",
+      },
+      {
+        file: "abc_admin_작업_배정현황.png",
+        caption: "테크니션 배정 현황 — react-big-calendar 기반 일정·배정 화면",
+      },
+      { file: "abc_admin_창고이동.png", caption: "창고 이동 관리" },
+      { file: "abc_admin_게시판.png", caption: "게시판" },
+      {
+        file: "abc_admin_시스템_접근제어.png",
+        caption: "시스템 접근 제어 — 메뉴별 권한 관리",
+      },
+    ],
     headline: {
       value: "67% 단축",
       label: "미국 법인 어드민 화면 지연(3초→1초)",
@@ -181,6 +222,16 @@ export const projects: Project[] = [
       "Tailwind 결과 CSS를 기존 서비스에 적용하며 Reset CSS로 생긴 스타일 충돌을 해결했습니다.",
     ],
     thumbnail: "뉴스레터 메인화면.png",
+    images: [
+      { file: "뉴스레터 메인화면.png", caption: "구독 신청 화면" },
+      { file: "뉴스레터 기본화면.png", caption: "이메일 입력 상태" },
+      {
+        file: "뉴스레터 유효성검증 기능 개발.png",
+        caption: "이메일 유효성 검증 안내",
+      },
+      { file: "뉴스레터 다국어 적용.png", caption: "다국어 문구 적용" },
+      { file: "뉴스레터 구독 완료 화면.png", caption: "구독 완료 화면" },
+    ],
   },
   {
     slug: "accountService",
@@ -211,6 +262,15 @@ export const projects: Project[] = [
       "Datadog으로 디바이스·OS·언어별 오류를 추적하고 QA 예외 케이스를 Jest와 Cypress 테스트로 전환해 재발을 막았습니다.",
     ],
     thumbnail: "통합회원_서비스이용관리.png",
+    images: [
+      { file: "통합회원_로그인.png", caption: "통합회원 로그인" },
+      { file: "통합회원_계정 검색.png", caption: "계정 찾기" },
+      { file: "통합회원_비밀번호 찾기.png", caption: "비밀번호 찾기" },
+      {
+        file: "통합회원_서비스이용관리.png",
+        caption: "마이페이지 — 연결된 서비스 이용 관리",
+      },
+    ],
     links: [{ label: "코웨이몰", href: "https://www.coway.com/" }],
     headline: { value: "DAU 약 5K", label: "통합 인증 서비스 구축과 운영" },
   },
@@ -241,6 +301,20 @@ export const projects: Project[] = [
       "영업 외 문의 약 13%라는 설문 결과를 근거로 제품 선택 기능을 추가하고 운영 시간 외 매칭 예약 기능을 개발했습니다.",
     ],
     thumbnail: "코디매칭_메인_mobile.png",
+    images: [
+      {
+        file: "코디매칭_메인_mobile.png",
+        caption: "메인 — 매칭 혜택 안내와 연락처 입력",
+      },
+      {
+        file: "코디매칭_폼_mobile.png",
+        caption: "매칭 예약 — 연락 시간, 관심 제품, 약관 동의",
+      },
+      {
+        file: "코디매칭_매칭신청_mobile.png",
+        caption: "매칭 신청 — 고객 위치 확인",
+      },
+    ],
     links: [{ label: "코디매칭 서비스", href: "https://matching.coway.com/" }],
     headline: {
       value: "영업직원 약 2만 명",
@@ -297,6 +371,12 @@ export const projects: Project[] = [
       "GSAP SplitText와 ScrollTrigger로 스크롤 기반 애니메이션을 구성했습니다.",
     ],
     thumbnail: "포트폴리오2025_메인.png",
+    images: [
+      { file: "포트폴리오2025_메인.png", caption: "메인 히어로" },
+      { file: "포트폴리오2025_작업.png", caption: "작업 목록" },
+      { file: "포트폴리오2025_기술.png", caption: "기술 스택" },
+      { file: "포트폴리오2025_연락처.png", caption: "연락처" },
+    ],
     links: [
       { label: "Portfolio", href: "https://byeongchan.space/portfolio" },
       {
@@ -320,6 +400,11 @@ export const projects: Project[] = [
       "Next.js와 SPA 구조를 오가며 SSR과 CSR의 장단점을 직접 비교했습니다.",
     ],
     thumbnail: "블로그_메인.png",
+    images: [
+      { file: "블로그_메인.png", caption: "글 목록" },
+      { file: "블로그_태그.png", caption: "태그별 모아보기" },
+      { file: "블로그_포스트.png", caption: "글 상세" },
+    ],
     links: [
       { label: "Blog", href: "https://byeongchan.space/blog" },
       {
@@ -342,6 +427,12 @@ export const projects: Project[] = [
       "IntersectionObserver로 스크롤 진입 애니메이션을 구현했습니다.",
     ],
     thumbnail: "포트폴리오2024_메인.png",
+    images: [
+      { file: "포트폴리오2024_메인.png", caption: "메인" },
+      { file: "포트폴리오2024_강점.png", caption: "강점 소개" },
+      { file: "포트폴리오2024_스택.png", caption: "기술 스택" },
+      { file: "포트폴리오2024_커리어.png", caption: "경력" },
+    ],
     links: [
       { label: "Portfolio", href: "https://byeongchan.space/portfolio" },
       {
@@ -360,6 +451,12 @@ export const getProject = (slug: string) =>
 /** 메타데이터와 문서 제목에 쓰는 형식 */
 export const getProjectMetaTitle = (project: Project) =>
   `B.C Min | ${project.title}`;
+
+export const getProjectImagePath = (project: Project, file: string) =>
+  portfolioPath(`/work/${project.slug}/${file}`);
+
+export const isMobileScreenshot = (file: string) =>
+  file.endsWith("_mobile.png");
 
 export const getProjectThumbnailPath = (project: Project) =>
   project.thumbnail

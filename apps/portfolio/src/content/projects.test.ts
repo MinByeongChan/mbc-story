@@ -54,6 +54,22 @@ describe("projects content", () => {
     }
   });
 
+  it("갤러리 이미지는 폴더의 화면 이미지와 1:1로 대응하고 캡션이 있어야 함", async () => {
+    for (const project of projects) {
+      const files = await fs.readdir(path.join(workDir, project.slug));
+      const pngsOnDisk = files.filter((file) => file.endsWith(".png")).sort();
+      const registered = (project.images ?? []).map((image) => image.file);
+
+      expect([...registered].sort(), project.slug).toEqual(pngsOnDisk);
+      for (const image of project.images ?? []) {
+        expect(image.caption.length, image.file).toBeGreaterThan(0);
+      }
+      if (project.thumbnail) {
+        expect(registered, project.slug).toContain(project.thumbnail);
+      }
+    }
+  });
+
   it("상세 마크다운 디렉터리마다 콘텐츠 모델 항목이 있어야 함", async () => {
     const dirs = await fs.readdir(workDir, { withFileTypes: true });
     const slugsOnDisk = dirs.filter((d) => d.isDirectory()).map((d) => d.name);
