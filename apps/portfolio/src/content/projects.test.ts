@@ -23,8 +23,23 @@ describe("projects content", () => {
         project.slug,
         `${project.slug}Details.md`,
       );
-      await expect(fs.access(file), `${project.slug} 상세 파일 없음`).resolves
-        .toBeUndefined();
+      await expect(
+        fs.access(file),
+        `${project.slug} 상세 파일 없음`,
+      ).resolves.toBeUndefined();
+    }
+  });
+
+  it("상세 마크다운은 제목 없이 개요 섹션으로 시작해야 함", async () => {
+    for (const project of projects) {
+      const file = path.join(
+        workDir,
+        project.slug,
+        `${project.slug}Details.md`,
+      );
+      const markdown = await fs.readFile(file, "utf-8");
+      expect(markdown.startsWith("## 개요\n"), project.slug).toBe(true);
+      expect(markdown, `${project.slug}에 h1이 있음`).not.toMatch(/^# /m);
     }
   });
 
@@ -32,8 +47,26 @@ describe("projects content", () => {
     for (const project of projects) {
       if (!project.thumbnail) continue;
       const file = path.join(workDir, project.slug, project.thumbnail);
-      await expect(fs.access(file), `${project.slug} 대표 이미지 없음`).resolves
-        .toBeUndefined();
+      await expect(
+        fs.access(file),
+        `${project.slug} 대표 이미지 없음`,
+      ).resolves.toBeUndefined();
+    }
+  });
+
+  it("갤러리 이미지는 폴더의 화면 이미지와 1:1로 대응하고 캡션이 있어야 함", async () => {
+    for (const project of projects) {
+      const files = await fs.readdir(path.join(workDir, project.slug));
+      const pngsOnDisk = files.filter((file) => file.endsWith(".png")).sort();
+      const registered = (project.images ?? []).map((image) => image.file);
+
+      expect([...registered].sort(), project.slug).toEqual(pngsOnDisk);
+      for (const image of project.images ?? []) {
+        expect(image.caption.length, image.file).toBeGreaterThan(0);
+      }
+      if (project.thumbnail) {
+        expect(registered, project.slug).toContain(project.thumbnail);
+      }
     }
   });
 
@@ -67,7 +100,9 @@ describe("getProjectsUsingSkill", () => {
   it("스킬 섹션 주력 기술의 프로젝트 수가 콘텐츠 모델과 일치해야 함", () => {
     expect(getProjectsUsingSkill("TypeScript")).toHaveLength(projects.length);
     expect(getProjectsUsingSkill("React").length).toBeGreaterThanOrEqual(9);
-    expect(getProjectsUsingSkill("TanStack Query").length).toBeGreaterThanOrEqual(4);
+    expect(
+      getProjectsUsingSkill("TanStack Query").length,
+    ).toBeGreaterThanOrEqual(4);
   });
 
   it("TypeScript는 모든 회사 프로젝트에서 사용되어야 함", () => {
@@ -83,7 +118,7 @@ describe("timeline", () => {
     expect(formatYearRange("2024.04 – 2025.10")).toBe("2024 – 2025");
     expect(formatYearRange("2026.01 – 현재")).toBe("2026 – 현재");
     expect(formatYearRange("2022.10 – 2024.01, 2026.04 – 현재")).toBe(
-      "2022 – 2024",
+      "2022 – 현재",
     );
     expect(formatYearRange("2024.12")).toBe("2024");
     expect(formatYearRange("2025.06 – 2025.07")).toBe("2025");

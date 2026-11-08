@@ -48,10 +48,14 @@ export const Navigation = () => {
             Work
           </Link>
         </StressButton>
-        <StressButton className="w-25 h-7" noneBorder>
-          <Link className="text-lg" href="/Resume.pdf" download>
-            Resume
-          </Link>
+        {/* /resume은 rewrites로 연결된 별도 앱이라 basePath가 붙는 next/link를 쓸 수 없고,
+            button 안의 a는 클릭해도 이동하지 않아 직접 이동시킨다. */}
+        <StressButton
+          className="w-25 h-7"
+          noneBorder
+          onClick={() => window.location.assign("/resume")}
+        >
+          <span className="text-lg">Resume</span>
         </StressButton>
       </div>
     </nav>
