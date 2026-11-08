@@ -24,3 +24,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins);
 }
+
+/* gocheok-project의 레이어 밖 `ol, ul { list-style: none }` 리셋이 prose 목록 기호보다 우선하므로 되살린다. */
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}

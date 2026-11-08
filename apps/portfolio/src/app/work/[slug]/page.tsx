@@ -12,6 +12,22 @@ import { getProjectMetadata } from "./utils";
 import { baseUrl, projectInfo } from "./constant";
 import { portfolioPath } from "@/constants/portfolio";
 
+const markdownClassName = [
+  "prose prose-sm prose-neutral prose-invert max-w-none break-keep md:prose-base",
+  "prose-p:leading-relaxed prose-p:text-neutral-300",
+  "prose-headings:font-bold prose-headings:text-white",
+  "prose-h1:text-4xl md:prose-h1:text-6xl",
+  "prose-h2:mt-16 prose-h2:mb-6 prose-h2:text-2xl md:prose-h2:text-3xl",
+  "prose-h3:mt-10 prose-h3:mb-3 prose-h3:text-lg md:prose-h3:text-xl",
+  "prose-strong:font-semibold prose-strong:text-white",
+  "prose-ul:pl-5 prose-li:my-1.5 prose-li:text-neutral-300 prose-li:marker:text-neutral-600",
+  "prose-hr:my-6 prose-hr:border-neutral-800",
+  "prose-a:text-white prose-a:underline-offset-4 hover:prose-a:text-neutral-300",
+  "prose-code:rounded prose-code:bg-neutral-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:text-neutral-200 prose-code:before:content-none prose-code:after:content-none",
+  "prose-blockquote:border-neutral-700 prose-blockquote:font-normal prose-blockquote:text-neutral-400 prose-blockquote:not-italic",
+  "prose-img:rounded-xl",
+].join(" ");
+
 export async function generateMetadata({
   params,
 }: {
@@ -63,43 +79,7 @@ export default async function WorkSlug({
     <>
       <MarkdownRenderer
         content={markdownContent}
-        className="prose prose-base prose-neutral dark:prose-invert max-w-none"
-        headings={{
-          h1: "font-bold xl:text-6xl lg:text-6xl md:text-6xl text-white text-4xl",
-          h2: "font-bold xl:text-4xl lg:text-4xl md:text-4xl text-white text-3xl",
-          h3: "font-bold xl:text-3xl lg:text-3xl md:text-3xl text-white text-2xl",
-          h4: "font-bold xl:text-2xl lg:text-2xl md:text-2xl text-white text-xl",
-          h5: "font-bold xl:text-xl lg:text-xl md:text-xl text-white text-lg",
-          h6: "font-bold xl:text-lg lg:text-lg md:text-lg text-white text-md",
-        }}
-        text={{
-          p: "text-justify text-white xl:text-base lg:text-base md:text-base text-sm",
-          strong: "text-white xl:text-base lg:text-base md:text-base text-sm",
-        }}
-        link={{
-          className:
-            "text-blue-600 underline xl:text-base lg:text-base md:text-base text-sm",
-          hoverClassName:
-            "hover:text-blue-800 xl:text-base lg:text-base md:text-base text-sm",
-        }}
-        code={{
-          block:
-            "block bg-gray-800 text-white p-4 rounded-lg overflow-x-auto xl:text-base text-sm",
-          inline:
-            "bg-gray-800 text-white px-1 py-0.5 rounded xl:text-base text-sm",
-        }}
-        list={{
-          ul: "list-disc list-inside",
-          ol: "list-decimal list-inside",
-          li: "text-white marker:text-white xl:text-base lg:text-base md:text-base text-sm",
-        }}
-        image={{
-          className: "rounded-xl max-w-full h-auto",
-        }}
-        blockquote={{
-          className:
-            "border-l-4 border-gray-300 pl-4 italic text-gray-600 xl:text-base lg:text-base md:text-base text-sm",
-        }}
+        className={markdownClassName}
       />
 
       {images.length > 0 && <Swiper images={images} />}
