@@ -1,20 +1,15 @@
-# 포트폴리오 2024
+## 개요
 
-2024.12
+처음 만든 포트폴리오입니다. React와 MUI로 화면을 만들고, Notion에 작성한 페이지를 불러와 렌더링했습니다.
 
-[Portfolio](https://byeongchan.space/portfolio)
-[Github Repository](https://github.com/MinByeongChan/mbc-devBlog)
+## 핵심 사례
 
-## 서비스 내용
+### Notion API에서 로컬 Markdown으로
 
-- 최초 만들었던 포트폴리오 입니다.
+Notion에 게시한 페이지를 불러와 Markdown으로 변환해 렌더링하는 방식이었는데, 매번 외부 데이터 요청을 거치다 보니 화면이 늦게 뜨는 지연이 있었습니다.
 
-## 기술스택
+내용을 자주 수정하지 않는다고 판단해 콘텐츠를 로컬 Markdown으로 옮겼고, Notion을 거칠 때보다 로딩 지연을 줄였습니다. 콘텐츠의 수정 빈도에 따라 데이터를 어디에 둘지 정해야 한다는 것을 배웠습니다.
 
-- React, Typescript, Material Ui, Scss
+## 그 외 작업
 
-## 성장경험
-
-- Notion에서 작성한 페이지를 게시하여 해당 내용을 불러와 마크다운으로 변환하고, 렌더링하는 방식을 채택했으나, 데이터 요청을 통하다보니, 딜레이가 발생했습니다. 수정할 일이 많이 없다고 판단하여 로컬로 이전시켰습니다. 여전히 데이터 페칭이 일어나지만, 노션을 통했을때보단 개선되었습니다.
-
-- ObserverIntersection을 통하여 애니메이션 효과를 구현했습니다.
+- IntersectionObserver로 스크롤 진입 애니메이션 구현

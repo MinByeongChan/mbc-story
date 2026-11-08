@@ -8,9 +8,11 @@ import "swiper/scss/pagination";
 import { Swiper } from "@/components/work/Swiper";
 import { Metadata } from "next";
 import { MarkdownRenderer } from "@/components/work/MarkdownRenderer/MarkdownRenderer";
+import { ProjectDetailHeader } from "@/components/work/ProjectDetailHeader";
 import { getProjectMetadata } from "./utils";
 import { baseUrl, projectInfo } from "./constant";
 import { portfolioPath } from "@/constants/portfolio";
+import { getProject } from "@/content/projects";
 
 const markdownClassName = [
   "prose prose-sm prose-neutral prose-invert max-w-none break-keep md:prose-base",
@@ -75,8 +77,11 @@ export default async function WorkSlug({
     return <div>Content not found.</div>;
   }
 
+  const project = getProject(slug);
+
   return (
     <>
+      {project && <ProjectDetailHeader project={project} />}
       <MarkdownRenderer
         content={markdownContent}
         className={markdownClassName}

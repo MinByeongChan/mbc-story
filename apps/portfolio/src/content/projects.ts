@@ -60,8 +60,8 @@ export const projects: Project[] = [
       "Storybook",
     ],
     highlights: [
-      "지도 인스턴스를 싱글턴으로 전환해 조회당 약 290개씩 누적되던 detached DOM을 0개로 줄였습니다.",
-      "Characterization Test로 기존 동작을 고정한 뒤 Recoil을 Zustand와 TanStack Query로 전환해 유닛 테스트를 49개에서 71개로 늘리고 회귀 0건으로 이관했습니다.",
+      "지도 인스턴스를 싱글턴으로 전환해 반복 조회마다 누적되던 detached DOM을 100%(조회당 약 290개→0개) 제거했습니다.",
+      "Characterization Test로 기존 동작을 고정한 뒤 Recoil을 Zustand와 TanStack Query로 전환해 유닛 테스트를 45%(49개→71개) 늘리고 회귀 0건으로 이관했습니다.",
       "Naver Map 마커·폴리곤 지도, react-big-calendar 일정 화면과 전국 실시간 모니터링 화면을 개발했습니다.",
       "Datadog RUM을 신규 연동하고 Secrets Manager 기반 환경변수 체계와 원격 설정을 적용했습니다.",
     ],
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     period: "2026.01 – 현재",
     role: "Frontend Engineer",
     summary:
-      "일 5K~10K뷰, 알림톡 발송일 피크 30K뷰 규모의 설치 업무 배정 플랫폼에 신제품 배정 정책과 Datadog RUM 모니터링 체계를 구축했습니다.",
+      "일 5K~10K뷰 규모의 설치 업무 배정 플랫폼에 신제품 배정 정책과 Datadog RUM 모니터링 체계를 구축했습니다.",
     skills: [
       "React",
       "TypeScript",
@@ -81,37 +81,16 @@ export const projects: Project[] = [
       "Datadog RUM",
       "Vite",
       "AWS (CloudFront)",
+      "MCP",
+      "ChromaDB",
     ],
     highlights: [
       "에어컨, 소파, 모션 매트리스 등 신제품 배정 정책을 반영한 운영 화면과 설치일 변경·택배 출고 배정판을 개발했습니다.",
       "알림톡 대량 발송 직후 FCP p90이 8.7초까지 늘어난 원인을 RUM과 APM 트레이싱으로 분석해 백엔드 포화임을 입증하고 발송 분산을 요청했습니다.",
       "RUM-APM 분산 트레이싱과 인앱브라우저 퍼널 트래킹을 구축해 설치일 변경 퍼널 전환율 51.7%와 이탈률 30.6%를 처음으로 측정했습니다.",
+      "화면설계서·회의록·인수인계 문서를 ChromaDB로 벡터화해 MCP로 검색하는 로컬 RAG를 구축하고, 바이너리 문서 인덱싱을 추가해 인덱싱 대상을 179%(124건→346건) 늘렸습니다.",
     ],
     headline: { value: "피크 30K뷰", label: "설치 배정 플랫폼 모니터링 구축" },
-  },
-  {
-    slug: "aiWorkflow",
-    title: "AI 에이전트 기반 개발 업무 개선",
-    kind: "Coway",
-    period: "2026.01 – 현재",
-    role: "Frontend Engineer",
-    summary:
-      "Claude Code 기반 AI 스킬과 사내 문서 RAG를 만들어 라이브러리 마이그레이션, 피그마 퍼블리싱, 업무 문서 검색 같은 반복 개발 업무를 개선하는 AX 과제입니다.",
-    skills: [
-      "Claude Code",
-      "AI Agent",
-      "MCP",
-      "ChromaDB",
-      "TypeScript",
-      "Node.js",
-      "Gemini API",
-    ],
-    highlights: [
-      "라이브러리 마이그레이션 6단계 스킬(migrate-lib)을 배정관리툴 Recoil→Zustand 전환에 적용해 consumer 21개 파일 무변경, 회귀 0건으로 이관했습니다.",
-      "피그마 퍼블리싱 스킬에 수렴 검증 루프를 붙여 신규 SCSS를 898줄에서 165줄로 82% 줄였습니다.",
-      "사내 문서를 ChromaDB로 벡터화해 MCP로 검색하는 로컬 RAG를 구축하고, 청킹 개선으로 512토큰 초과 청크를 0개로 만들고 인덱싱 대상을 124건에서 346건으로 늘렸습니다.",
-    ],
-    headline: { value: "SCSS -82%", label: "AI 스킬로 퍼블리싱 코드 감축" },
   },
   {
     slug: "accountMigration",
@@ -167,13 +146,16 @@ export const projects: Project[] = [
       "AWS EC2",
     ],
     highlights: [
-      "주요 화면 기준으로 TanStack Query 캐싱과 API 호출 순서를 최적화해 화면 응답을 약 3초에서 1초로 줄였습니다.",
+      "주요 화면 기준으로 TanStack Query 캐싱과 API 호출 순서를 최적화해 화면 응답 시간을 67%(약 3초→1초) 단축했습니다.",
       "공통 컴포넌트를 공동 구축하며 Table 등 핵심 컴포넌트 개선을 주도해 한 번의 개선이 246개 화면 파일에 반영되도록 했습니다.",
       "화면마다 달랐던 SNB 로직을 useSnb·useSnbRow·usePersonalSnbSearch 공통 훅 3종으로 통합했습니다.",
       "재고실사 4단계 워크플로우, 출고·배차, 창고이동과 Shopify-OMS-AR 대사, 전표·원장·시산표 기능을 개발했습니다.",
     ],
     thumbnail: "abc_admin_홈화면.png",
-    headline: { value: "3초 → 1초", label: "미국 법인 어드민 화면 지연 단축" },
+    headline: {
+      value: "67% 단축",
+      label: "미국 법인 어드민 화면 지연(3초→1초)",
+    },
   },
   {
     slug: "newsletter",
@@ -260,7 +242,10 @@ export const projects: Project[] = [
     ],
     thumbnail: "코디매칭_메인_mobile.png",
     links: [{ label: "코디매칭 서비스", href: "https://matching.coway.com/" }],
-    headline: { value: "영업직원 약 2만 명", label: "매칭 서비스를 Vue에서 React로 전환" },
+    headline: {
+      value: "영업직원 약 2만 명",
+      label: "매칭 서비스를 Vue에서 React로 전환",
+    },
   },
   {
     slug: "accountAdmin",
@@ -357,6 +342,13 @@ export const projects: Project[] = [
       "IntersectionObserver로 스크롤 진입 애니메이션을 구현했습니다.",
     ],
     thumbnail: "포트폴리오2024_메인.png",
+    links: [
+      { label: "Portfolio", href: "https://byeongchan.space/portfolio" },
+      {
+        label: "GitHub Repository",
+        href: "https://github.com/MinByeongChan/mbc-devBlog",
+      },
+    ],
   },
 ];
 
