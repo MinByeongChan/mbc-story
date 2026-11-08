@@ -5,7 +5,7 @@ import { UnderlineAnchor } from 'gocheok-project';
 import ResumeLayout from '@/layout/ResumeLayout';
 import { Main } from '@/components/templates';
 import { Experience, Introduction, OtherExperience, ResumeMeta, Skills } from '@/components';
-import { resumePath } from '@/constants/resume';
+import { PORTFOLIO_URL, resumePath } from '@/constants/resume';
 import { SectionTitle } from '@/layout';
 
 const contactLinks = [
@@ -18,6 +18,11 @@ const contactLinks = [
     href: 'mailto:mbc0481@naver.com',
     icon: resumePath('/assets/icons/contact/mail.svg'),
     label: 'mbc0481@naver.com',
+  },
+  {
+    href: PORTFOLIO_URL,
+    icon: resumePath('/assets/icons/contact/website.svg'),
+    label: 'byeongchan.space/portfolio',
   },
   // {
   //   href: "https://byeongchan.space/blog",
