@@ -75,6 +75,10 @@ export const projects: Project[] = [
       "Naver Map 마커·폴리곤 지도, react-big-calendar 일정 화면과 전국 실시간 모니터링 화면을 개발했습니다.",
       "Datadog RUM을 신규 연동하고 Secrets Manager 기반 환경변수 체계와 원격 설정을 적용했습니다.",
     ],
+    headline: {
+      value: "100% 제거",
+      label: "지도 반복 조회 시 쌓이던 detached DOM(조회당 약 290개→0개)",
+    },
   },
   {
     slug: "assignmentBoard",
@@ -100,7 +104,10 @@ export const projects: Project[] = [
       "RUM-APM 분산 트레이싱과 인앱브라우저 퍼널 트래킹을 구축해 설치일 변경 퍼널 전환율 51.7%와 이탈률 30.6%를 처음으로 측정했습니다.",
       "화면설계서·회의록·인수인계 문서를 ChromaDB로 벡터화해 MCP로 검색하는 로컬 RAG를 구축하고, 바이너리 문서 인덱싱을 추가해 인덱싱 대상을 179%(124건→346건) 늘렸습니다.",
     ],
-    headline: { value: "피크 30K뷰", label: "설치 배정 플랫폼 모니터링 구축" },
+    headline: {
+      value: "FCP p90 8.7초",
+      label: "알림톡 발송 직후 지연의 원인을 백엔드 포화로 입증",
+    },
   },
   {
     slug: "accountMigration",
@@ -355,6 +362,10 @@ export const projects: Project[] = [
       "Android 네이티브와 웹뷰 화면을 연동하고, 세션 유지 기반 자동 로그인과 사업자번호 자동 저장 기능을 개발했습니다.",
       "알바체크와 KSNET 선불 결제 기능을 연동하고 리뉴얼 화면을 개발해 앱을 고도화했습니다.",
     ],
+    headline: {
+      value: "사업자번호 하나로",
+      label: "신용카드·현금영수증·간편결제 매출 조회",
+    },
   },
   {
     slug: "technet",
