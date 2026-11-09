@@ -7,18 +7,26 @@ import { Typography } from '@gocheok/components/presenter/typography/Typography'
 import { SplitText } from 'gsap/all';
 import { useGSAP } from '@gsap/react';
 
-export type StressButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  PropsWithChildren & {
-    noneRadius?: boolean;
-    noneBorder?: boolean;
-  };
-export const StressButton = ({
+type StressButtonOwnProps<C extends React.ElementType> = PropsWithChildren<{
+  /** 링크로 쓸 때 `a`나 프레임워크의 Link 컴포넌트를 넘긴다. 기본값은 `button`. */
+  as?: C;
+  className?: string;
+  noneRadius?: boolean;
+  noneBorder?: boolean;
+}>;
+
+export type StressButtonProps<C extends React.ElementType = 'button'> = StressButtonOwnProps<C> &
+  Omit<React.ComponentPropsWithoutRef<C>, keyof StressButtonOwnProps<C>>;
+
+export const StressButton = <C extends React.ElementType = 'button'>({
+  as,
   children,
   className,
   noneRadius,
   noneBorder,
   ...restProps
-}: StressButtonProps) => {
+}: StressButtonProps<C>) => {
+  const Component: React.ElementType = as ?? 'button';
   const ref = useRef(null);
   const typoRef = useRef(null);
   const typo2Ref = useRef(null);
@@ -62,12 +70,13 @@ export const StressButton = ({
   };
 
   return (
-    <button
+    <Component
       ref={ref}
       className={twMerge(
         'group',
         'relative z-1000 flex cursor-pointer items-center rounded-2xl border-[1px] border-(--color-neutral-200)/70 text-xs tracking-tight text-(--color-neutral-100)',
-        'relative h-[1.7rem] w-[10rem]',
+        'relative h-[1.7rem] w-[10rem] text-center',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
         noneBorder && 'border-none',
         noneRadius && 'rounded-none',
         className,
@@ -78,23 +87,24 @@ export const StressButton = ({
       <div
         ref={hoverBackgroundRef}
         className={twMerge(
-          'absolute scale-0 rounded-[80%] transition-all duration-300 ease-in-out',
+          'pointer-events-none absolute scale-0 rounded-[80%] transition-all duration-300 ease-in-out',
           'group-hover:bottom-0 group-hover:left-0 group-hover:h-full group-hover:w-full group-hover:scale-100 group-hover:rounded-xl group-hover:bg-white',
           noneRadius && 'group-hover:rounded-none',
         )}
       />
       <Typography
         ref={typoRef}
-        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black"
+        className="pointer-events-none absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-white group-hover:text-black"
       >
         {children}
       </Typography>
       <Typography
         ref={typo2Ref}
-        className="absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black"
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-black"
       >
         {children}
       </Typography>
-    </button>
+    </Component>
   );
 };
