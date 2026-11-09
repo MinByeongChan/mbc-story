@@ -70,7 +70,11 @@ export const Anchor = ({ children, className, ...rest }: AnchorProps) => {
       >
         {children}
       </Typography>
-      <Typography ref={upTypoRef} className="absolute left-0 inline-block h-full w-full text-white">
+      <Typography
+        ref={upTypoRef}
+        aria-hidden="true"
+        className="absolute left-0 inline-block h-full w-full text-white"
+      >
         {children}
       </Typography>
     </a>

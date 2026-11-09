@@ -1,6 +1,6 @@
 import { portfolioPath } from "@/constants/portfolio";
 
-export type ProjectKind = "Coway" | "개인";
+export type ProjectKind = "Coway" | "KSNET" | "개인";
 
 export interface ProjectLink {
   label: string;
@@ -43,6 +43,7 @@ export interface Project {
 
 export const COMPANY_LABEL: Record<ProjectKind, string> = {
   Coway: "코웨이",
+  KSNET: "KSNET",
   개인: "개인",
 };
 
@@ -74,6 +75,10 @@ export const projects: Project[] = [
       "Naver Map 마커·폴리곤 지도, react-big-calendar 일정 화면과 전국 실시간 모니터링 화면을 개발했습니다.",
       "Datadog RUM을 신규 연동하고 Secrets Manager 기반 환경변수 체계와 원격 설정을 적용했습니다.",
     ],
+    headline: {
+      value: "100% 제거",
+      label: "지도 반복 조회 시 쌓이던 detached DOM(조회당 약 290개→0개)",
+    },
   },
   {
     slug: "assignmentBoard",
@@ -99,7 +104,10 @@ export const projects: Project[] = [
       "RUM-APM 분산 트레이싱과 인앱브라우저 퍼널 트래킹을 구축해 설치일 변경 퍼널 전환율 51.7%와 이탈률 30.6%를 처음으로 측정했습니다.",
       "화면설계서·회의록·인수인계 문서를 ChromaDB로 벡터화해 MCP로 검색하는 로컬 RAG를 구축하고, 바이너리 문서 인덱싱을 추가해 인덱싱 대상을 179%(124건→346건) 늘렸습니다.",
     ],
-    headline: { value: "피크 30K뷰", label: "설치 배정 플랫폼 모니터링 구축" },
+    headline: {
+      value: "FCP p90 8.7초",
+      label: "알림톡 발송 직후 지연의 원인을 백엔드 포화로 입증",
+    },
   },
   {
     slug: "accountMigration",
@@ -124,8 +132,8 @@ export const projects: Project[] = [
     ],
     highlights: [
       "Keycloak FreeMarker 템플릿과 리다이렉트에 의존하던 인증 단계를 API 응답 기반의 React 화면 제어 구조로 바꿨습니다.",
-      "중복 계정 로그인 400 에러, SNS 로그인 오류 처리, step 검증과 redirect uri 쿼리 파라미터화로 로그인 플로우를 안정화했습니다.",
-      "GDPR 약관 연동, forceLogout, SDK CSRF/XSRF 토큰 대응을 구현하고 QA 예외 케이스를 테스트로 전환해 회귀를 막았습니다.",
+      "로그인 기능을 로그인 페이지로 중앙집중화하고, 리다이렉트와 페이지 타입에 따른 화면 이동을 하나의 훅으로 묶어 관리 포인트를 한곳에 모았습니다.",
+      "GDPR 약관 연동, 강제 로그아웃 처리, SDK CSRF/XSRF 토큰 대응을 구현하고 QA 예외 케이스를 테스트로 전환해 회귀를 막았습니다.",
       "로그인 에러 케이스와 테스트 케이스, 국내 통합회원 UI 가이드와 FE 네이티브 연동가이드를 문서화했습니다.",
     ],
     links: [{ label: "코웨이몰", href: "https://www.coway.com/" }],
@@ -156,8 +164,8 @@ export const projects: Project[] = [
     ],
     highlights: [
       "주요 화면 기준으로 TanStack Query 캐싱과 API 호출 순서를 최적화해 화면 응답 시간을 67%(약 3초→1초) 단축했습니다.",
-      "공통 컴포넌트를 공동 구축하며 Table 등 핵심 컴포넌트 개선을 주도해 한 번의 개선이 246개 화면 파일에 반영되도록 했습니다.",
-      "화면마다 달랐던 SNB 로직을 useSnb·useSnbRow·usePersonalSnbSearch 공통 훅 3종으로 통합했습니다.",
+      "공통 컴포넌트를 공동 구축하며 테이블 등 핵심 컴포넌트 개선을 주도해 한 번의 개선이 246개 화면 파일에 반영되도록 했습니다.",
+      "화면마다 달랐던 SNB 로직을 공통 훅 3종으로 통합했습니다.",
       "재고실사 4단계 워크플로우, 출고·배차, 창고이동과 Shopify-OMS-AR 대사, 전표·원장·시산표 기능을 개발했습니다.",
     ],
     thumbnail: "abc_admin_홈화면.png",
@@ -179,19 +187,11 @@ export const projects: Project[] = [
         caption: "주문 목록 — 기간·상태·유형 조건 검색과 주문 상세 진입",
       },
       {
-        file: "abc_admin_작업현황.png",
-        caption: "작업 모니터링 — 지점별 실시간 처리율을 지도로 확인",
-      },
-      {
         file: "abc_admin_작업_배정현황.png",
         caption: "테크니션 배정 현황 — react-big-calendar 기반 일정·배정 화면",
       },
       { file: "abc_admin_창고이동.png", caption: "창고 이동 관리" },
       { file: "abc_admin_게시판.png", caption: "게시판" },
-      {
-        file: "abc_admin_시스템_접근제어.png",
-        caption: "시스템 접근 제어 — 메뉴별 권한 관리",
-      },
     ],
     headline: {
       value: "67% 단축",
@@ -258,7 +258,7 @@ export const projects: Project[] = [
     highlights: [
       "회원가입, 로그인, 계정 찾기, 마이페이지와 회원 마이그레이션 등 핵심 사용자 흐름을 개발했습니다.",
       "DDD 패턴으로 회원가입·OTP·계정 모델과 Hook을 도메인 단위로 분리해 기능 추가 시 변경 범위를 줄였습니다.",
-      "통합회원 연동 테스트 클라이언트(test-client)를 신규 개발해 클라이언트별 로그인·가입·계정 찾기 시나리오를 검증할 수 있게 했습니다.",
+      "테스트 환경에서 통합회원 로그인을 직접 실행해 볼 수 있는 로그인 테스트 페이지를 개발해 연동 서비스별 로그인·가입·계정 찾기 시나리오를 검증할 수 있게 했습니다.",
       "Datadog으로 디바이스·OS·언어별 오류를 추적하고 QA 예외 케이스를 Jest와 Cypress 테스트로 전환해 재발을 막았습니다.",
     ],
     thumbnail: "통합회원_서비스이용관리.png",
@@ -346,6 +346,40 @@ export const projects: Project[] = [
       "WYSIWYG 약관 에디터를 선정·연동하고 약관 매퍼를 개발해 별도 퍼블리싱 없이 약관을 작성하고 배포하는 환경을 만들었습니다.",
       "ISMS-P 인증 심사에 맞춰 세션 유지, 남은 시간 카운트 훅, 로그인 연장 안내 모달을 직접 개발했습니다.",
       "사내 SSO 로그인과 메뉴별 권한 제어를 구현하고 무한 리다이렉트와 페이지 크롤링 제한 이슈를 수정했습니다.",
+    ],
+  },
+  {
+    slug: "ksta",
+    title: "KSTA 가맹점 매출 조회 앱",
+    kind: "KSNET",
+    period: "2020.02 – 2021.09",
+    role: "Web·App Developer",
+    summary:
+      "KSNET VAN 가맹점주가 신용카드, 현금영수증, 간편결제 매출을 확인하는 모바일 앱입니다.",
+    skills: ["JavaScript", "jQuery", "HTML5", "CSS", "Android"],
+    highlights: [
+      "VAN 매출 조회 API를 연동해 사업자번호만 입력하면 신용카드, 현금영수증, 간편결제 매출을 모두 조회할 수 있게 했습니다.",
+      "Android 네이티브와 웹뷰 화면을 연동하고, 세션 유지 기반 자동 로그인과 사업자번호 자동 저장 기능을 개발했습니다.",
+      "알바체크와 KSNET 선불 결제 기능을 연동하고 리뉴얼 화면을 개발해 앱을 고도화했습니다.",
+    ],
+    headline: {
+      value: "사업자번호 하나로",
+      label: "신용카드·현금영수증·간편결제 매출 조회",
+    },
+  },
+  {
+    slug: "technet",
+    title: "테크넷",
+    kind: "KSNET",
+    period: "2020.11 – 2021.03",
+    role: "Frontend Developer",
+    summary:
+      "KSNET 사내 개발자들이 업무를 공유하고 개발 자료를 올려 함께 보는 기술 공유 사이트입니다.",
+    skills: ["React", "JavaScript", "Redux-Saga", "HTML5", "CSS"],
+    highlights: [
+      "흩어져 있던 개발 문서, 이슈 트래킹, 프로젝트 API 명세서를 하나의 웹 사이트로 통합했습니다.",
+      "React와 Redux-Saga로 화면 레이아웃과 UI를 구성하고 사내 API를 연동했습니다.",
+      "드래그 앤 드롭 테이블과 모달 Provider 등 공통 화면 컴포넌트를 개발했습니다.",
     ],
   },
   {

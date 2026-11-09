@@ -14,19 +14,8 @@ interface TimelineEntry {
   title: string;
   company: string;
   headline?: ProjectHeadline;
-  href?: string;
+  href: string;
 }
-
-/** Work 목록에 없는 이전 회사 경력 */
-const earlierCareer: TimelineEntry[] = [
-  {
-    key: "ksnet",
-    years: "2020 – 2021",
-    title: "KSTA Mobile",
-    company: "KSNET",
-    headline: { value: "VAN/PG", label: "가맹점 매출 조회 앱 리뉴얼" },
-  },
-];
 
 const rowClassName = twMerge(
   "grid grid-cols-1 gap-y-2 border-t border-neutral-800 py-6",
@@ -35,17 +24,14 @@ const rowClassName = twMerge(
 );
 
 export const ExperienceHighlights = () => {
-  const timeline: TimelineEntry[] = [
-    ...getTimelineProjects().map((project) => ({
-      key: project.slug,
-      years: formatYearRange(project.period),
-      title: project.title,
-      company: COMPANY_LABEL[project.kind],
-      headline: project.headline,
-      href: `/work/${project.slug}`,
-    })),
-    ...earlierCareer,
-  ];
+  const timeline: TimelineEntry[] = getTimelineProjects().map((project) => ({
+    key: project.slug,
+    years: formatYearRange(project.period),
+    title: project.title,
+    company: COMPANY_LABEL[project.kind],
+    headline: project.headline,
+    href: `/work/${project.slug}`,
+  }));
 
   return (
     <section
@@ -61,7 +47,7 @@ export const ExperienceHighlights = () => {
         </h2>
         <p className="mt-5 text-base break-keep text-neutral-300 leading-relaxed sm:text-lg">
           2020년 KSNET에서 시작해 2021년부터 코웨이에서 대내외 서비스를 만들고
-          운영하고 있습니다. 프로젝트마다 가장 분명한 결과 한 가지를 함께
+          운영하고 있습니다. 프로젝트마다 서비스 규모나 대표 성과를 한 줄로
           적었습니다.
         </p>
       </header>
@@ -74,19 +60,15 @@ export const ExperienceHighlights = () => {
             </span>
             <div>
               <p className="text-xl font-bold text-white sm:text-2xl">
-                {entry.href ? (
-                  <Link
-                    href={entry.href}
-                    className={twMerge(
-                      "underline-offset-4 hover:underline",
-                      "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--color-primary)",
-                    )}
-                  >
-                    {entry.title}
-                  </Link>
-                ) : (
-                  entry.title
-                )}
+                <Link
+                  href={entry.href}
+                  className={twMerge(
+                    "underline-offset-4 hover:underline",
+                    "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--color-primary)",
+                  )}
+                >
+                  {entry.title}
+                </Link>
               </p>
               <p className="mt-1 text-sm text-neutral-500">{entry.company}</p>
             </div>

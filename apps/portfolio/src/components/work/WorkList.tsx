@@ -70,7 +70,7 @@ export const WorkList = () => {
               </span>
 
               <div>
-                <h3
+                <h2
                   className={twMerge(
                     "text-xl font-bold text-white transition-colors sm:text-2xl",
                     "group-hover:text-(--color-primary)",
@@ -86,7 +86,7 @@ export const WorkList = () => {
                   >
                     →
                   </span>
-                </h3>
+                </h2>
                 <p className="mt-1 text-sm text-neutral-500">
                   {COMPANY_LABEL[project.kind]} · {project.role}
                 </p>
