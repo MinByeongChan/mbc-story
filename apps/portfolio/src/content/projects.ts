@@ -180,19 +180,11 @@ export const projects: Project[] = [
         caption: "주문 목록 — 기간·상태·유형 조건 검색과 주문 상세 진입",
       },
       {
-        file: "abc_admin_작업현황.png",
-        caption: "작업 모니터링 — 지점별 실시간 처리율을 지도로 확인",
-      },
-      {
         file: "abc_admin_작업_배정현황.png",
         caption: "테크니션 배정 현황 — react-big-calendar 기반 일정·배정 화면",
       },
       { file: "abc_admin_창고이동.png", caption: "창고 이동 관리" },
       { file: "abc_admin_게시판.png", caption: "게시판" },
-      {
-        file: "abc_admin_시스템_접근제어.png",
-        caption: "시스템 접근 제어 — 메뉴별 권한 관리",
-      },
     ],
     headline: {
       value: "67% 단축",
