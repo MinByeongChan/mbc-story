@@ -1,6 +1,6 @@
 import { portfolioPath } from "@/constants/portfolio";
 
-export type ProjectKind = "Coway" | "개인";
+export type ProjectKind = "Coway" | "KSNET" | "개인";
 
 export interface ProjectLink {
   label: string;
@@ -43,6 +43,7 @@ export interface Project {
 
 export const COMPANY_LABEL: Record<ProjectKind, string> = {
   Coway: "코웨이",
+  KSNET: "KSNET",
   개인: "개인",
 };
 
@@ -346,6 +347,36 @@ export const projects: Project[] = [
       "WYSIWYG 약관 에디터를 선정·연동하고 약관 매퍼를 개발해 별도 퍼블리싱 없이 약관을 작성하고 배포하는 환경을 만들었습니다.",
       "ISMS-P 인증 심사에 맞춰 세션 유지, 남은 시간 카운트 훅, 로그인 연장 안내 모달을 직접 개발했습니다.",
       "사내 SSO 로그인과 메뉴별 권한 제어를 구현하고 무한 리다이렉트와 페이지 크롤링 제한 이슈를 수정했습니다.",
+    ],
+  },
+  {
+    slug: "ksta",
+    title: "KSTA 가맹점 매출 조회 앱",
+    kind: "KSNET",
+    period: "2020.02 – 2021.09",
+    role: "Web·App Developer",
+    summary:
+      "KSNET VAN 가맹점주가 신용카드, 현금영수증, 간편결제 매출을 확인하는 모바일 앱입니다.",
+    skills: ["JavaScript", "jQuery", "HTML5", "CSS", "Android"],
+    highlights: [
+      "VAN 매출 조회 API를 연동해 사업자번호만 입력하면 신용카드, 현금영수증, 간편결제 매출을 모두 조회할 수 있게 했습니다.",
+      "Android 네이티브와 웹뷰 화면을 연동하고, 세션 유지 기반 자동 로그인과 사업자번호 자동 저장 기능을 개발했습니다.",
+      "알바체크와 KSNET 선불 결제 기능을 연동하고 리뉴얼 화면을 개발해 앱을 고도화했습니다.",
+    ],
+  },
+  {
+    slug: "technet",
+    title: "테크넷",
+    kind: "KSNET",
+    period: "2020.11 – 2021.03",
+    role: "Frontend Developer",
+    summary:
+      "KSNET 사내 개발자들이 업무를 공유하고 개발 자료를 올려 함께 보는 기술 공유 사이트입니다.",
+    skills: ["React", "JavaScript", "Redux-Saga", "HTML5", "CSS"],
+    highlights: [
+      "흩어져 있던 개발 문서, 이슈 트래킹, 프로젝트 API 명세서를 하나의 웹 사이트로 통합했습니다.",
+      "React와 Redux-Saga로 화면 레이아웃과 UI를 구성하고 사내 API를 연동했습니다.",
+      "드래그 앤 드롭 테이블과 모달 Provider 등 공통 화면 컴포넌트를 개발했습니다.",
     ],
   },
   {
