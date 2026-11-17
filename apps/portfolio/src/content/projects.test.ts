@@ -98,7 +98,10 @@ describe("getProjectsUsingSkill", () => {
   });
 
   it("스킬 섹션 주력 기술의 프로젝트 수가 콘텐츠 모델과 일치해야 함", () => {
-    expect(getProjectsUsingSkill("TypeScript")).toHaveLength(projects.length);
+    // KSNET 시절 프로젝트는 JavaScript로 개발했다.
+    expect(getProjectsUsingSkill("TypeScript")).toHaveLength(
+      projects.filter((project) => project.kind !== "KSNET").length,
+    );
     expect(getProjectsUsingSkill("React").length).toBeGreaterThanOrEqual(9);
     expect(
       getProjectsUsingSkill("TanStack Query").length,
