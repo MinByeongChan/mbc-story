@@ -9,7 +9,7 @@ const otherExperiences: OtherExperienceItem[] = [
   {
     title: '포트폴리오 및 이력서',
     details: [
-      'Next.js 기반 포트폴리오와 웹 이력서를 직접 설계하고 운영하고 있습니다.',
+      'Next.js App Router 기반 포트폴리오와 Next.js 기반 웹 이력서를 직접 설계하고 운영하고 있습니다.',
       '프로젝트 상세 내용을 Markdown으로 관리하고 동적 라우팅, sitemap, robots 설정을 적용했습니다.',
     ],
   },
