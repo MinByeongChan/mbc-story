@@ -281,7 +281,7 @@ export const projects: Project[] = [
     period: "2022.04 – 2023.11",
     role: "Frontend Engineer",
     summary:
-      "약 2만 명의 영업직원과 고객을 연결하고 신청·대기·수락·실패·재시도 상태를 처리하는 비대면 매칭 플랫폼입니다.",
+      "약 1만 2천 명의 코디와 고객을 연결하고 신청·대기·수락·실패·재시도 상태를 처리하는 비대면 매칭 플랫폼입니다.",
     skills: [
       "React",
       "TypeScript",
@@ -317,7 +317,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: "코디매칭 서비스", href: "https://matching.coway.com/" }],
     headline: {
-      value: "영업직원 약 2만 명",
+      value: "코디 약 1만 2천 명",
       label: "매칭 서비스를 Vue에서 React로 전환",
     },
   },

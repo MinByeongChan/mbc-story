@@ -109,7 +109,7 @@ const experiences: CompanyExperience[] = [
         title: '실시간 코디매칭 서비스',
         period: '2022. 04 - 2023. 11',
         description:
-          '약 2만 명의 영업직원과 고객을 연결하고 신청/대기/수락/실패/재시도 상태를 Polling으로 처리하는 비대면 매칭 플랫폼.',
+          '약 1만 2천 명의 코디와 고객을 연결하고 신청/대기/수락/실패/재시도 상태를 Polling으로 처리하는 비대면 매칭 플랫폼.',
         achievements: [
           'Vue 기반 레거시 화면을 React로 전환하고 반복 UI와 비즈니스 로직을 공통 컴포넌트/Custom Hook으로 재구성.',
           'TanStack Query의 서버 상태와 Jotai의 화면 상태를 분리하고 API 응답/호출 순서를 조정해 상태 불일치 구간 개선.',
