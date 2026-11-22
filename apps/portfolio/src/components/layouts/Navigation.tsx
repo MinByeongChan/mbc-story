@@ -43,18 +43,11 @@ export const Navigation = () => {
         </div>
       </div>
       <div className="w-1/2 h-full flex items-center justify-end">
-        <StressButton className="w-20 h-7" noneBorder>
-          <Link className="text-lg" href="/work">
-            Work
-          </Link>
+        <StressButton as={Link} href="/work" className="w-20 h-7" noneBorder>
+          <span className="text-lg">Work</span>
         </StressButton>
-        {/* /resume은 rewrites로 연결된 별도 앱이라 basePath가 붙는 next/link를 쓸 수 없고,
-            button 안의 a는 클릭해도 이동하지 않아 직접 이동시킨다. */}
-        <StressButton
-          className="w-25 h-7"
-          noneBorder
-          onClick={() => window.location.assign("/resume")}
-        >
+        {/* /resume은 rewrites로 연결된 별도 앱이라 basePath가 붙는 next/link 대신 a를 쓴다. */}
+        <StressButton as="a" href="/resume" className="w-25 h-7" noneBorder>
           <span className="text-lg">Resume</span>
         </StressButton>
       </div>

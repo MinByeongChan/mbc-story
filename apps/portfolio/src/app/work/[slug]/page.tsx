@@ -2,6 +2,7 @@ import React from "react";
 import { promises as fs } from "fs";
 import path from "path";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { MarkdownRenderer } from "@/components/work/MarkdownRenderer/MarkdownRenderer";
 import { ProjectDetailHeader } from "@/components/work/ProjectDetailHeader";
 import { ProjectGallery } from "@/components/work/ProjectGallery";
@@ -11,7 +12,13 @@ import {
   getProject,
   getProjectImagePath,
   isMobileScreenshot,
+  projectSlugs,
 } from "@/content/projects";
+
+export const dynamicParams = false;
+
+export const generateStaticParams = () =>
+  projectSlugs.map((slug) => ({ slug }));
 
 const markdownClassName = [
   "prose prose-sm prose-neutral prose-invert max-w-none break-keep md:prose-base",
@@ -53,27 +60,20 @@ export default async function WorkSlug({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const project = getProject(slug);
+  if (!project) notFound();
+
   const filePath = path.join(
     process.cwd(),
     `/public/work/${slug}/${slug}Details.md`,
   );
-
-  let markdownContent = "";
-
-  try {
-    markdownContent = await fs.readFile(filePath, "utf-8");
-  } catch (error) {
-    console.error("Error:", error);
-    return <div>Content not found.</div>;
-  }
-
-  const project = getProject(slug);
-  const images = project?.images ?? [];
+  const markdownContent = await fs.readFile(filePath, "utf-8");
+  const images = project.images ?? [];
 
   return (
     <>
-      {project && <ProjectDetailHeader project={project} />}
-      {project && images.length > 0 && (
+      <ProjectDetailHeader project={project} />
+      {images.length > 0 && (
         <ProjectGallery
           images={images.map((image) => ({
             src: getProjectImagePath(project, image.file),
