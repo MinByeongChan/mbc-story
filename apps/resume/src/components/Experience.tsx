@@ -34,7 +34,7 @@ const experiences: CompanyExperience[] = [
           '작업자, 일정, 이관과 배정 현황을 지도/목록/캘린더로 확인하고 조정하는 내부 운영 도구.',
         achievements: [
           '배정 시스템의 실시간 모니터링 화면과 서비스 매니저의 작업 현황/이관/구간 설정 기능 개발.',
-          'DevTools Heap Snapshot으로 지도 조회 5회 실측, 지도 인스턴스를 싱글턴 방식으로 전환해 조회당 약 290개씩 누적되던 detached DOM을 0개로 줄여 반복 누적 제거.',
+          'DevTools Heap Snapshot으로 지도 조회 8회 실측, 지도 인스턴스를 싱글턴 방식으로 전환해 조회당 약 290개씩 누적되던 detached DOM을 0개로 줄여 반복 누적 제거.',
           'Recoil Selector를 기능별 Zustand Store로 재구성하고 서버 상태를 TanStack Query로 분리, 유닛 테스트와 MSW로 기존 동작을 검증해 마이그레이션 완료.',
         ],
         skills: 'React, TypeScript, Zustand, Recoil, TanStack Query',
@@ -96,7 +96,6 @@ const experiences: CompanyExperience[] = [
         achievements: [
           '회원가입, 로그인, 계정 찾기, 마이페이지와 회원 마이그레이션 등 핵심 사용자 흐름 개발.',
           'WCAG 2.1 기준 반영 및 디바이스/브라우저별 예외 처리를 통한 고객용 인증 화면의 접근성과 호환성 개선.',
-          'DDD 패턴을 적용해 회원가입/OTP/계정 모델과 Hook을 도메인 단위로 분리하여 신규 기능 추가 시 변경 영향 범위 축소.',
           'Datadog 기반 디바이스/OS/언어별 런타임 오류 추적, QA 예외 케이스를 Jest/Cypress 테스트로 전환해 재발 방지.',
         ],
         skills: 'Vue 3, TypeScript, Pinia, SCSS, Datadog, Jest, Storybook, Cypress, AWS',
@@ -113,7 +112,7 @@ const experiences: CompanyExperience[] = [
         achievements: [
           'Vue 기반 레거시 화면을 React로 전환하고 반복 UI와 비즈니스 로직을 공통 컴포넌트/Custom Hook으로 재구성.',
           'TanStack Query의 서버 상태와 Jotai의 화면 상태를 분리하고 API 응답/호출 순서를 조정해 상태 불일치 구간 개선.',
-          'CS 사례와 Datadog RUM 기반 오류 추적, 신청부터 재시도까지의 핵심 흐름을 Cypress E2E 테스트와 CI/CD에 연결.',
+          'CS 사례와 Datadog RUM 기반 오류 추적.',
         ],
         skills: 'React, TypeScript, TanStack Query, Jotai, Datadog RUM, Cypress, Vite, AWS',
         link: {
